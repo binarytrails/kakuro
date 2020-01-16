@@ -4,10 +4,10 @@
 
 package kakuro;
 
-public class GameView {
-
-	public GameView()
-	{
-		System.out.println("Starting the game...");
-	}
+public class GameView
+{
+    public GameView()
+    {
+        System.out.println("Starting the game...");
+    }
 }

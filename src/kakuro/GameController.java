@@ -6,13 +6,12 @@ package kakuro;
 
 public class GameController
 {
-	private GameView view;
-	private GameModel model;
+    private GameView view;
+    private GameModel model;
 
-	public GameController(final int columns, final int rows)
-	{
-		this.model = new GameModel(columns, rows);
-		this.view = new GameView();
-	}
-
+    public GameController(final int columns, final int rows)
+    {
+        this.model = new GameModel(columns, rows);
+        this.view = new GameView();
+    }
 }

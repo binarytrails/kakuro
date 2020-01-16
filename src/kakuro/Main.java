@@ -4,13 +4,13 @@
 
 package kakuro;
 
-public class Main {
+public class Main
+{
+    public static void main(String[] args)
+    {
+        int columns = 10;
+        int rows = 10;
 
-	public static void main(String[] args)
-	{
-		int columns = 10;
-		int rows = 10;
-	    new GameController(columns, rows);
-	}
-
+        new GameController(columns, rows);
+    }
 }
