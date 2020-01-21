@@ -27,14 +27,14 @@ public class GameModel
 
     public void generateBoard()
     {
-		board = new CellType[this.columns][this.rows];
+        board = new CellType[this.columns][this.rows];
 
-		for(int column = 0; column < this.columns; column++)
-		{
-			for(int row = 0; row < this.rows; row++)
-			{
-				board[column][row] = CellType.EMPTY;
-			}
-		}
+        for(int column = 0; column < this.columns; column++)
+        {
+            for(int row = 0; row < this.rows; row++)
+            {
+                board[column][row] = CellType.EMPTY;
+            }
+        }
     }
 }
