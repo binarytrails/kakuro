@@ -8,8 +8,8 @@ public class GameModel
 {
     public enum CellType
     {
-        EMPTY,    /* |   |*/
-        INPUT,    /* |   |*/
+        EMPTY,    /* |   | */
+        INPUT,    /* |   | */
         FILLED01, /* | \n| */
         FILLED10, /* |n\ | */
         FILLED11  /* |n\n| */
