@@ -64,9 +64,7 @@ public class TestUniquePartitions
                 System.out.println("  sum=" + partitionSum);
                 // Assert
                 assertEquals(number, partitionSum);
-                System.out.println();
             }
-            System.out.println();
         }
     }
 
