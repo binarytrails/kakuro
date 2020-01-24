@@ -18,8 +18,10 @@ public class GameController
     private void initGame(GameModel model)
     {
         model.generateBoard();
+        
         this.view = new GameView(this);
         view.printStartup();
         view.printBoard();
+        view.board_ui();
     }
 }
