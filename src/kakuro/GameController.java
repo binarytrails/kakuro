@@ -6,12 +6,30 @@ package kakuro;
 
 public class GameController
 {
-    private GameView view;
-    private GameModel model;
+    public GameView view;
+    public GameModel model;
 
     public GameController(final int columns, final int rows)
     {
         this.model = new GameModel(columns, rows);
-        this.view = new GameView();
+        initGame(model);
+    }
+
+    private void initGame(GameModel model)
+    {
+        model.initBoard();
+        model.generateBoard();
+        this.view = new GameView(this);
+        view.printStartup();
+        view.printBoard(false/*show answer values*/);
+    }
+
+    public void loopGame()
+    {
+        while (true)
+        {
+            view.printGetInputNumber();
+            view.printBoard(false);
+        }
     }
 }
