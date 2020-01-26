@@ -11,6 +11,7 @@ public class Main
         int columns = 10;
         int rows = 10;
 
-        new GameController(columns, rows);
+        GameController game = new GameController(columns, rows);
+        game.loopGame();
     }
 }
