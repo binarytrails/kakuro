@@ -66,16 +66,30 @@ public class GameView
             while (row < 1 || row >= 10)
             {
                 System.out.print("row: ");
-                row = inputReader.nextInt();
-                if (row < 1 || row >= 10)
-                    System.out.println("error: out of bounds");
+                try {
+                    row = inputReader.nextInt();
+                    if (row < 1 || row >= 10)
+                        System.out.println("error: out of bounds");
+                }
+                catch (java.util.InputMismatchException e)
+                {
+                    System.out.println("error: invalid digit");
+                    inputReader.nextLine();
+                }
             }
             while (column < 1 || column >= 10)
             {
                 System.out.print("column: ");
-                column = inputReader.nextInt();
-                if (column < 1 || column >= 10)
-                    System.out.println("error: out of bounds");
+                try {
+                    column = inputReader.nextInt();
+                    if (column < 1 || column >= 10)
+                        System.out.println("error: out of bounds");
+                }
+                catch (java.util.InputMismatchException e)
+                {
+                    System.out.println("error: invalid digit");
+                    inputReader.nextLine();
+                }
             }
             if (controller.model.board[row-1][column-1].getType() == BoardCell.CellType.INPUT)
                 break;
@@ -87,10 +101,17 @@ public class GameView
         }
         while (number < 1 || number > 9)
         {
-            System.out.print("number: ");
-            number = inputReader.nextInt();
-            if (column < 1 || column > 9)
-                System.out.println("error: out of bounds");
+            try {
+                System.out.print("number: ");
+                number = inputReader.nextInt();
+                if (number < 1 || number > 9)
+                    System.out.println("error: out of bounds");
+            }
+            catch (java.util.InputMismatchException e)
+            {
+                System.out.println("error: invalid digit");
+                inputReader.nextLine();
+            }
         }
         controller.model.board[row-1][column-1].setFirstValue(number);
     }
