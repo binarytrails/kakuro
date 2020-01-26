@@ -70,7 +70,7 @@ public class GameView
 
     public UserActions printGetUserAction()
     {
-        System.out.print("\nList of actions i=input s=solve a=answers\nChose an action: ");
+        System.out.print("\nList of actions i=input s=solve a=answers\nChoose an action: ");
         switch (inputReader.next())
         {
             case "i":
