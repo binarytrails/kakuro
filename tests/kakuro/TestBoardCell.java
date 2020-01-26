@@ -28,7 +28,22 @@ public class TestBoardCell
         // Act
         BoardCell cell = new BoardCell(cellType, inputNumber);
         // Assert
-        assertEquals(cell.getValue(), inputNumber);
+        assertEquals(cell.getFirstValue(), inputNumber);
+        assertEquals(cell.getType(), BoardCell.CellType.EMPTY);
+    }
+
+    @Test
+    public void testInputAnswerCell()
+    {
+        // Arrange
+        int inputNumber = 1;
+        int answerNumber = 3;
+        BoardCell.CellType cellType = BoardCell.CellType.EMPTY;
+        // Act
+        BoardCell cell = new BoardCell(cellType, inputNumber, answerNumber);
+        // Assert
+        assertEquals(cell.getFirstValue(), inputNumber);
+        assertEquals(cell.getSecondValue(), answerNumber);
         assertEquals(cell.getType(), BoardCell.CellType.EMPTY);
     }
 }
