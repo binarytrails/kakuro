@@ -63,12 +63,12 @@ public class GameView
         int number = -1;
         while (true)
         {
-            while (row < 1 || row >= 10)
+            while (row < 1 || row > 10)
             {
                 System.out.print("row: ");
                 try {
                     row = inputReader.nextInt();
-                    if (row < 1 || row >= 10)
+                    if (row < 1 || row > 10)
                         System.out.println("error: out of bounds");
                 }
                 catch (java.util.InputMismatchException e)
@@ -77,12 +77,12 @@ public class GameView
                     inputReader.nextLine();
                 }
             }
-            while (column < 1 || column >= 10)
+            while (column < 1 || column > 10)
             {
                 System.out.print("column: ");
                 try {
                     column = inputReader.nextInt();
-                    if (column < 1 || column >= 10)
+                    if (column < 1 || column > 10)
                         System.out.println("error: out of bounds");
                 }
                 catch (java.util.InputMismatchException e)

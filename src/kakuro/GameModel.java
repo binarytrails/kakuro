@@ -5,7 +5,6 @@
 package kakuro;
 
 import java.util.Enumeration;
-import java.util.Random;
 
 import javax.swing.tree.TreeNode;
 
@@ -42,11 +41,11 @@ public class GameModel
         // most upper line
         TreeNode eightBlocksTree = partitions.root.getChildAt(6 /* start at two blocks tree */);
         // chose a random sum in children
-        TreeNode randEightBlockTree = eightBlocksTree.getChildAt(randomInt(0,7));
+        TreeNode randEightBlockTree = eightBlocksTree.getChildAt(Tools.randomInt(0,7));
         int randEightBlockSum = Integer.parseInt(randEightBlockTree.toString());
         board[1][0] = new BoardCell(BoardCell.CellType.FILLED01, randEightBlockSum);
         // mark & fill the input cells
-        int[] array = childrenToArray(randEightBlockTree);
+        int[] array = Tools.childrenToArray(randEightBlockTree);
         for(int column = 1; column <= 8; column++)
         {
             board[1][column] = new BoardCell(BoardCell.CellType.INPUT, -1, array[column-1]);
@@ -54,11 +53,11 @@ public class GameModel
         // most lower line
         eightBlocksTree = partitions.root.getChildAt(6 /* start at two blocks tree */);
         // chose a random sum in children
-        randEightBlockTree = eightBlocksTree.getChildAt(randomInt(0,7));
+        randEightBlockTree = eightBlocksTree.getChildAt(Tools.randomInt(0,7));
         randEightBlockSum = Integer.parseInt(randEightBlockTree.toString());
         board[8][9] = new BoardCell(BoardCell.CellType.FILLED10, randEightBlockSum);
         // mark & fill the input cells
-        array = childrenToArray(randEightBlockTree);
+        array = Tools.childrenToArray(randEightBlockTree);
         for(int column = 8; column >=1; column--)
         {
             board[8][column] = new BoardCell(BoardCell.CellType.INPUT, -1, array[8-column]);
@@ -66,13 +65,14 @@ public class GameModel
         // most 1st column rows
         eightBlocksTree = partitions.root.getChildAt(6 /* start at two blocks tree */);
         // chose a random sum in children
-        randEightBlockTree = eightBlocksTree.getChildAt(randomInt(0,7));
+        randEightBlockTree = eightBlocksTree.getChildAt(Tools.randomInt(0,7));
         randEightBlockSum = Integer.parseInt(randEightBlockTree.toString());
-        // find sum that starts with 1 and ends with 8
+        // find sum for column that connect first row to row - 1
         for(Enumeration<? extends TreeNode> tree = eightBlocksTree.children(); tree.hasMoreElements();)
         {
             TreeNode candidateTree = tree.nextElement();
-            int[] candidatesArray = childrenToArray(candidateTree);
+            int[] candidatesArray = Tools.childrenToArray(candidateTree);
+            // first column
             if (candidatesArray[0] == board[1][1].getSecondValue() && candidatesArray[7] == board[1][7].getSecondValue())
             {
                 // put sum number
@@ -85,6 +85,7 @@ public class GameModel
                 }
                 break;
             }
+            // column - 1
             else if (candidatesArray[0] == board[8][8].getSecondValue() && candidatesArray[7] == board[1][8].getSecondValue())
             {
                 // put sum number
@@ -98,25 +99,5 @@ public class GameModel
                 break;
             }
         }
-    }
-
-    private int randomInt(int min, int max)
-    {
-        Random random = new Random();
-        return random.nextInt(max - min + 1) + min;
-    }
-
-    private int[] childrenToArray(TreeNode node)
-    {
-        int index = 0;
-        int[] array = new int[node.getChildCount()];
-        for(Enumeration<? extends TreeNode> tree = node.children(); tree.hasMoreElements();)
-        {
-            int number = Integer.parseInt(tree.nextElement().toString());
-            //System.out.print(" " + number + " ");
-            array[index] = number;
-            index++;
-        }
-        return array;
     }
 }
