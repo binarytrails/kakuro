@@ -29,28 +29,38 @@ public class GameView
         {
             for(int column = 0; column < controller.model.rows; column++)
             {
+                int value = 0;
+                int value2 = 0;
                 BoardCell cell = controller.model.board[row][column];
                 switch (cell.getType())
                 {
                     case EMPTY:
-                        System.out.print(" x ");
+                        System.out.print("  x  ");
                         break;
                     case INPUT:
-                        System.out.print(" " +
+                        System.out.print("  " +
                                 (showAnswerValues ? (cell.getSecondValue() != -1 ? cell.getSecondValue() : "_") :
-                                                    (cell.getFirstValue() != -1 ? cell.getFirstValue() : "_")) + " ");
+                                                    (cell.getFirstValue() != -1 ? cell.getFirstValue() : "_")) +
+                                "  ");
                         break;
                     case FILLED11:
+                        value = cell.getFirstValue();
+                        value2 = cell.getSecondValue();
+                        System.out.print(" " + value + "\\" + value2);
+                        break;
                     case FILLED10:
+                        value = cell.getFirstValue();
+                        System.out.print(" " + value + "\\");
+                        break;
                     case FILLED01:
-                        int value = cell.getFirstValue();
-                        if (value > 9)
-                            System.out.print(" ");
-                        System.out.print(value);
+                        value = cell.getFirstValue();
+                        System.out.print(" \\" + value);
                         break;
                     default:
                         break;
                 }
+                if (value > 9)
+                    System.out.print(" ");
             }
             System.out.println();
         }
