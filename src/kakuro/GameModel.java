@@ -36,7 +36,7 @@ public class GameModel
         }
     }
 
-    public void generateBoard()
+    public void generateBoard10x10()
     {
         // most upper line
         TreeNode eightBlocksTree = partitions.root.getChildAt(6 /* start at two blocks tree */);
@@ -90,7 +90,7 @@ public class GameModel
             {
                 // put sum number
                 int sum = Integer.parseInt(candidateTree.toString());
-                board[0][1] = new BoardCell(BoardCell.CellType.FILLED10, sum);
+                board[0][8] = new BoardCell(BoardCell.CellType.FILLED10, sum);
                 // mark & fill the input cells
                 for(int row = 1; row < 8; row++)
                 {

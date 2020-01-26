@@ -18,7 +18,8 @@ public class GameController
     private void initGame(GameModel model)
     {
         model.initBoard();
-        model.generateBoard();
+        if (model.columns == 10 && model.rows == 10)
+            model.generateBoard10x10();
         this.view = new GameView(this);
         view.printStartup();
         view.printBoard(false/*show answer values*/);
