@@ -26,7 +26,7 @@ public class GameView
         {
             for(int row = 0; row < controller.model.rows; row++)
             {
-                switch (controller.model.board[column][row])
+                switch (controller.model.board[column][row].getType())
                 {
                     case EMPTY:
                         System.out.print("x");
