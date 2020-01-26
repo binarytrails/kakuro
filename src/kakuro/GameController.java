@@ -21,6 +21,6 @@ public class GameController
         model.generateBoard();
         this.view = new GameView(this);
         view.printStartup();
-        view.printBoard(false/*with answers*/);
+        view.printBoard(false/*show answer values*/);
     }
 }

@@ -19,27 +19,28 @@ public class GameView
         System.out.println("=> use numbers between 1-9 to fill the cells;");
     }
 
-    public void printBoard(Boolean withAnswers)
+    public void printBoard(Boolean showAnswerValues)
     {
         System.out.println("board:");
-        for(int column = 0; column < controller.model.columns; column++)
+        for(int row = 0; row < controller.model.columns; row++)
         {
-            for(int row = 0; row < controller.model.rows; row++)
+            for(int column = 0; column < controller.model.rows; column++)
             {
-                BoardCell cell = controller.model.board[column][row];
+                BoardCell cell = controller.model.board[row][column];
                 switch (cell.getType())
                 {
                     case EMPTY:
                         System.out.print(" x ");
                         break;
                     case INPUT:
-                        int answer = cell.getValue();
-                        System.out.print(" " + (withAnswers ? answer : "_") + " ");
+                        System.out.print(" " +
+                                (showAnswerValues ? (cell.getAnswerValue() != -1 ? cell.getAnswerValue() : "_") :
+                                                    (cell.getInputValue() != -1 ? cell.getInputValue() : "_")) + " ");
                         break;
                     case FILLED11:
                     case FILLED10:
                     case FILLED01:
-                        int value = cell.getValue();
+                        int value = cell.getInputValue();
                         if (value > 9)
                             System.out.print(" ");
                         System.out.print(value);
