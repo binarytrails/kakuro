@@ -6,10 +6,12 @@ package kakuro;
 
 import java.util.Scanner;
 
+import kakuro.GameController.UserActions;
+
 public class GameView
 {
     private final GameController controller;
-    Scanner inputReader = new Scanner(System.in);
+    private Scanner inputReader = new Scanner(System.in);
 
     public GameView(final GameController controller)
     {
@@ -63,6 +65,23 @@ public class GameView
                     System.out.print(" ");
             }
             System.out.println();
+        }
+    }
+
+    public UserActions printGetUserAction()
+    {
+        System.out.print("\nList of actions i=input s=solve a=answers\nChose an action: ");
+        switch (inputReader.next())
+        {
+            case "i":
+                return UserActions.INPUT;
+
+            case "s":
+                return UserActions.SOLVE;
+            case "a":
+                return UserActions.ANSWERS;
+            default:
+                return UserActions.UNKNOWN;
         }
     }
 
@@ -124,5 +143,10 @@ public class GameView
             }
         }
         controller.model.board[row-1][column-1].setFirstValue(number);
+    }
+
+    public void printSolveBoard()
+    {
+        System.out.println("Solving the board is not implemented");
     }
 }

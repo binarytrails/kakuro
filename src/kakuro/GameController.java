@@ -9,6 +9,14 @@ public class GameController
     public GameView view;
     public GameModel model;
 
+    public enum UserActions
+    {
+        UNKNOWN,
+        INPUT,
+        SOLVE,
+        ANSWERS
+    }
+
     public GameController(final int columns, final int rows)
     {
         this.model = new GameModel(columns, rows);
@@ -29,8 +37,23 @@ public class GameController
     {
         while (true)
         {
-            view.printGetInputNumber();
-            view.printBoard(false);
+            switch (view.printGetUserAction())
+            {
+                case INPUT:
+                    view.printBoard(false/*show answer values*/);
+                    view.printGetInputNumber();
+                    view.printBoard(false/*show answer values*/);
+                    break;
+                case SOLVE:
+                    view.printSolveBoard();
+                    break;
+                case ANSWERS:
+                    view.printBoard(true/*show answer values*/);
+                    break;
+                case UNKNOWN:
+                default:
+                    break;
+            }
         }
     }
 }
