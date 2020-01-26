@@ -73,7 +73,7 @@ public class GameModel
         {
             TreeNode candidateTree = tree.nextElement();
             int[] candidatesArray = childrenToArray(candidateTree);
-            if (candidatesArray[0] == board[1][1].getAnswerValue() && candidatesArray[7] == board[1][7].getAnswerValue())
+            if (candidatesArray[0] == board[1][1].getSecondValue() && candidatesArray[7] == board[1][7].getSecondValue())
             {
                 // put sum number
                 int sum = Integer.parseInt(candidateTree.toString());
@@ -85,7 +85,7 @@ public class GameModel
                 }
                 break;
             }
-            else if (candidatesArray[0] == board[8][8].getAnswerValue() && candidatesArray[7] == board[1][8].getAnswerValue())
+            else if (candidatesArray[0] == board[8][8].getSecondValue() && candidatesArray[7] == board[1][8].getSecondValue())
             {
                 // put sum number
                 int sum = Integer.parseInt(candidateTree.toString());

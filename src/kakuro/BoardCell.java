@@ -15,35 +15,35 @@ public class BoardCell
     }
     
     private CellType type;
-    private int input = -1;
-    private int answer = -1;
+    private int value1 = -1;
+    private int value2 = -1;
 
     BoardCell(CellType type)
     {
         this.type = type;
     };
 
-    BoardCell(CellType type, int input)
+    BoardCell(CellType type, int value1)
     {
         this.type = type;
-        this.input = input;
+        this.value1 = value1;
     }
 
-    BoardCell(CellType type, int number, int answer)
+    BoardCell(CellType type, int value1, int value2)
     {
         this.type = type;
-        this.input = number;
-        this.answer = answer;
+        this.value1 = value1;
+        this.value2 = value2;
     }
 
-    int getInputValue()
+    int getFirstValue()
     {
-        return this.input;
+        return this.value1;
     }
 
-    int getAnswerValue()
+    int getSecondValue()
     {
-        return this.answer;
+        return this.value2;
     }
 
     CellType getType()

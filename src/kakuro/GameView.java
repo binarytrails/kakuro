@@ -34,13 +34,13 @@ public class GameView
                         break;
                     case INPUT:
                         System.out.print(" " +
-                                (showAnswerValues ? (cell.getAnswerValue() != -1 ? cell.getAnswerValue() : "_") :
-                                                    (cell.getInputValue() != -1 ? cell.getInputValue() : "_")) + " ");
+                                (showAnswerValues ? (cell.getSecondValue() != -1 ? cell.getSecondValue() : "_") :
+                                                    (cell.getFirstValue() != -1 ? cell.getFirstValue() : "_")) + " ");
                         break;
                     case FILLED11:
                     case FILLED10:
                     case FILLED01:
-                        int value = cell.getInputValue();
+                        int value = cell.getFirstValue();
                         if (value > 9)
                             System.out.print(" ");
                         System.out.print(value);
