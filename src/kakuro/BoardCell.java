@@ -46,6 +46,11 @@ public class BoardCell
         return this.value2;
     }
 
+    void setFirstValue(int value)
+    {
+        this.value1 = value;
+    }
+
     CellType getType()
     {
         return this.type;

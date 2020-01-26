@@ -23,4 +23,13 @@ public class GameController
         view.printStartup();
         view.printBoard(false/*show answer values*/);
     }
+
+    public void loopGame()
+    {
+        while (true)
+        {
+            view.printGetInputNumber();
+            view.printBoard(false);
+        }
+    }
 }

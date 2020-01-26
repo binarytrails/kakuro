@@ -4,9 +4,12 @@
 
 package kakuro;
 
+import java.util.Scanner;
+
 public class GameView
 {
     private final GameController controller;
+    Scanner inputReader = new Scanner(System.in);
 
     public GameView(final GameController controller)
     {
@@ -51,5 +54,44 @@ public class GameView
             }
             System.out.println();
         }
+    }
+
+    public void printGetInputNumber()
+    {
+        int row = -1;
+        int column = -1;
+        int number = -1;
+        while (true)
+        {
+            while (row < 1 || row >= 10)
+            {
+                System.out.print("row: ");
+                row = inputReader.nextInt();
+                if (row < 1 || row >= 10)
+                    System.out.println("error: out of bounds");
+            }
+            while (column < 1 || column >= 10)
+            {
+                System.out.print("column: ");
+                column = inputReader.nextInt();
+                if (column < 1 || column >= 10)
+                    System.out.println("error: out of bounds");
+            }
+            if (controller.model.board[row-1][column-1].getType() == BoardCell.CellType.INPUT)
+                break;
+            else {
+                System.out.println("error: not an input cell");
+                row = -1;
+                column = -1;
+            }
+        }
+        while (number < 1 || number > 9)
+        {
+            System.out.print("number: ");
+            number = inputReader.nextInt();
+            if (column < 1 || column > 9)
+                System.out.println("error: out of bounds");
+        }
+        controller.model.board[row-1][column-1].setFirstValue(number);
     }
 }
