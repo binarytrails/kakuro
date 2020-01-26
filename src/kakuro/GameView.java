@@ -4,23 +4,16 @@
 
 package kakuro;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridLayout;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
+import java.util.Scanner;
 
 public class GameView
 {
     private final GameController controller;
+    Scanner inputReader = new Scanner(System.in);
 
     public GameView(final GameController controller)
     {
         this.controller = controller;
-
     }
 
     public void printStartup()
@@ -29,79 +22,31 @@ public class GameView
         System.out.println("=> use numbers between 1-9 to fill the cells;");
     }
 
-    public void board_ui() {
-        JPanel panel = new JPanel(new GridLayout(10,10));
-        JFrame frame = new JFrame("KAKURO");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400,400);
-        //frame.pack();
-        String st1;
-        String st2;
-
-        for(int column = 0; column < controller.model.columns; column++)
-        {
-            for(int row = 0; row < controller.model.rows; row++)
-            {
-                JTextField textField = null;
-
-                switch (controller.model.board[column][row])
-                {
-
-                    case EMPTY:
-                        textField = new JTextField();
-
-
-                        break;
-                    case FILLED01:
-                        //                        textField = new JTextField("0/1");
-                        st2 = "2";
-                        textField = new JTextField("/" + st2);
-                        textField.setBackground(Color.black);
-                        textField.setForeground(Color.white);
-                        textField.setEditable(false);
-
-                        break;
-                    case FILLED10:
-                        st1 = "1";
-                        //                        textField = new JTextField("1/0");
-                        textField = new JTextField(st1 + "/");
-                        textField.setBackground(Color.black);
-                        textField.setForeground(Color.white);
-                        textField.setEditable(false);
-                        break;
-
-                    case FILLED11:
-                        st1 = "1";
-                        st2 = "2";
-                        textField = new JTextField(st1 + "/" + st2);
-                        //                        textField = new JTextField("1/1");
-                        textField.setBackground(Color.black);
-                        textField.setForeground(Color.white);
-                        textField.setEditable(false);
-                        break;
-                    default:
-                        break;
-                }
-                panel.add(textField);
-                //                textField.setBorder(new LineBorder(Color.black,1));
-            }
-        }
-        frame.setResizable(false);
-        frame.getContentPane().add(panel);
-        frame.setVisible(true);
-
-    }
-    public void printBoard()
+    public void printBoard(Boolean showAnswerValues)
     {
         System.out.println("board:");
-        for(int column = 0; column < controller.model.columns; column++)
+        for(int row = 0; row < controller.model.columns; row++)
         {
-            for(int row = 0; row < controller.model.rows; row++)
+            for(int column = 0; column < controller.model.rows; column++)
             {
-                switch (controller.model.board[column][row])
+                BoardCell cell = controller.model.board[row][column];
+                switch (cell.getType())
                 {
                     case EMPTY:
-                        System.out.print("x");
+                        System.out.print(" x ");
+                        break;
+                    case INPUT:
+                        System.out.print(" " +
+                                (showAnswerValues ? (cell.getSecondValue() != -1 ? cell.getSecondValue() : "_") :
+                                                    (cell.getFirstValue() != -1 ? cell.getFirstValue() : "_")) + " ");
+                        break;
+                    case FILLED11:
+                    case FILLED10:
+                    case FILLED01:
+                        int value = cell.getFirstValue();
+                        if (value > 9)
+                            System.out.print(" ");
+                        System.out.print(value);
                         break;
                     default:
                         break;
@@ -109,5 +54,65 @@ public class GameView
             }
             System.out.println();
         }
+    }
+
+    public void printGetInputNumber()
+    {
+        int row = -1;
+        int column = -1;
+        int number = -1;
+        while (true)
+        {
+            while (row < 1 || row > 10)
+            {
+                System.out.print("row: ");
+                try {
+                    row = inputReader.nextInt();
+                    if (row < 1 || row > 10)
+                        System.out.println("error: out of bounds");
+                }
+                catch (java.util.InputMismatchException e)
+                {
+                    System.out.println("error: invalid digit");
+                    inputReader.nextLine();
+                }
+            }
+            while (column < 1 || column > 10)
+            {
+                System.out.print("column: ");
+                try {
+                    column = inputReader.nextInt();
+                    if (column < 1 || column > 10)
+                        System.out.println("error: out of bounds");
+                }
+                catch (java.util.InputMismatchException e)
+                {
+                    System.out.println("error: invalid digit");
+                    inputReader.nextLine();
+                }
+            }
+            if (controller.model.board[row-1][column-1].getType() == BoardCell.CellType.INPUT)
+                break;
+            else {
+                System.out.println("error: not an input cell");
+                row = -1;
+                column = -1;
+            }
+        }
+        while (number < 1 || number > 9)
+        {
+            try {
+                System.out.print("number: ");
+                number = inputReader.nextInt();
+                if (number < 1 || number > 9)
+                    System.out.println("error: out of bounds");
+            }
+            catch (java.util.InputMismatchException e)
+            {
+                System.out.println("error: invalid digit");
+                inputReader.nextLine();
+            }
+        }
+        controller.model.board[row-1][column-1].setFirstValue(number);
     }
 }

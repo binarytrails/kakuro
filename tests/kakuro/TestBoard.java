@@ -18,5 +18,4 @@ public class TestBoard
         assertEquals(model.columns, columns);
         assertEquals(model.rows, rows);
     }
-
 }
