@@ -4,6 +4,8 @@
 
 package kakuro;
 
+import java.util.Scanner;
+
 public class GameController
 {
     public GameView view;
@@ -23,6 +25,12 @@ public class GameController
         view.printStartup();
         view.printBoard(false/*show answer values*/);
         view.board_ui();
+        System.out.print("check input? 1 or 0: ");
+        Scanner inputReader = new Scanner(System.in);
+            int answer = inputReader.nextInt();
+        if(answer==1) {
+            view.check();
+        }
     }
 
     public void loopGame()

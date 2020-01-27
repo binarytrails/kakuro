@@ -1,25 +1,43 @@
 // @author Vsevolod Ivanov
-// @author ...
+// @author Isabelle Charette
 // @brief Game view class which handles the Kakuro game interface.
 
 package kakuro;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.Scanner;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 
+/*
+ * SOURCES 
+ * Examples on extending JPanel class and using paintComponent method:
+ * http://programmedlessons.org/java5/Notes/chap36/ch36_10.html
+ * https://stackoverflow.com/questions/31519857/draw-triangle-on-top-of-rectangle-in-java
+ * https://stackoverflow.com/questions/10767265/drawing-a-line-on-a-jframe
+ * https://stackoverflow.com/questions/7582238/changing-border-color-of-awt-textfield
+ 
+ * Examples on Frames, panels, labels and grids
+ * https://www.guru99.com/java-swing-gui.html#8
+ * https://docs.oracle.com/javase/tutorial/uiswing/layout/spring.html
+ * 
+ */
 public class GameView
 {
     private final GameController controller;
     Scanner inputReader = new Scanner(System.in);
 
+    //stores player input of board
+    public JTextField[][] input;
+
     public GameView(final GameController controller)
     {
         this.controller = controller;
+        input = new JTextField[controller.model.rows][controller.model.columns];
     }
 
     public void printStartup()
@@ -27,57 +45,109 @@ public class GameView
         System.out.println("welcome to kakuro game!");
         System.out.println("=> use numbers between 1-9 to fill the cells;");
     }
-    public void board_ui() {
-        int gridSizeX = controller.model.rows;
-        int gridSizeY = controller.model.columns;
-        int frameSize = 60;
-        JPanel panel = new JPanel(new GridLayout(gridSizeX,gridSizeY));
-        JFrame frame = new JFrame("KAKURO");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(frameSize*gridSizeX, frameSize*gridSizeY);
+
+    //takes player input of game board and outputs to console
+    public void check() {
+
         for(int row = 0; row < controller.model.columns; row++)
         {
             for(int column = 0; column < controller.model.rows; column++)
             {
-                JTextField textField = null;
                 BoardCell cell = controller.model.board[row][column];
+                if(!input[row][column].getText().isEmpty()) {
+                    switch (cell.getType())
+                    {
+                        case INPUT:
+                            System.out.println(input[row][column].getText());
+                            break;
+                    }
+                }
+            }
+        }
+    }
+    
+    //creates user interface of the board 
+    public void board_ui() {
+        int gridSizeX = controller.model.rows;
+        int gridSizeY = controller.model.columns;
+        int frameSize = 60;
+        //creating grid of cells
+        JPanel panel = new JPanel(new GridLayout(gridSizeX,gridSizeY));
+        //creating window of the game
+        JFrame frame = new JFrame("KAKURO");
+
+        //identifies type of each cell and populates it
+        //input or non-playable
+        for(int row = 0; row < controller.model.columns; row++)
+        {
+            for(int column = 0; column < controller.model.rows; column++)
+            {
+                //object to be placed in each panel (=cell) of the board
+                JTextField textField = null;
+                //tracking the type of each cell
+                BoardCell cell = controller.model.board[row][column];
+                //adding extra panel that will overlay the cells that are non-playable with game level numbers
+                JPanel diagonalPanel = null;
                 
+                //according to type of cell, populate
                 switch (cell.getType())
                 {
                     case EMPTY:
                         textField = new JTextField();
                         textField.setBackground(Color.black);
                         textField.setEditable(false);
+                        panel.add(textField);
                         break;
+                        
                     case INPUT:
                         textField = new JTextField();
+                        textField.setHorizontalAlignment(JTextField.CENTER);
+                        panel.add(textField);
                         break;
+                        
                     case FILLED01:
-                        textField = new JTextField("_ /" + cell.getFirstValue());
+                        textField = new JTextField(cell.getFirstValue()+"");
                         textField.setBackground(Color.black);
                         textField.setForeground(Color.white);
                         textField.setEditable(false);
+                        //adding diagonal line in board cell
+                        diagonalPanel = new line_panel(new BorderLayout(), textField, true);
+                        panel.add(diagonalPanel);
                         break;
+                        
                     case FILLED10:
-                        textField = new JTextField(cell.getFirstValue() + "/_");
+                        textField = new JTextField(cell.getFirstValue()+"");
                         textField.setBackground(Color.black);
                         textField.setForeground(Color.white);
                         textField.setEditable(false);
+                        //adding diagonal line in board cell
+                        diagonalPanel = new line_panel(new BorderLayout(), textField, false);
+                        panel.add(diagonalPanel);
                         break;
+                        
                     case FILLED11:
                         textField = new JTextField(cell.getFirstValue() + "/" + cell.getSecondValue());
                         textField.setBackground(Color.black);
                         textField.setForeground(Color.white);
-                        textField.setEditable(false);   
+                        textField.setEditable(false);  
+                        //using constructor that expected two text values to place in board cell
+                        diagonalPanel = new line_panel(new BorderLayout(), textField, textField);
+                        panel.add(diagonalPanel);
                         break;
+                        
                     default:
                         break;
                 }
-                textField.setHorizontalAlignment(JTextField.CENTER);
-                panel.add(textField);
-                //                textField.setBorder(new LineBorder(Color.black,1));
+                
+                textField.setBorder(new LineBorder(Color.GRAY,1));
+                
+                //placing textfield value in input array to track user input
+                input[row][column] = textField;
             }
         }
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(frameSize*gridSizeX, frameSize*gridSizeY);
         frame.setResizable(false);
         frame.getContentPane().add(panel);
         frame.setVisible(true);
