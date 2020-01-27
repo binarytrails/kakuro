@@ -11,16 +11,16 @@
     welcome to kakuro game!
     => use numbers between 1-9 to fill the cells;
     board:
-      x   /37   x    x    x    x    x    x    x    x
-     /39   _    _    _    _    _    _    _    _    x
-      x    _    x    x    x    x    x    x    x    x
-      x    _    x    x    x    x    x    x    x    x
-      x    _    x    x    x    x    x    x    x    x
-      x    _    x    x    x    x    x    x    x    x
-      x    _    x    x    x    x    x    x    x    x
-      x    _    x    x    x    x    x    x    x    x
-      x    _    _    _    _    _    _    _    _   43/
-      x    x    x    x    x    x    x    x    x    x
+      x   /37   x    x    x    x    x    x    x    x  
+     /40   _    _    _    _    _    _    _    _    x  
+      x    _    x    x    x    x    x    x    x    x  
+      x    _    x    x    x    x    x    x    x    x  
+      x    _    x    x    x    x    x    x    x    x  
+      x    _    x    x    x    x    x    x    x    x  
+      x    _    x    x    x    x    x    x    x    x  
+      x    _    x    x    x    x    x    x    x    x  
+     /41   _    _    _    _    _    _    _    _    x  
+      x    x    x    x    x    x    x    x    x    x  
 
     List of actions i=input s=solve a=answers
     Choose an action: i
@@ -28,33 +28,33 @@
     column: 2
     number: 9
     board:
-      x   /37   x    x    x    x    x    x    x    x
-     /39   _    _    _    _    _    _    _    _    x
-      x    _    x    x    x    x    x    x    x    x
-      x    _    x    x    x    x    x    x    x    x
-      x    _    x    x    x    x    x    x    x    x
-      x    _    x    x    x    x    x    x    x    x
-      x    _    x    x    x    x    x    x    x    x
-      x    _    x    x    x    x    x    x    x    x
-      x    9    _    _    _    _    _    _    _   43/
-      x    x    x    x    x    x    x    x    x    x
+      x   /37   x    x    x    x    x    x    x    x  
+     /40   _    _    _    _    _    _    _    _    x  
+      x    _    x    x    x    x    x    x    x    x  
+      x    _    x    x    x    x    x    x    x    x  
+      x    _    x    x    x    x    x    x    x    x  
+      x    _    x    x    x    x    x    x    x    x  
+      x    _    x    x    x    x    x    x    x    x  
+      x    _    x    x    x    x    x    x    x    x  
+     /41   9    _    _    _    _    _    _    _    x  
+      x    x    x    x    x    x    x    x    x    x  
 
     List of actions i=input s=solve a=answers
     Choose an action: a
     board:
-      x   /37   x    x    x    x    x    x    x    x
-     /39   1    2    3    4    5    7    8    9    x
-      x    2    x    x    x    x    x    x    x    x
-      x    3    x    x    x    x    x    x    x    x
-      x    4    x    x    x    x    x    x    x    x
-      x    5    x    x    x    x    x    x    x    x
-      x    6    x    x    x    x    x    x    x    x
-      x    7    x    x    x    x    x    x    x    x
-      x    9    8    7    6    5    4    3    1   43/
-      x    x    x    x    x    x    x    x    x    x
+      x   /37   x    x    x    x    x    x    x    x  
+     /40   1    2    3    4    6    7    8    9    x  
+      x    2    x    x    x    x    x    x    x    x  
+      x    3    x    x    x    x    x    x    x    x  
+      x    4    x    x    x    x    x    x    x    x  
+      x    5    x    x    x    x    x    x    x    x  
+      x    6    x    x    x    x    x    x    x    x  
+      x    7    x    x    x    x    x    x    x    x  
+     /41   9    8    7    6    5    3    2    1    x  
+      x    x    x    x    x    x    x    x    x    x  
 
     List of actions i=input s=solve a=answers
-    Choose an action:
+    Choose an action: 
 
 # Team
 - Vsevolod Ivanov seva@binarytrails.net
