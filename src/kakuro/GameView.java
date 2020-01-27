@@ -6,10 +6,12 @@ package kakuro;
 
 import java.util.Scanner;
 
+import kakuro.GameController.UserActions;
+
 public class GameView
 {
     private final GameController controller;
-    Scanner inputReader = new Scanner(System.in);
+    private Scanner inputReader = new Scanner(System.in);
 
     public GameView(final GameController controller)
     {
@@ -29,30 +31,57 @@ public class GameView
         {
             for(int column = 0; column < controller.model.rows; column++)
             {
+                int value = 0;
+                int value2 = 0;
                 BoardCell cell = controller.model.board[row][column];
                 switch (cell.getType())
                 {
                     case EMPTY:
-                        System.out.print(" x ");
+                        System.out.print("  x  ");
                         break;
                     case INPUT:
-                        System.out.print(" " +
+                        System.out.print("  " +
                                 (showAnswerValues ? (cell.getSecondValue() != -1 ? cell.getSecondValue() : "_") :
-                                                    (cell.getFirstValue() != -1 ? cell.getFirstValue() : "_")) + " ");
+                                                    (cell.getFirstValue() != -1 ? cell.getFirstValue() : "_")) +
+                                "  ");
                         break;
                     case FILLED11:
+                        value = cell.getFirstValue();
+                        value2 = cell.getSecondValue();
+                        System.out.print(" " + value + "/" + value2);
+                        break;
                     case FILLED10:
+                        value = cell.getFirstValue();
+                        System.out.print(" " + value + "/");
+                        break;
                     case FILLED01:
-                        int value = cell.getFirstValue();
-                        if (value > 9)
-                            System.out.print(" ");
-                        System.out.print(value);
+                        value2 = cell.getSecondValue();
+                        System.out.print(" /" + value2);
                         break;
                     default:
                         break;
                 }
+                if (value > 9 || value2 > 9)
+                    System.out.print(" ");
             }
             System.out.println();
+        }
+    }
+
+    public UserActions printGetUserAction()
+    {
+        System.out.print("\nList of actions i=input s=solve a=answers\nChoose an action: ");
+        switch (inputReader.next())
+        {
+            case "i":
+                return UserActions.INPUT;
+
+            case "s":
+                return UserActions.SOLVE;
+            case "a":
+                return UserActions.ANSWERS;
+            default:
+                return UserActions.UNKNOWN;
         }
     }
 
@@ -114,5 +143,14 @@ public class GameView
             }
         }
         controller.model.board[row-1][column-1].setFirstValue(number);
+    }
+
+    public void printSolveBoard()
+    {
+        Boolean success = controller.solveBoard();
+        if (success)
+            System.out.println("The board is solved!");
+        else
+            System.out.println("The solution is incorrect.");
     }
 }

@@ -36,21 +36,21 @@ public class GameModel
         }
     }
 
-    public void generateBoard()
+    public void generateBoard10x10()
     {
-        // most upper line
+        // second row
         TreeNode eightBlocksTree = partitions.root.getChildAt(6 /* start at two blocks tree */);
         // chose a random sum in children
         TreeNode randEightBlockTree = eightBlocksTree.getChildAt(Tools.randomInt(0,7));
         int randEightBlockSum = Integer.parseInt(randEightBlockTree.toString());
-        board[1][0] = new BoardCell(BoardCell.CellType.FILLED01, randEightBlockSum);
+        board[1][0] = new BoardCell(BoardCell.CellType.FILLED01, -1, randEightBlockSum);
         // mark & fill the input cells
         int[] array = Tools.childrenToArray(randEightBlockTree);
         for(int column = 1; column <= 8; column++)
         {
             board[1][column] = new BoardCell(BoardCell.CellType.INPUT, -1, array[column-1]);
         }
-        // most lower line
+        // row - 1
         eightBlocksTree = partitions.root.getChildAt(6 /* start at two blocks tree */);
         // chose a random sum in children
         randEightBlockTree = eightBlocksTree.getChildAt(Tools.randomInt(0,7));
@@ -62,7 +62,7 @@ public class GameModel
         {
             board[8][column] = new BoardCell(BoardCell.CellType.INPUT, -1, array[8-column]);
         }
-        // most 1st column rows
+        // second row
         eightBlocksTree = partitions.root.getChildAt(6 /* start at two blocks tree */);
         // chose a random sum in children
         randEightBlockTree = eightBlocksTree.getChildAt(Tools.randomInt(0,7));
@@ -72,40 +72,27 @@ public class GameModel
         {
             TreeNode candidateTree = tree.nextElement();
             int[] candidatesArray = Tools.childrenToArray(candidateTree);
-            // first column
-            if (candidatesArray[0] == board[1][1].getSecondValue() && candidatesArray[7] == board[1][7].getSecondValue())
+            // second column
+            if (candidatesArray[0] == board[1][1].getSecondValue() && candidatesArray[7] == board[1][8].getSecondValue())
             {
                 // put sum number
                 int sum = Integer.parseInt(candidateTree.toString());
-                board[0][1] = new BoardCell(BoardCell.CellType.FILLED10, sum);
+                board[0][1] = new BoardCell(BoardCell.CellType.FILLED01, -1, sum);
                 // mark & fill the input cells
                 for(int row = 1; row < 8; row++)
                 {
-                    board[row][1] = new BoardCell(BoardCell.CellType.INPUT, -1, candidatesArray[row]);
-                }
-                break;
-            }
-            // column - 1
-            else if (candidatesArray[0] == board[8][8].getSecondValue() && candidatesArray[7] == board[1][8].getSecondValue())
-            {
-                // put sum number
-                int sum = Integer.parseInt(candidateTree.toString());
-                board[0][1] = new BoardCell(BoardCell.CellType.FILLED10, sum);
-                // mark & fill the input cells
-                for(int row = 1; row < 8; row++)
-                {
-                    board[row][8] = new BoardCell(BoardCell.CellType.INPUT, -1, candidatesArray[row]);
+                    board[row+1][1] = new BoardCell(BoardCell.CellType.INPUT, -1, candidatesArray[row]);
                 }
                 break;
             }
         }
     }
-    
+
 public boolean checkBoard() {
     	
-    	for(int i=0;i<columns;i++) {
+    	for(int i=0;i<rows;i++) {
     		
-    		for(int j=0;j<rows;j++) {
+    		for(int j=0;j<columns;j++) {
     			
     			switch(board[i][j].getType()) {
     				
@@ -180,12 +167,33 @@ public boolean checkBoard() {
     	  return true;
     		
     	}
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

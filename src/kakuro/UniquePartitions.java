@@ -1,5 +1,9 @@
 // @author Vsevolod Ivanov
 // @author ...
+// @brief Lists all possible answers in a Tree ADT:
+//      Level 1 : partitions (number of cells/boxes to be filled consecutively)
+//      Level 2 : possible sums for that number of cells
+//      Level 3 : an array of its values representing consecutively cells values from smallest to largest
 
 package kakuro;
 
