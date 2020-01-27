@@ -147,6 +147,10 @@ public class GameView
 
     public void printSolveBoard()
     {
-        System.out.println("Solving the board is not implemented");
+        Boolean success = controller.solveBoard();
+        if (success)
+            System.out.println("The board is solved!");
+        else
+            System.out.println("The solution is incorrect.");
     }
 }

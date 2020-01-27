@@ -55,4 +55,9 @@ public class GameController
             }
         }
     }
+
+    public Boolean solveBoard()
+    {
+        return false;
+    }
 }
