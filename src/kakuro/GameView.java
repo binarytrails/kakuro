@@ -48,20 +48,20 @@ public class GameView
                     case FILLED11:
                         value = cell.getFirstValue();
                         value2 = cell.getSecondValue();
-                        System.out.print(" " + value + "\\" + value2);
+                        System.out.print(" " + value + "/" + value2);
                         break;
                     case FILLED10:
                         value = cell.getFirstValue();
-                        System.out.print(" " + value + "\\");
+                        System.out.print(" " + value + "/");
                         break;
                     case FILLED01:
-                        value = cell.getFirstValue();
-                        System.out.print(" \\" + value);
+                        value2 = cell.getSecondValue();
+                        System.out.print(" /" + value2);
                         break;
                     default:
                         break;
                 }
-                if (value > 9)
+                if (value > 9 || value2 > 9)
                     System.out.print(" ");
             }
             System.out.println();

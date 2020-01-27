@@ -43,7 +43,7 @@ public class GameModel
         // chose a random sum in children
         TreeNode randEightBlockTree = eightBlocksTree.getChildAt(Tools.randomInt(0,7));
         int randEightBlockSum = Integer.parseInt(randEightBlockTree.toString());
-        board[1][0] = new BoardCell(BoardCell.CellType.FILLED01, randEightBlockSum);
+        board[1][0] = new BoardCell(BoardCell.CellType.FILLED01, -1, randEightBlockSum);
         // mark & fill the input cells
         int[] array = Tools.childrenToArray(randEightBlockTree);
         for(int column = 1; column <= 8; column++)
@@ -77,7 +77,7 @@ public class GameModel
             {
                 // put sum number
                 int sum = Integer.parseInt(candidateTree.toString());
-                board[0][1] = new BoardCell(BoardCell.CellType.FILLED10, sum);
+                board[0][1] = new BoardCell(BoardCell.CellType.FILLED01, -1, sum);
                 // mark & fill the input cells
                 for(int row = 1; row < 8; row++)
                 {
