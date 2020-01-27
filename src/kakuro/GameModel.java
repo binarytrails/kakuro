@@ -38,7 +38,7 @@ public class GameModel
 
     public void generateBoard10x10()
     {
-        // most upper line
+        // second row
         TreeNode eightBlocksTree = partitions.root.getChildAt(6 /* start at two blocks tree */);
         // chose a random sum in children
         TreeNode randEightBlockTree = eightBlocksTree.getChildAt(Tools.randomInt(0,7));
@@ -50,7 +50,7 @@ public class GameModel
         {
             board[1][column] = new BoardCell(BoardCell.CellType.INPUT, -1, array[column-1]);
         }
-        // most lower line
+        // row - 1
         eightBlocksTree = partitions.root.getChildAt(6 /* start at two blocks tree */);
         // chose a random sum in children
         randEightBlockTree = eightBlocksTree.getChildAt(Tools.randomInt(0,7));
@@ -62,7 +62,7 @@ public class GameModel
         {
             board[8][column] = new BoardCell(BoardCell.CellType.INPUT, -1, array[8-column]);
         }
-        // most 1st column rows
+        // second row
         eightBlocksTree = partitions.root.getChildAt(6 /* start at two blocks tree */);
         // chose a random sum in children
         randEightBlockTree = eightBlocksTree.getChildAt(Tools.randomInt(0,7));
@@ -72,7 +72,7 @@ public class GameModel
         {
             TreeNode candidateTree = tree.nextElement();
             int[] candidatesArray = Tools.childrenToArray(candidateTree);
-            // first column
+            // second column
             if (candidatesArray[0] == board[1][1].getSecondValue() && candidatesArray[7] == board[1][8].getSecondValue())
             {
                 // put sum number
