@@ -101,7 +101,7 @@ public class GameModel
         }
     }
     
-    public boolean checkBoard() {
+public boolean checkBoard() {
     	
     	for(int i=0;i<columns;i++) {
     		
@@ -180,7 +180,6 @@ public class GameModel
     	  return true;
     		
     	}
-    
     
     
     
