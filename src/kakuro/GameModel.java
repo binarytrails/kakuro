@@ -77,7 +77,7 @@ public class GameModel
             {
                 // put sum number
                 int sum = Integer.parseInt(candidateTree.toString());
-                board[0][1] = new BoardCell(BoardCell.CellType.FILLED01, -1, sum);
+                board[0][1] = new BoardCell(BoardCell.CellType.FILLED10, sum);
                 // mark & fill the input cells
                 for(int row = 1; row < 8; row++)
                 {
