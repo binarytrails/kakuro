@@ -73,7 +73,7 @@ public class GameModel
             TreeNode candidateTree = tree.nextElement();
             int[] candidatesArray = Tools.childrenToArray(candidateTree);
             // first column
-            if (candidatesArray[0] == board[1][1].getSecondValue() && candidatesArray[7] == board[1][7].getSecondValue())
+            if (candidatesArray[0] == board[1][1].getSecondValue() && candidatesArray[7] == board[1][8].getSecondValue())
             {
                 // put sum number
                 int sum = Integer.parseInt(candidateTree.toString());
@@ -81,20 +81,7 @@ public class GameModel
                 // mark & fill the input cells
                 for(int row = 1; row < 8; row++)
                 {
-                    board[row][1] = new BoardCell(BoardCell.CellType.INPUT, -1, candidatesArray[row]);
-                }
-                break;
-            }
-            // column - 1
-            else if (candidatesArray[0] == board[8][8].getSecondValue() && candidatesArray[7] == board[1][8].getSecondValue())
-            {
-                // put sum number
-                int sum = Integer.parseInt(candidateTree.toString());
-                board[0][8] = new BoardCell(BoardCell.CellType.FILLED10, sum);
-                // mark & fill the input cells
-                for(int row = 1; row < 8; row++)
-                {
-                    board[row][8] = new BoardCell(BoardCell.CellType.INPUT, -1, candidatesArray[row]);
+                    board[row+1][1] = new BoardCell(BoardCell.CellType.INPUT, -1, candidatesArray[row]);
                 }
                 break;
             }

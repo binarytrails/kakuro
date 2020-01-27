@@ -40,7 +40,6 @@ public class GameController
             switch (view.printGetUserAction())
             {
                 case INPUT:
-                    view.printBoard(false/*show answer values*/);
                     view.printGetInputNumber();
                     view.printBoard(false/*show answer values*/);
                     break;
