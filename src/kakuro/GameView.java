@@ -7,13 +7,16 @@ package kakuro;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.text.NumberFormat;
 import java.util.Scanner;
 
 import javax.swing.BorderFactory;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+import javax.swing.text.NumberFormatter;
 
 /*
  * SOURCES 
@@ -26,7 +29,12 @@ import javax.swing.border.LineBorder;
  * https://stackoverflow.com/questions/7582238/changing-border-color-of-awt-textfield
  * https://www.programcreek.com/java-api-examples/?class=javax.swing.JTextField&method=setBorder
  * https://examples.javacodegeeks.com/desktop-java/swing/java-swing-layout-example/
- 
+ * https://gist.github.com/gysel/4074617
+ * https://coderanch.com/t/391046/java/textfield-accepts-numbers
+ * https://docs.oracle.com/javase/tutorial/uiswing/components/formattedtextfield.html
+ * https://stackoverflow.com/questions/11093326/restricting-jtextfield-input-to-integers
+ * https://docs.oracle.com/javase/8/docs/api/javax/swing/JFormattedTextField.html
+
  * Examples on Frames, panels, labels and grids
  * https://www.guru99.com/java-swing-gui.html#8
  * https://docs.oracle.com/javase/tutorial/uiswing/layout/spring.html
@@ -71,7 +79,7 @@ public class GameView
             }
         }
     }
-    
+
     //creates user interface of the game board 
     public void board_ui() {
         int gridSizeX = controller.model.rows;
@@ -82,57 +90,70 @@ public class GameView
         //creating window of the game
         JFrame frame = new JFrame("KAKURO");
 
+        //Number formatting: 
+        //https://docs.oracle.com/javase/tutorial/uiswing/components/formattedtextfield.html
+        //https://stackoverflow.com/questions/11093326/restricting-jtextfield-input-to-integers
+        //https://docs.oracle.com/javase/8/docs/api/javax/swing/JFormattedTextField.html
+        NumberFormat format = NumberFormat.getInstance();
+        NumberFormatter formatter = new NumberFormatter(format);
+        formatter.setValueClass(Integer.class);
+        formatter.setMinimum(0);
+        formatter.setMaximum(9);
+        //this allows temporary invalid input, particularly to be able to delete and try again
+        //if invalid input, when clicking onto another cell, the input will be deleted
+        formatter.setAllowsInvalid(true);
+
         //identifies type of each cell and populates it
         //input or non-playable
         for(int row = 0; row < controller.model.columns; row++)
         {
             for(int column = 0; column < controller.model.rows; column++)
             {
-                //object to be placed in each panel (=cell) of the board
-                JTextField textField = null;
+                JFormattedTextField textField = null;
+
                 //tracking the type of each cell
                 BoardCell cell = controller.model.board[row][column];
                 //adding extra panel that will overlay the cells that are non-playable with game level numbers and diagonal line
                 JPanel diagonalPanel = null;
-                
+
                 //according to type of cell, populate
                 switch (cell.getType())
                 {
                     case EMPTY:
-                        textField = new JTextField();
+                        textField = new JFormattedTextField(formatter);
                         settingTextField(textField);
                         textField.setBorder(new LineBorder(Color.GRAY,1));
                         panel.add(textField);
                         break;
-                        
+
                     case INPUT:
-                        textField = new JTextField();
+                        textField = new JFormattedTextField(formatter);
                         textField.setHorizontalAlignment(JTextField.CENTER);
                         textField.setBorder(new LineBorder(Color.GRAY,1));
                         panel.add(textField);
                         break;
-                        
+
                     case FILLED01:
-                        textField = new JTextField(cell.getFirstValue()+"");
+                        textField = new JFormattedTextField(cell.getFirstValue());
                         settingTextField(textField);
                         //adding diagonal line in board cell
                         diagonalPanel = new line_panel(new BorderLayout(), textField, true);
                         diagonalPanel.setBorder(new LineBorder(Color.GRAY,1));
                         panel.add(diagonalPanel);
                         break;
-                        
+
                     case FILLED10:
-                        textField = new JTextField(cell.getFirstValue()+"");
+                        textField = new JFormattedTextField(cell.getFirstValue());
                         settingTextField(textField);
                         //adding diagonal line in board cell
                         diagonalPanel = new line_panel(new BorderLayout(), textField, false);
                         diagonalPanel.setBorder(new LineBorder(Color.GRAY,1));
                         panel.add(diagonalPanel);
                         break;
-                        
+
                     case FILLED11:
-                        textField = new JTextField(cell.getFirstValue() +"");
-                        JTextField textFieldRIGHT = new JTextField(cell.getSecondValue()+"");
+                        textField = new JFormattedTextField(cell.getFirstValue());
+                        JFormattedTextField textFieldRIGHT = new JFormattedTextField(cell.getSecondValue());
                         settingTextField(textField);
                         settingTextField(textFieldRIGHT); 
                         //using constructor that expects two text values to place in board cell
@@ -140,11 +161,11 @@ public class GameView
                         diagonalPanel.setBorder(new LineBorder(Color.GRAY,1));
                         panel.add(diagonalPanel);
                         break;
-                        
+
                     default:
                         break;
                 }
-                
+
                 //placing textfield value in input array to track user input
                 input[row][column] = textField;
             }
@@ -157,10 +178,11 @@ public class GameView
         frame.setVisible(true);
 
     }
-    
+
     public void settingTextField(JTextField txt) {
         txt.setBackground(Color.black);
         txt.setForeground(Color.white);
+        txt.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         txt.setEditable(false);
     }
     public void printBoard(Boolean showAnswerValues)
