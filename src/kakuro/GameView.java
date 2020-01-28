@@ -8,6 +8,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.Scanner;
+
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -19,7 +21,11 @@ import javax.swing.border.LineBorder;
  * http://programmedlessons.org/java5/Notes/chap36/ch36_10.html
  * https://stackoverflow.com/questions/31519857/draw-triangle-on-top-of-rectangle-in-java
  * https://stackoverflow.com/questions/10767265/drawing-a-line-on-a-jframe
+ * 
+ * Examples for textfield formatting
  * https://stackoverflow.com/questions/7582238/changing-border-color-of-awt-textfield
+ * https://www.programcreek.com/java-api-examples/?class=javax.swing.JTextField&method=setBorder
+ * https://examples.javacodegeeks.com/desktop-java/swing/java-swing-layout-example/
  
  * Examples on Frames, panels, labels and grids
  * https://www.guru99.com/java-swing-gui.html#8
@@ -66,7 +72,7 @@ public class GameView
         }
     }
     
-    //creates user interface of the board 
+    //creates user interface of the game board 
     public void board_ui() {
         int gridSizeX = controller.model.rows;
         int gridSizeY = controller.model.columns;
@@ -86,7 +92,7 @@ public class GameView
                 JTextField textField = null;
                 //tracking the type of each cell
                 BoardCell cell = controller.model.board[row][column];
-                //adding extra panel that will overlay the cells that are non-playable with game level numbers
+                //adding extra panel that will overlay the cells that are non-playable with game level numbers and diagonal line
                 JPanel diagonalPanel = null;
                 
                 //according to type of cell, populate
@@ -94,52 +100,50 @@ public class GameView
                 {
                     case EMPTY:
                         textField = new JTextField();
-                        textField.setBackground(Color.black);
-                        textField.setEditable(false);
+                        settingTextField(textField);
+                        textField.setBorder(new LineBorder(Color.GRAY,1));
                         panel.add(textField);
                         break;
                         
                     case INPUT:
                         textField = new JTextField();
                         textField.setHorizontalAlignment(JTextField.CENTER);
+                        textField.setBorder(new LineBorder(Color.GRAY,1));
                         panel.add(textField);
                         break;
                         
                     case FILLED01:
                         textField = new JTextField(cell.getFirstValue()+"");
-                        textField.setBackground(Color.black);
-                        textField.setForeground(Color.white);
-                        textField.setEditable(false);
+                        settingTextField(textField);
                         //adding diagonal line in board cell
                         diagonalPanel = new line_panel(new BorderLayout(), textField, true);
+                        diagonalPanel.setBorder(new LineBorder(Color.GRAY,1));
                         panel.add(diagonalPanel);
                         break;
                         
                     case FILLED10:
                         textField = new JTextField(cell.getFirstValue()+"");
-                        textField.setBackground(Color.black);
-                        textField.setForeground(Color.white);
-                        textField.setEditable(false);
+                        settingTextField(textField);
                         //adding diagonal line in board cell
                         diagonalPanel = new line_panel(new BorderLayout(), textField, false);
+                        diagonalPanel.setBorder(new LineBorder(Color.GRAY,1));
                         panel.add(diagonalPanel);
                         break;
                         
                     case FILLED11:
-                        textField = new JTextField(cell.getFirstValue() + "/" + cell.getSecondValue());
-                        textField.setBackground(Color.black);
-                        textField.setForeground(Color.white);
-                        textField.setEditable(false);  
-                        //using constructor that expected two text values to place in board cell
-                        diagonalPanel = new line_panel(new BorderLayout(), textField, textField);
+                        textField = new JTextField(cell.getFirstValue() +"");
+                        JTextField textFieldRIGHT = new JTextField(cell.getSecondValue()+"");
+                        settingTextField(textField);
+                        settingTextField(textFieldRIGHT); 
+                        //using constructor that expects two text values to place in board cell
+                        diagonalPanel = new line_panel(new BorderLayout(), textField, textFieldRIGHT);
+                        diagonalPanel.setBorder(new LineBorder(Color.GRAY,1));
                         panel.add(diagonalPanel);
                         break;
                         
                     default:
                         break;
                 }
-                
-                textField.setBorder(new LineBorder(Color.GRAY,1));
                 
                 //placing textfield value in input array to track user input
                 input[row][column] = textField;
@@ -152,6 +156,12 @@ public class GameView
         frame.getContentPane().add(panel);
         frame.setVisible(true);
 
+    }
+    
+    public void settingTextField(JTextField txt) {
+        txt.setBackground(Color.black);
+        txt.setForeground(Color.white);
+        txt.setEditable(false);
     }
     public void printBoard(Boolean showAnswerValues)
     {
