@@ -58,6 +58,80 @@ public class GameController
 
     public Boolean solveBoard()
     {
-        return(model.checkBoard());
+         
+    	for(int i=0;i<model.rows;i++) {
+    		
+    		for(int j=0;j<model.columns;j++) {
+    			
+    			switch(model.board[i][j].getType()) {
+    				
+    			case FILLED01:	{    
+    			    
+    				int row = j+1;
+    				int sum = 0;
+    				//continues to add horizontally until next cell is not an INPUT type
+    				while(row <= model.columns && model.board[i][row].getType()==BoardCell.CellType.INPUT) {       //horizontal sum check
+    					
+                        sum += model.board[i][row].getFirstValue();   					
+    					row++;
+    				}
+    			    
+    			 if(sum!=model.board[i][j].getSecondValue())
+    				 return false;
+    			 }
+    			 break;
+    			 
+    			case FILLED10 : {                                               //vertical sum check
+    				
+    				int colum = i+1;
+    				int sum = 0;
+    				while(colum <= model.rows && model.board[colum][j].getType()==BoardCell.CellType.INPUT) {     
+    					
+                        sum += model.board[colum][j].getFirstValue();   					
+    					colum++;
+    				}
+    			    
+    			 if(sum!=model.board[i][j].getFirstValue())
+    				
+    				 return false;
+    			 }
+    			 break;
+    			 
+    			case FILLED11 : {
+    				
+    				
+    			int colum = i+1;
+    			int row = j+1;
+    			int sumRows = 0;
+    			int sumColums = 0;
+    			
+    			//checking row sum
+    			while(row <= model.columns && model.board[i][row].getType()==BoardCell.CellType.INPUT) {       //horizontal sum check
+					
+                    sumRows += model.board[i][row].getFirstValue();   					
+					row++;
+				}
+    			
+    			//checking column sum
+    			while(colum <= model.rows && model.board[colum][j].getType()==BoardCell.CellType.INPUT) {     //vertical sum check
+    					
+                    sumColums += model.board[colum][j].getFirstValue();   					
+    				colum++;
+    			 }
+    			    
+    			 if(sumColums!=model.board[i][j].getFirstValue() || sumRows != model.board[i][j].getSecondValue())
+    				 return false;
+    			
+    			} 
+    			break;
+    			default :{};
+    			
+    		}	
+    				
+    			}
+    			
+    		}
+    		
+    	  return true;
     }
 }

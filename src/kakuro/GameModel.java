@@ -55,7 +55,7 @@ public class GameModel
         // chose a random sum in children
         randEightBlockTree = eightBlocksTree.getChildAt(Tools.randomInt(0,7));
         randEightBlockSum = Integer.parseInt(randEightBlockTree.toString());
-        board[8][9] = new BoardCell(BoardCell.CellType.FILLED10, randEightBlockSum);
+        board[8][0] = new BoardCell(BoardCell.CellType.FILLED01, -1, randEightBlockSum);
         // mark & fill the input cells
         array = Tools.childrenToArray(randEightBlockTree);
         for(int column = 8; column >=1; column--)
@@ -77,7 +77,7 @@ public class GameModel
             {
                 // put sum number
                 int sum = Integer.parseInt(candidateTree.toString());
-                board[0][1] = new BoardCell(BoardCell.CellType.FILLED01, -1, sum);
+                board[0][1] = new BoardCell(BoardCell.CellType.FILLED10, sum);
                 // mark & fill the input cells
                 for(int row = 1; row < 8; row++)
                 {
@@ -87,113 +87,6 @@ public class GameModel
             }
         }
     }
-
-public boolean checkBoard() {
-    	
-    	for(int i=0;i<rows;i++) {
-    		
-    		for(int j=0;j<columns;j++) {
-    			
-    			switch(board[i][j].getType()) {
-    				
-    			case FILLED01:	{    
-    			    
-    				int row = j+1;
-    				int sum = 0;
-    				//continues to add horizontally until next cell is not an INPUT type
-    				while(row <= rows && board[i][row].getType()==BoardCell.CellType.INPUT) {       //horizontal sum check
-    					
-                        sum += board[i][row].getFirstValue();   					
-    					row++;
-    				}
-    			    
-    			 if(sum!=board[i][j].getFirstValue())
-    				 return false;
-    			 }
-    			 break;
-    			 
-    			case FILLED10 : {                                               //vertical sum check
-    				
-    				int colum = i+1;
-    				int sum = 0;
-    				while(colum <= columns && board[colum][j].getType()==BoardCell.CellType.INPUT) {     
-    					
-                        sum += board[colum][j].getFirstValue();   					
-    					colum++;
-    				}
-    			    
-    			 if(sum!=board[i][j].getFirstValue())
-    				 return false;
-    			 }
-    			 break;
-    			 
-    			case FILLED11 : {
-    				
-    				
-    			int colum = i+1;
-    			int row = j+1;
-    			int sumRows = 0;
-    			int sumColums = 0;
-    			
-    			//checking row sum
-    			while(row <= rows && board[i][row].getType()==BoardCell.CellType.INPUT) {       //horizontal sum check
-					
-                    sumRows += board[i][row].getFirstValue();   					
-					row++;
-				}
-    			
-    			//checking column sum
-    			while(colum <= columns && board[colum][j].getType()==BoardCell.CellType.INPUT) {     
-    					
-                    sumColums += board[colum][j].getFirstValue();   					
-    				colum++;
-    			 }
-    			    
-    			 if(sumColums!=board[i][j].getFirstValue() || sumRows != board[i][j].getSecondValue())
-    				 return false;
-    			
-    			} 
-    			break;
-    			default :{};
-    			
-    		}	
-    				
-    			}
-    			
-    			
-    			
-    		}
-    		
-    	  return true;
-    		
-    	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
