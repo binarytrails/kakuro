@@ -18,7 +18,6 @@ public class Chrono
 		JButton submit_button;
 		JButton newGame_button;
 		JButton save_button;
-	
 		JPanel mainPanel;
 		ActionListener timer_listener;
 
@@ -31,7 +30,6 @@ public class Chrono
 		submit_button = new JButton("Submit");
 		newGame_button = new JButton("New Game");
 		save_button = new JButton("Save");
-		appFrame = new JFrame("Kakuro");
 		mainPanel = new JPanel();
 		
 		// Set up
