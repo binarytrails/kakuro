@@ -14,8 +14,6 @@ public class Main
         GameController game = new GameController(columns, rows);
      //   game.loopGame();
         
-        Chrono timer = new Chrono();
-        
-        timer.timing();
+  
     }
 }

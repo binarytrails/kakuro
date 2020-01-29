@@ -18,12 +18,12 @@ public class Chrono
 		JButton submit_button;
 		JButton newGame_button;
 		JButton save_button;
-		JFrame appFrame;
+	
 		JPanel mainPanel;
 		ActionListener timer_listener;
 
 	/* Constructor : Creates all the UI components and add them on the panel. */
-		public Chrono() {
+		public Chrono(JFrame appFrame) {
 		    System.out.println("constructor");
 		timer_label = new JLabel("0:"+hours+":"+minutes+":"+seconds); 
 		pause_button = new JButton("Pause");
@@ -49,6 +49,7 @@ public class Chrono
 		
 		}
 		
+	
 		
 		/* Checks if the user have clicked on a button. If he clicks on pause, the timer will stop. If he clicks on start, the timer will start. If 
 		 * he clicks on new game, the timer will restart and a new grid will appear on the screen. 
