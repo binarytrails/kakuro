@@ -47,6 +47,7 @@ public class GameController
                     view.printBoard(false/*show answer values*/);
                     break;
                 case SOLVE:
+                    view.loadInputInModel();
                     view.printSolveBoard();
                     break;
                 case ANSWERS:

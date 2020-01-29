@@ -58,19 +58,21 @@ public class GameView
         System.out.println("=> use numbers between 1-9 to fill the cells;");
     }
 
-    //takes player input of game board and outputs to console
-    public void check() {
-
+    public void loadInputInModel()
+    {
         for(int row = 0; row < controller.model.columns; row++)
         {
             for(int column = 0; column < controller.model.rows; column++)
             {
                 BoardCell cell = controller.model.board[row][column];
-                if(!input[row][column].getText().isEmpty()) {
+                String value = input[row][column].getText();
+                if(!value.isEmpty()) {
                     switch (cell.getType())
                     {
                         case INPUT:
-                            System.out.println(input[row][column].getText());
+                            controller.model.board[row][column].setFirstValue(Integer.parseInt(value));
+                            break;
+                        default:
                             break;
                     }
                 }
