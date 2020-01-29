@@ -1,5 +1,6 @@
 package kakuro;
-
+//@author Audrey St-Louis
+//@brief Timer class 
 
 import javax.swing.*;
 
