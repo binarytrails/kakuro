@@ -97,7 +97,7 @@ public class GameView
         NumberFormat format = NumberFormat.getInstance();
         NumberFormatter formatter = new NumberFormatter(format);
         formatter.setValueClass(Integer.class);
-        formatter.setMinimum(0);
+        formatter.setMinimum(1);
         formatter.setMaximum(9);
         //this allows temporary invalid input, particularly to be able to delete and try again
         //if invalid input, when clicking onto another cell, the input will be deleted
