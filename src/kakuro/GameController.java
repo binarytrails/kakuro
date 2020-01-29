@@ -3,6 +3,7 @@
 // @brief Game controller class which handles the Kakuro game.
 
 package kakuro;
+import java.util.ArrayList;
 
 public class GameController
 {
@@ -59,6 +60,10 @@ public class GameController
     public Boolean solveBoard()
     {
          
+        int filledCells=0;
+    	ArrayList<Boolean> check = new ArrayList<Boolean>();
+    	
+        
     	for(int i=0;i<model.rows;i++) {
     		
     		for(int j=0;j<model.columns;j++) {
@@ -66,7 +71,7 @@ public class GameController
     			switch(model.board[i][j].getType()) {
     				
     			case FILLED01:	{    
-    			    
+    			    filledCells++;
     				int row = j+1;
     				int sum = 0;
     				//continues to add horizontally until next cell is not an INPUT type
@@ -76,13 +81,16 @@ public class GameController
     					row++;
     				}
     			    
-    			 if(sum!=model.board[i][j].getSecondValue())
+    			 if(sum==model.board[i][j].getSecondValue())
+    				 check.add(true);
+    			 else
     				 return false;
-    			 }
+    			}
+    			
     			 break;
     			 
     			case FILLED10 : {                                               //vertical sum check
-    				
+    				filledCells++;
     				int colum = i+1;
     				int sum = 0;
     				while(colum <= model.rows && model.board[colum][j].getType()==BoardCell.CellType.INPUT) {     
@@ -91,15 +99,16 @@ public class GameController
     					colum++;
     				}
     			    
-    			 if(sum!=model.board[i][j].getFirstValue())
-    				
-    				 return false;
+    			 if(sum==model.board[i][j].getFirstValue())
+    				check.add(true);
+    			 else 
+    			    return false;
     			 }
     			 break;
     			 
     			case FILLED11 : {
     				
-    				
+    			filledCells++;	
     			int colum = i+1;
     			int row = j+1;
     			int sumRows = 0;
@@ -119,7 +128,9 @@ public class GameController
     				colum++;
     			 }
     			    
-    			 if(sumColums!=model.board[i][j].getFirstValue() || sumRows != model.board[i][j].getSecondValue())
+    			 if(sumColums==model.board[i][j].getFirstValue() && sumRows == model.board[i][j].getSecondValue())
+    				 check.add(true);
+    			 else
     				 return false;
     			
     			} 
@@ -131,7 +142,17 @@ public class GameController
     			}
     			
     		}
-    		
+    	
+    	boolean correct=true;
+    	
+    	for(int i=0;i<filledCells;i++) {
+    		if(check.get(i)!=true)
+    			correct=false;
+    	}
+    	
+          if(correct)    	
     	  return true;
+          else
+          return false;
     }
 }
