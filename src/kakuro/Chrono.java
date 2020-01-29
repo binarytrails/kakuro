@@ -23,29 +23,28 @@ public class Chrono
 		ActionListener timer_listener;
 
 	/* Constructor : Creates all the UI components and add them on the panel. */
-		public Chrono(JFrame appFrame) {
-		    System.out.println("constructor");
-		timer_label = new JLabel("0:"+hours+":"+minutes+":"+seconds); 
-		pause_button = new JButton("Pause");
-		play_button = new JButton("Play");
-		submit_button = new JButton("Submit");
-		newGame_button = new JButton("New Game");
-		save_button = new JButton("Save");
-		mainPanel = new JPanel();
-		
-		// Set up
-		mainPanel.add(play_button);
-		mainPanel.add(pause_button);
-		mainPanel.add(submit_button);
-		mainPanel.add(newGame_button);
-		mainPanel.add(save_button);
-		
-		appFrame.getContentPane().add(timer_label, BorderLayout.BEFORE_FIRST_LINE);
-		appFrame.getContentPane().add(mainPanel, BorderLayout.AFTER_LAST_LINE);
-		appFrame.pack();
-		appFrame.setSize(500,500); 
-		appFrame.setVisible(true);
-		
+		public Chrono(JFrame appFrame, int x, int y)
+		{
+    		timer_label = new JLabel("0:"+hours+":"+minutes+":"+seconds); 
+    		pause_button = new JButton("Pause");
+    		play_button = new JButton("Play");
+    		submit_button = new JButton("Submit");
+    		newGame_button = new JButton("New Game");
+    		save_button = new JButton("Save");
+    		mainPanel = new JPanel();
+
+    		// Set up
+    		mainPanel.add(play_button);
+    		mainPanel.add(pause_button);
+    		mainPanel.add(submit_button);
+    		mainPanel.add(newGame_button);
+    		mainPanel.add(save_button);
+
+    		appFrame.getContentPane().add(timer_label, BorderLayout.BEFORE_FIRST_LINE);
+    		appFrame.getContentPane().add(mainPanel, BorderLayout.AFTER_LAST_LINE);
+    		appFrame.pack();
+    		appFrame.setSize(x,y); 
+    		appFrame.setVisible(true);
 		}
 		
 	

@@ -170,10 +170,12 @@ public class GameView
                 input[row][column] = textField;
             }
         }
-        Chrono timer = new Chrono(frame);
+        int x = frameSize*gridSizeX;
+        int y = frameSize*gridSizeY;
+        Chrono timer = new Chrono(frame, x, y);
         timer.timing();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(frameSize*gridSizeX, frameSize*gridSizeY);
+        frame.setSize(x, y);
         frame.setResizable(false);
         frame.getContentPane().add(panel);
         frame.setVisible(true);
