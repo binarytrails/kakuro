@@ -12,6 +12,10 @@ public class Main
         int rows = 10;
 
         GameController game = new GameController(columns, rows);
-        game.loopGame();
+     //   game.loopGame();
+        
+        Chrono timer = new Chrono();
+        
+        timer.timing();
     }
 }
