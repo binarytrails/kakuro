@@ -134,7 +134,7 @@ public class GameView
                         break;
 
                     case FILLED01:
-                        textField = new JFormattedTextField(cell.getFirstValue());
+                        textField = new JFormattedTextField(cell.getSecondValue());
                         settingTextField(textField);
                         //adding diagonal line in board cell
                         diagonalPanel = new line_panel(new BorderLayout(), textField, true);
@@ -172,7 +172,7 @@ public class GameView
         }
         int x = frameSize*gridSizeX;
         int y = frameSize*gridSizeY;
-        Chrono timer = new Chrono(frame, x, y);
+        Chrono timer = new Chrono(frame, x, y, controller); // lol
         timer.timing();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(x, y);

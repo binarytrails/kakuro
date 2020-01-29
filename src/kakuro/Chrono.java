@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import java.awt.BorderLayout;
 import java.awt.event.*;
+import java.lang.ModuleLayer.Controller;
 
 public class Chrono
 {
@@ -21,10 +22,12 @@ public class Chrono
 		JButton save_button;
 		JPanel mainPanel;
 		ActionListener timer_listener;
+		GameController controller;
 
 	/* Constructor : Creates all the UI components and add them on the panel. */
-		public Chrono(JFrame appFrame, int x, int y)
+		public Chrono(JFrame appFrame, int x, int y, GameController controller)
 		{
+		    this.controller = controller;
     		timer_label = new JLabel("0:"+hours+":"+minutes+":"+seconds); 
     		pause_button = new JButton("Pause");
     		play_button = new JButton("Play");
@@ -37,8 +40,8 @@ public class Chrono
     		mainPanel.add(play_button);
     		mainPanel.add(pause_button);
     		mainPanel.add(submit_button);
-    		mainPanel.add(newGame_button);
-    		mainPanel.add(save_button);
+    		//mainPanel.add(newGame_button);
+    		//mainPanel.add(save_button);
 
     		appFrame.getContentPane().add(timer_label, BorderLayout.BEFORE_FIRST_LINE);
     		appFrame.getContentPane().add(mainPanel, BorderLayout.AFTER_LAST_LINE);
@@ -47,7 +50,9 @@ public class Chrono
     		appFrame.setVisible(true);
 		}
 		
-	
+	public void validation() {
+	   
+	}
 		
 		/* Checks if the user have clicked on a button. If he clicks on pause, the timer will stop. If he clicks on start, the timer will start. If 
 		 * he clicks on new game, the timer will restart and a new grid will appear on the screen. 
@@ -118,7 +123,11 @@ public class Chrono
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-			// Call validation method
+			    // Call validation method
+			    // i did not do this lol
+			    controller.view.loadInputInModel();
+			    controller.solveBoard();
+			    controller.view.printSolveBoard();
 			}
 		});
 		
