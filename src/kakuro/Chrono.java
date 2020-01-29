@@ -44,7 +44,6 @@ public class Chrono
 		appFrame.pack();
 		appFrame.setSize(500,500); 
 		appFrame.setVisible(true);
-		
 		}
 		
 	
