@@ -13,5 +13,7 @@ public class Main
 
         GameController game = new GameController(columns, rows);
         game.loopGame();
+            
+        
     }
 }

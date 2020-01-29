@@ -33,6 +33,7 @@ public class GameController
         this.view = new GameView(this);
         view.printStartup();
         view.printBoard(false/*show answer values*/);
+        view.board_ui();
     }
 
     public void loopGame()
