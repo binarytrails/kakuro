@@ -6,7 +6,6 @@ import javax.swing.*;
 
 import java.awt.BorderLayout;
 import java.awt.event.*;
-import java.lang.ModuleLayer.Controller;
 
 public class Chrono
 {
