@@ -5,6 +5,7 @@
 package kakuro;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GameController
 {
@@ -63,26 +64,42 @@ public class GameController
     public Boolean solveBoard()
     {
         
-    	int filledCells=0;
+    	int filledCells=0;   //to keep track of number of filled cells
     	ArrayList<Boolean> check = new ArrayList<Boolean>();
-        
+        HashMap<Integer,Integer> map;
+    	
+        //nested loop to go through the whole board
     	for(int i=0;i<model.rows;i++) {
     		
     		for(int j=0;j<model.columns;j++) {
     			
     			switch(model.board[i][j].getType()) {
-    				
+    			
+    			//check sum if its a filled boards
     			case FILLED01:	{    
-    			    filledCells++;
+    			    
+    				filledCells++;          
     				int row = j+1;
     				int sum = 0;
+    				map = new HashMap<Integer,Integer>();
     				//continues to add horizontally until next cell is not an INPUT type
     				while(row <= model.columns && model.board[i][row].getType()==BoardCell.CellType.INPUT) {       //horizontal sum check
                         
-    					sum += model.board[i][row].getFirstValue();   					
+    					
+    					int cell = model.board[i][row].getFirstValue();   //getting cell value
+    					
+    					if(map.containsKey(cell)) {        //if already has number as input return false
+    						return false;
+    					}
+    					else {
+    						map.put(cell, cell);
+    					}
+    					sum += cell;   					  //adding the cell value
     					row++;
     				}
-    			    
+    			 
+    			 map.clear();                             //clearing hashmap after use
+    			
     			 if(sum==model.board[i][j].getSecondValue())
     				 check.add(true);
     			 else
@@ -95,12 +112,23 @@ public class GameController
     				filledCells++;
     				int colum = i+1;
     				int sum = 0;
+    				map = new HashMap<Integer,Integer>();
+    				
     				while(colum <= model.rows && model.board[colum][j].getType()==BoardCell.CellType.INPUT) {     
     					
-                        sum += model.board[colum][j].getFirstValue();   					
-    					colum++;
+                        int cell =  model.board[colum][j].getFirstValue();   					
+                    	
+                        if(map.containsKey(cell)) {                      //if already has number as input return false
+    						return false;
+    					}
+    					else {
+    						map.put(cell, cell);
+    					}
+                        sum += cell;
+                        colum++;
     				}
-    			    
+    			 map.clear();
+    			 
     			 if(sum==model.board[i][j].getFirstValue())
     				check.add(true);
     			 else 
@@ -115,21 +143,41 @@ public class GameController
     			int row = j+1;
     			int sumRows = 0;
     			int sumColums = 0;
-    			
+    			map = new HashMap<Integer,Integer>();
     			//checking row sum
     			while(row <= model.columns && model.board[i][row].getType()==BoardCell.CellType.INPUT) {       //horizontal sum check
 					
-                    sumRows += model.board[i][row].getFirstValue();   					
+    				int cell = model.board[i][row].getFirstValue();
+                    
+    			    if(map.containsKey(cell)) {      //if already has number as input return false
+						return false;
+					}
+					else {
+						map.put(cell, cell);         //insert in hashmap if not already present in the map
+					}
+    				
+    				sumRows += cell;   					
 					row++;
 				}
+    			map.clear();
     			
     			//checking column sum
     			while(colum <= model.rows && model.board[colum][j].getType()==BoardCell.CellType.INPUT) {     //vertical sum check
     					
-                    sumColums += model.board[colum][j].getFirstValue();   					
+    				int cell = model.board[colum][j].getFirstValue();
+    			    
+    				if(map.containsKey(cell)) {                      //if already has number as input return false
+						return false;
+					}
+					else {
+						map.put(cell, cell);
+					}
+    				
+    				sumColums += cell;   					
     				colum++;
     			 }
-    			    
+    			 map.clear(); 
+    
     			 if(sumColums==model.board[i][j].getFirstValue() && sumRows == model.board[i][j].getSecondValue())
     				 check.add(true);
     			 else
