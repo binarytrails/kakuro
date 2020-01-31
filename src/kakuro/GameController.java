@@ -34,7 +34,8 @@ public class GameController
         this.view = new GameView(this);
         view.printStartup();
         view.printBoard(false/*show answer values*/);
-        view.board_ui();
+        view.boardUI();
+        view.timerButtonControl();
     }
 
     public void loopGame()
@@ -48,7 +49,6 @@ public class GameController
                     view.printBoard(false/*show answer values*/);
                     break;
                 case SOLVE:
-                    view.loadInputInModel();
                     view.printSolveBoard();
                     break;
                 case ANSWERS:
@@ -203,10 +203,6 @@ public class GameController
           if(correct)    	
     	  return true;
           else
-          return false;
-    	
-    	
-    	
-    	
+          return false; 	
     }
 }

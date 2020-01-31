@@ -7,14 +7,24 @@ package kakuro;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.*;
 import java.text.NumberFormat;
 import java.util.Scanner;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.Timer;
 import javax.swing.border.LineBorder;
 import javax.swing.text.NumberFormatter;
 
@@ -34,7 +44,7 @@ import javax.swing.text.NumberFormatter;
  * https://docs.oracle.com/javase/tutorial/uiswing/components/formattedtextfield.html
  * https://stackoverflow.com/questions/11093326/restricting-jtextfield-input-to-integers
  * https://docs.oracle.com/javase/8/docs/api/javax/swing/JFormattedTextField.html
-*/
+ */
 
 import kakuro.GameController.UserActions;
 
@@ -43,12 +53,44 @@ public class GameView
     private final GameController controller;
     private Scanner inputReader = new Scanner(System.in);
 
-    //stores player input of board
-    public JTextField[][] input;
+    //ui
+    int gridSizeX;
+    int gridSizeY;
+    int frameSize = 60;
+    
+    //creating grid of cells
+    JPanel panel;
+    
+    //creating window of the game
+    JFrame frame = new JFrame("KAKURO");
 
+    JTextField input[][];
+    
+    //CHRONO
+    private  int hours=0;
+    private int minutes=0;
+    private int seconds=0;
+    private int delay=1000;
+    JLabel timerLabel;
+    JButton pauseButton;
+    JButton playButton;
+    JButton submitButton;
+    JButton newGameButton;
+    JButton saveButton;
+    JPanel mainPanel;
+    ActionListener timer_listener;
+
+    //    int row;
+    //    int column;
     public GameView(final GameController controller)
     {
         this.controller = controller;
+        //        row = controller.model.rows;
+        //        column = controller.model.columns;
+        gridSizeX =  controller.model.rows;
+        gridSizeY = controller.model.columns;
+        panel = new JPanel(new GridLayout(gridSizeX,gridSizeY));
+        chronoSetUp();
         input = new JTextField[controller.model.rows][controller.model.columns];
     }
 
@@ -58,38 +100,120 @@ public class GameView
         System.out.println("=> use numbers between 1-9 to fill the cells;");
     }
 
-    public void loadInputInModel()
-    {
-        for(int row = 0; row < controller.model.columns; row++)
+    public void chronoSetUp() {
+        timerLabel = new JLabel("0:"+hours+":"+minutes+":"+seconds); 
+        pauseButton = new JButton("Pause");
+        playButton = new JButton("Play");
+        submitButton = new JButton("Submit");
+        newGameButton = new JButton("New Game");
+        saveButton = new JButton("Save");
+        mainPanel = new JPanel();
+
+        mainPanel.add(playButton);
+        mainPanel.add(pauseButton);
+        mainPanel.add(submitButton);
+        frame.getContentPane().add(timerLabel, BorderLayout.BEFORE_FIRST_LINE);
+        frame.getContentPane().add(mainPanel, BorderLayout.AFTER_LAST_LINE);
+    }
+
+    public void timerButtonControl() {
+
+        timer_listener= new ActionListener()
         {
-            for(int column = 0; column < controller.model.rows; column++)
+            public void actionPerformed(ActionEvent e1)
+            {   
+                seconds++;
+                if(seconds==60)
+                {
+                    seconds=0;
+                    minutes++;
+                }
+                if(minutes==60)
+                {
+                    minutes=0;
+                    hours++;
+                }
+                timerLabel.setText("0:"+hours+":"+minutes+":"+seconds);
+            }
+        };
+
+        Timer time = new Timer(delay,timer_listener);
+        time.start();
+
+        /* With the use of an Action Listener to know if the user has clicked on the button, this part of the method will stop the timer. */    
+        pauseButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
             {
-                BoardCell cell = controller.model.board[row][column];
-                String value = input[row][column].getText();
-                if(!value.isEmpty()) {
-                    switch (cell.getType())
+                time.stop();
+            }
+        });
+        /* With the use of an Action Listener to know if the user has clicked on the button, this part of the method will start the timer. */
+        playButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                time.start();
+            }
+        });
+
+        /* With the use of an Action Listener to know if the user has clicked on the button, this part of the loop method will restart the timer. */
+        newGameButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                hours=0;
+                minutes=0;
+                seconds=0;
+                timerLabel.setText("0:"+hours+":"+minutes+":"+seconds);
+                time.start();
+            }
+        });
+
+        /* With the use of an Action Listener to know if the user has clicked on the button, this part of the method will perform the validation. */
+        submitButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                time.stop();
+                
+                //tried adding action listening to each textfield cell but no success so added it here.***
+                for(int i = 0; i < controller.model.rows; i++)
+                {
+                    for(int j = 0; j < controller.model.rows; j++)
                     {
-                        case INPUT:
-                            controller.model.board[row][column].setFirstValue(Integer.parseInt(value));
-                            break;
-                        default:
-                            break;
+                        //tracking the type of each cell
+                        BoardCell cell = controller.model.board[i][j];
+                        switch(cell.getType()) {
+                            case INPUT:
+                                cell.setFirstValue(Integer.parseInt(input[i][j].getText()));
+                                int temp = cell.getFirstValue();
+                                System.out.println(temp);
+                                break;
+                            default :
+                                break;
+                        }
                     }
                 }
+                controller.solveBoard();
+                printSolveBoard();
             }
-        }
+        });
+
+        /* With the use of an Action Listener to know if the user has clicked on the button, this part of the method will save the current state of
+         * the game.
+         *  */
+        saveButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                // Call save method
+            }
+        });
     }
 
     //creates user interface of the game board 
-    public void board_ui() {
-        int gridSizeX = controller.model.rows;
-        int gridSizeY = controller.model.columns;
-        int frameSize = 60;
-        //creating grid of cells
-        JPanel panel = new JPanel(new GridLayout(gridSizeX,gridSizeY));
-        //creating window of the game
-        JFrame frame = new JFrame("KAKURO");
-
+    public void boardUI() {
         //Number formatting: 
         //https://docs.oracle.com/javase/tutorial/uiswing/components/formattedtextfield.html
         //https://stackoverflow.com/questions/11093326/restricting-jtextfield-input-to-integers
@@ -105,14 +229,17 @@ public class GameView
 
         //identifies type of each cell and populates it
         //input or non-playable
-        for(int row = 0; row < controller.model.columns; row++)
+        for(int i = 0; i < controller.model.rows; i++)
         {
-            for(int column = 0; column < controller.model.rows; column++)
+            for(int j = 0; j < controller.model.rows; j++)
             {
+                //                
+                //                int row = i;
+                //                int colum = j;
                 JFormattedTextField textField = null;
 
                 //tracking the type of each cell
-                BoardCell cell = controller.model.board[row][column];
+                BoardCell cell = controller.model.board[i][j];
                 //adding extra panel that will overlay the cells that are non-playable with game level numbers and diagonal line
                 JPanel diagonalPanel = null;
 
@@ -131,6 +258,7 @@ public class GameView
                         textField.setHorizontalAlignment(JTextField.CENTER);
                         textField.setBorder(new LineBorder(Color.GRAY,1));
                         panel.add(textField);
+                        input[i][j] = textField;
                         break;
 
                     case FILLED01:
@@ -165,15 +293,11 @@ public class GameView
                     default:
                         break;
                 }
-
-                //placing textfield value in input array to track user input
-                input[row][column] = textField;
             }
         }
         int x = frameSize*gridSizeX;
         int y = frameSize*gridSizeY;
-        Chrono timer = new Chrono(frame, x, y, controller); // lol
-        timer.timing();
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(x, y);
         frame.setResizable(false);
@@ -206,7 +330,7 @@ public class GameView
                     case INPUT:
                         System.out.print("  " +
                                 (showAnswerValues ? (cell.getSecondValue() != -1 ? cell.getSecondValue() : "_") :
-                                                    (cell.getFirstValue() != -1 ? cell.getFirstValue() : "_")) +
+                                    (cell.getFirstValue() != -1 ? cell.getFirstValue() : "_")) +
                                 "  ");
                         break;
                     case FILLED11:
