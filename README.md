@@ -10,6 +10,10 @@ Filled cells notation means:
 
     (sum of rows below) \ (sum of columns to the right)
 
+## UI
+
+![iteration1-ui](resources/images/iteration1-ui.png)
+
 ## Console
 
     welcome to kakuro game!
