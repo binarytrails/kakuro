@@ -1,5 +1,8 @@
 # Kakuro
+
 > COMP 354: Introduction to Software Engineering
+
+Source Code: https://github.com/binarytrails/kakuro
 
 ## Rules
 
