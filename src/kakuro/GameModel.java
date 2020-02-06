@@ -25,7 +25,7 @@ public class GameModel
 
     public void initBoard()
     {
-        board = new BoardCell[this.columns][this.rows];
+        board = new BoardCell[this.rows][this.columns];
 
         for(int row = 0; row < this.rows; row++)
         {
