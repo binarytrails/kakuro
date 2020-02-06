@@ -1,5 +1,5 @@
 // @author Vsevolod Ivanov
-// @author ...
+// @author Nalveer Moocheet
 
 package kakuro;
 
