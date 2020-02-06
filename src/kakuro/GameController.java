@@ -83,14 +83,14 @@ public class GameController
     			case FILLED01:	{    
     			    
     				filledCells++;          
-    				int row = j+1;
+    				int column = j+1;
     				int sum = 0;
     				map = new HashMap<Integer,Integer>();
     				//continues to add horizontally until next cell is not an INPUT type
-    				while(row <= model.columns && model.board[i][row].getType()==BoardCell.CellType.INPUT) {       //horizontal sum check
+    				while(column <= model.columns && model.board[i][column].getType()==BoardCell.CellType.INPUT) {       //horizontal sum check
                         
     					
-    					int cell = model.board[i][row].getFirstValue();   //getting cell value
+    					int cell = model.board[i][column].getFirstValue();   //getting cell value
     					
     					if(map.containsKey(cell)) {        //if already has number as input return false
     						return false;
@@ -99,7 +99,7 @@ public class GameController
     						map.put(cell, cell);
     					}
     					sum += cell;   					  //adding the cell value
-    					row++;
+    					column++;
     				}
     			 
     			 map.clear();                             //clearing hashmap after use
@@ -114,13 +114,13 @@ public class GameController
     			 
     			case FILLED10 : {                                               //vertical sum check
     				filledCells++;
-    				int colum = i+1;
+    				int row = i+1;
     				int sum = 0;
     				map = new HashMap<Integer,Integer>();
     				
-    				while(colum <= model.rows && model.board[colum][j].getType()==BoardCell.CellType.INPUT) {     
+    				while(row <= model.rows && model.board[row][j].getType()==BoardCell.CellType.INPUT) {     
     					
-                        int cell =  model.board[colum][j].getFirstValue();   					
+                        int cell =  model.board[row][j].getFirstValue();   					
                     	
                         if(map.containsKey(cell)) {                      //if already has number as input return false
     						return false;
@@ -129,7 +129,7 @@ public class GameController
     						map.put(cell, cell);
     					}
                         sum += cell;
-                        colum++;
+                        row++;
     				}
     			 map.clear();
     			 
@@ -143,15 +143,15 @@ public class GameController
     			case FILLED11 : {
     				
     			filledCells++;	
-    			int colum = i+1;
-    			int row = j+1;
+    			int row = i+1;
+    			int column = j+1;
     			int sumRows = 0;
-    			int sumColums = 0;
+    			int sumColumns = 0;
     			map = new HashMap<Integer,Integer>();
     			//checking row sum
-    			while(row <= model.columns && model.board[i][row].getType()==BoardCell.CellType.INPUT) {       //horizontal sum check
+    			while(column <= model.columns && model.board[i][column].getType()==BoardCell.CellType.INPUT) {       //horizontal sum check
 					
-    				int cell = model.board[i][row].getFirstValue();
+    				int cell = model.board[i][column].getFirstValue();
                     
     			    if(map.containsKey(cell)) {      //if already has number as input return false
 						return false;
@@ -160,15 +160,15 @@ public class GameController
 						map.put(cell, cell);         //insert in hashmap if not already present in the map
 					}
     				
-    				sumRows += cell;   					
-					row++;
+    				sumColumns += cell;   					
+					column++;
 				}
     			map.clear();
     			
     			//checking column sum
-    			while(colum <= model.rows && model.board[colum][j].getType()==BoardCell.CellType.INPUT) {     //vertical sum check
+    			while(row <= model.rows && model.board[row][j].getType()==BoardCell.CellType.INPUT) {     //vertical sum check
     					
-    				int cell = model.board[colum][j].getFirstValue();
+    				int cell = model.board[row][j].getFirstValue();
     			    
     				if(map.containsKey(cell)) {                      //if already has number as input return false
 						return false;
@@ -177,12 +177,12 @@ public class GameController
 						map.put(cell, cell);
 					}
     				
-    				sumColums += cell;   					
-    				colum++;
+    				sumRows += cell;   					
+    				row++;
     			 }
     			 map.clear(); 
     
-    			 if(sumColums==model.board[i][j].getFirstValue() && sumRows == model.board[i][j].getSecondValue())
+    			 if(sumRows==model.board[i][j].getFirstValue() && sumColumns == model.board[i][j].getSecondValue())
     				 check.add(true);
     			 else
     				 return false;
