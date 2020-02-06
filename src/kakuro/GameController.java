@@ -11,7 +11,7 @@ public class GameController
 {
     public GameView view;
     public GameModel model;
-    private Boolean gui = false;
+    private Boolean gui = true;
 
     public enum UserActions
     {
