@@ -11,6 +11,7 @@ public class GameController
 {
     public GameView view;
     public GameModel model;
+    private Boolean gui = true;
 
     public enum UserActions
     {
@@ -20,9 +21,10 @@ public class GameController
         ANSWERS
     }
 
-    public GameController(final int columns, final int rows)
+    public GameController(final int columns, final int rows, final Boolean gui)
     {
         this.model = new GameModel(columns, rows);
+        this.gui = gui;
         initGame(model);
     }
 
@@ -34,7 +36,8 @@ public class GameController
         this.view = new GameView(this);
         view.printStartup();
         view.printBoard(false/*show answer values*/);
-        view.board_ui();
+        if (gui)
+            view.board_ui();
     }
 
     public void loopGame()
@@ -48,7 +51,8 @@ public class GameController
                     view.printBoard(false/*show answer values*/);
                     break;
                 case SOLVE:
-                    view.loadInputInModel();
+                    if (gui)
+                        view.loadInputInModel();
                     view.printSolveBoard();
                     break;
                 case ANSWERS:
