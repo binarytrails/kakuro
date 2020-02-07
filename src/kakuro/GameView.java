@@ -34,7 +34,7 @@ import javax.swing.text.NumberFormatter;
  * https://docs.oracle.com/javase/tutorial/uiswing/components/formattedtextfield.html
  * https://stackoverflow.com/questions/11093326/restricting-jtextfield-input-to-integers
  * https://docs.oracle.com/javase/8/docs/api/javax/swing/JFormattedTextField.html
-*/
+ */
 
 import kakuro.GameController.UserActions;
 
@@ -42,6 +42,11 @@ public class GameView
 {
     private final GameController controller;
     private Scanner inputReader = new Scanner(System.in);
+    private ButtonMenu buttonMenu;
+
+    JFrame frame = new JFrame("KAKURO");
+    int gridSizeX;
+    int gridSizeY;
 
     //stores player input of board
     public JTextField[][] input;
@@ -49,7 +54,11 @@ public class GameView
     public GameView(final GameController controller)
     {
         this.controller = controller;
+        gridSizeX = controller.model.rows;
+        gridSizeY = controller.model.columns;
+        //TO CHANGE!!!
         input = new JTextField[controller.model.rows][controller.model.columns];
+        buttonMenu = new ButtonMenu(frame, gridSizeX, gridSizeY, controller);
     }
 
     public void printStartup()
@@ -82,13 +91,12 @@ public class GameView
 
     //creates user interface of the game board 
     public void board_ui() {
-        int gridSizeX = controller.model.rows;
-        int gridSizeY = controller.model.columns;
+
         int frameSize = 60;
         //creating grid of cells
         JPanel panel = new JPanel(new GridLayout(gridSizeX,gridSizeY));
         //creating window of the game
-        JFrame frame = new JFrame("KAKURO");
+
 
         //Number formatting: 
         //https://docs.oracle.com/javase/tutorial/uiswing/components/formattedtextfield.html
@@ -172,8 +180,8 @@ public class GameView
         }
         int x = frameSize*gridSizeX;
         int y = frameSize*gridSizeY;
-        Chrono timer = new Chrono(frame, x, y, controller); // lol
-        timer.timing();
+        //        Chrono timer = new Chrono(frame, x, y, controller); // lol
+        //        timer.timing();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(x, y);
         frame.setResizable(false);
@@ -206,7 +214,7 @@ public class GameView
                     case INPUT:
                         System.out.print("  " +
                                 (showAnswerValues ? (cell.getSecondValue() != -1 ? cell.getSecondValue() : "_") :
-                                                    (cell.getFirstValue() != -1 ? cell.getFirstValue() : "_")) +
+                                    (cell.getFirstValue() != -1 ? cell.getFirstValue() : "_")) +
                                 "  ");
                         break;
                     case FILLED11:
@@ -316,5 +324,11 @@ public class GameView
             System.out.println("The board is solved!");
         else
             System.out.println("The solution is incorrect.");
+    }
+
+    public void settingUpMenu() {
+        //chronoSetUp MUST be called before buttonsSetUp.
+        buttonMenu.chronoSetUp();
+        buttonMenu.buttonsSetUp();
     }
 }

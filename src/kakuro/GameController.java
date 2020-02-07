@@ -38,6 +38,7 @@ public class GameController
         view.printBoard(false/*show answer values*/);
         if (gui)
             view.board_ui();
+            view.settingUpMenu();
     }
 
     public void loopGame()
