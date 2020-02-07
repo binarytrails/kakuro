@@ -46,4 +46,12 @@ public class TestBoardCell
         assertEquals(cell.getSecondValue(), answerNumber);
         assertEquals(cell.getType(), BoardCell.CellType.EMPTY);
     }
+    
+    @Test
+    public void testValidNumber()
+    {
+//        assertEquals(cell.getFirstValue(), inputNumber);
+//        assertEquals(cell.getSecondValue(), answerNumber);
+//        assertEquals(cell.getType(), BoardCell.CellType.EMPTY);
+    }
 }

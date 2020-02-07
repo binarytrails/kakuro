@@ -315,9 +315,9 @@ public class GameView
     public void printBoard(Boolean showAnswerValues)
     {
         System.out.println("board:");
-        for(int row = 0; row < controller.model.columns; row++)
+        for(int row = 0; row < controller.model.rows; row++)
         {
-            for(int column = 0; column < controller.model.rows; column++)
+            for(int column = 0; column < controller.model.columns; column++)
             {
                 int value = 0;
                 int value2 = 0;
