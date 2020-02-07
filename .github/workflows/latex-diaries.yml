@@ -1,0 +1,13 @@
+name: Build LaTeX Diaries
+on: [push]
+jobs:
+  build_latex_diaries:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v1
+      - name: Compile Vsevolod Ivanov diary
+        uses: xu-cheng/latex-action@master
+        with:
+          root_file: diary_VsevolodIvanov.tex
+          working_directory: diaries
