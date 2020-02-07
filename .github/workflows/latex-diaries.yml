@@ -1,0 +1,38 @@
+name: Build LaTeX Diaries
+on: [push]
+jobs:
+  build_latex_diaries:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v1
+      - name: Compile Vsevolod Ivanov diary
+        uses: xu-cheng/latex-action@master
+        with:
+          root_file: diary_VsevolodIvanov.tex
+          working_directory: diaries
+      - name: Compile Jia Ming Wei diary
+        uses: xu-cheng/latex-action@master
+        with:
+          root_file: diary_JiaMingWei.tex
+          working_directory: diaries
+      - name: Compile Tiffany diary
+        uses: xu-cheng/latex-action@master
+        with:
+          root_file: diary_TiffanyAH KING.tex
+          working_directory: diaries
+      - name: Compile Nalveer Moocheet diary
+        uses: xu-cheng/latex-action@master
+        with:
+          root_file: diary_NalveerMoocheet.tex
+          working_directory: diaries
+      - name: Compile Audrey-Laure StLouis diary
+        uses: xu-cheng/latex-action@master
+        with:
+          root_file: diary_AudreyLaureStLouis.tex
+          working_directory: diaries
+      - name: Compile Chang Liu diary
+        uses: xu-cheng/latex-action@master
+        with:
+          root_file: diary_Chang Liu.tex
+          working_directory: diaries

@@ -1,7 +1,7 @@
 name: Build LaTeX Documentation
 on: [push]
 jobs:
-  build_latex:
+  build_latex_iteration1_docs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
