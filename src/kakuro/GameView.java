@@ -92,8 +92,13 @@ public class GameView
         return (int) numberFormatter.getMinimum();
     }
     
+    public Object getNumberFormatterClassType() {
+        return numberFormatter.getClass();
+    }
+    
+    
     public int getMaxNumberValid() {
-        return (int) numberFormatter.getMinimum();
+        return (int) numberFormatter.getMaximum();
     }
 
     //creates user interface of the game board 
