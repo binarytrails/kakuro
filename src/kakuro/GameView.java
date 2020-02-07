@@ -40,18 +40,21 @@ public class GameView
         this.buttonMenu = buttonMenu;
     }
 
-    JFrame frame = new JFrame("KAKURO");
+    JFrame frame;
     int gridSizeX;
     int gridSizeY;
     NumberFormat numberFormat = NumberFormat.getInstance();
     NumberFormatter numberFormatter = new NumberFormatter(numberFormat);
     
-    public GameView(final GameController controller)
+    public GameView(final GameController controller, Boolean X11)
     {
+        if (X11)
+            frame = new JFrame("KAKURO");
         this.controller = controller;
         gridSizeX = controller.model.rows;
         gridSizeY = controller.model.columns;
-        buttonMenu = new ButtonMenu(frame, gridSizeX, gridSizeY, controller);
+        if (X11)
+            buttonMenu = new ButtonMenu(frame, gridSizeX, gridSizeY, controller);
         numberFormatter.setValueClass(Integer.class);
         numberFormatter.setMinimum(1);
         numberFormatter.setMaximum(9);

@@ -15,7 +15,7 @@ public class TestInputValid {
     public void testIfInputValid() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter input:");
-        GameView gameView = new GameView(new GameController(10,10,false));
+        GameView gameView = new GameView(new GameController(10,10,false), false/*GUI*/);
         int value = scanner.nextInt();
         assertTrue(value<=gameView.getMaxNumberValid() && 
                 value>=gameView.getMinNumberValid());      

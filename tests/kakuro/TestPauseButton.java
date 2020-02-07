@@ -13,7 +13,7 @@ public class TestPauseButton {
     
     @Test
     public void testStop() throws InterruptedException{
-        GameView gameView = new GameView(new GameController(10,10,false));
+        GameView gameView = new GameView(new GameController(10,10,false), false/*GUI*/);
         
         gameView.settingUpMenu(); // chrono starts
         Thread.sleep(3000);

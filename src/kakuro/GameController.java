@@ -33,12 +33,13 @@ public class GameController
         model.initBoard();
         if (model.columns == 10 && model.rows == 10)
             model.generateBoard10x10();
-        this.view = new GameView(this);
+        this.view = new GameView(this, gui);
         view.printStartup();
         view.printBoard(false/*show answer values*/);
-        if (gui)
+        if (gui){
             view.board_ui();
             view.settingUpMenu();
+        }
     }
 
     public void loopGame()
