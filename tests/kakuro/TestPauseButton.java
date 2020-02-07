@@ -1,3 +1,6 @@
+// @author Isabelle Charette
+// @author Audrey-Laure St-Louis
+
 package kakuro;
 import static org.junit.Assert.*;
 
