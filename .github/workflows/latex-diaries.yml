@@ -1,5 +1,8 @@
 name: Build LaTeX Diaries
-on: [push]
+on:
+  push:
+    paths:
+    - 'diaries/*.tex'
 jobs:
   build_latex_diaries:
     runs-on: ubuntu-latest
