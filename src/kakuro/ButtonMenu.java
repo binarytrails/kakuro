@@ -81,10 +81,11 @@ public class ButtonMenu {
         {
             public void actionPerformed(ActionEvent e)
             {
+                chrono.chronoPause();
+                //loads data into model
                 gameController.view.loadInputInModel();
                 gameController.solveBoard();
                 gameController.view.printSolveBoard();
-                chrono.chronoPause();
             }
         });
 
