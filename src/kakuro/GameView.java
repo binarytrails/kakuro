@@ -35,13 +35,18 @@ public class GameView
     JFrame frame = new JFrame("KAKURO");
     int gridSizeX;
     int gridSizeY;
-
+    NumberFormat numberFormat = NumberFormat.getInstance();
+    NumberFormatter numberFormatter = new NumberFormatter(numberFormat);
+    
     public GameView(final GameController controller)
     {
         this.controller = controller;
         gridSizeX = controller.model.rows;
         gridSizeY = controller.model.columns;
         buttonMenu = new ButtonMenu(frame, gridSizeX, gridSizeY, controller);
+        numberFormatter.setValueClass(Integer.class);
+        numberFormatter.setMinimum(1);
+        numberFormatter.setMaximum(9);
     }
 
     public void printStartup()
@@ -71,6 +76,14 @@ public class GameView
             }
         }
     }
+    
+    public int getMinNumberValid() {
+        return (int) numberFormatter.getMinimum();
+    }
+    
+    public int getMaxNumberValid() {
+        return (int) numberFormatter.getMinimum();
+    }
 
     //creates user interface of the game board 
     public void board_ui() {
@@ -79,11 +92,7 @@ public class GameView
         //creating grid of cells
         JPanel panel = new JPanel(new GridLayout(gridSizeX,gridSizeY));
         //creating window of the game
-        NumberFormat numberFormat = NumberFormat.getInstance();
-        NumberFormatter numberFormatter = new NumberFormatter(numberFormat);
-        numberFormatter.setValueClass(Integer.class);
-        numberFormatter.setMinimum(1);
-        numberFormatter.setMaximum(9);
+     
         //this allows temporary invalid input, particularly to be able to delete and try again
         //if invalid input, when clicking onto another cell, the input will be deleted
         numberFormatter.setAllowsInvalid(true);
@@ -150,15 +159,13 @@ public class GameView
                     default:
                         break;
                 }
-
                 //placing textfield value in input array to track user input
                 controller.model.saveInput[row][column] = textField;
             }
         }
         int x = frameSize*gridSizeX;
         int y = frameSize*gridSizeY;
-        //        Chrono timer = new Chrono(frame, x, y, controller); // lol
-        //        timer.timing();
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(x, y);
         frame.setResizable(false);
