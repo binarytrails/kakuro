@@ -17,6 +17,14 @@ public class ButtonMenu {
     JButton save_button;
     JPanel mainPanel;
     Chrono chrono;
+    public Chrono getChrono() {
+        return chrono;
+    }
+
+    public void setChrono(Chrono chrono) {
+        this.chrono = chrono;
+    }
+
     GameController gameController;
 
 

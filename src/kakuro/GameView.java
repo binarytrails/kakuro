@@ -32,6 +32,14 @@ public class GameView
     private Scanner inputReader = new Scanner(System.in);
     private ButtonMenu buttonMenu;
 
+    public ButtonMenu getButtonMenu() {
+        return buttonMenu;
+    }
+
+    public void setButtonMenu(ButtonMenu buttonMenu) {
+        this.buttonMenu = buttonMenu;
+    }
+
     JFrame frame = new JFrame("KAKURO");
     int gridSizeX;
     int gridSizeY;
