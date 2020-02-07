@@ -26,13 +26,13 @@ jobs:
         with:
           root_file: diary_NalveerMoocheet.tex
           working_directory: diaries
-      - name: Compile Chang Liu diary
-        uses: xu-cheng/latex-action@master
-        with:
-          root_file: diary_Chang Liu.tex
-          working_directory: diaries
       - name: Compile Audrey-Laure StLouis diary
         uses: xu-cheng/latex-action@master
         with:
           root_file: diary_AudreyLaureStLouis.tex
+          working_directory: diaries
+      - name: Compile Chang Liu diary
+        uses: xu-cheng/latex-action@master
+        with:
+          root_file: diary_Chang Liu.tex
           working_directory: diaries
