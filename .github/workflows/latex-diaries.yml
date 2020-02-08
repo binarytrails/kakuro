@@ -39,7 +39,7 @@ jobs:
         with:
           root_file: diary_Chang Liu.tex
           working_directory: diaries
-        - name: Compile Isabelle Charette diary
+      - name: Compile Isabelle Charette diary
         uses: xu-cheng/latex-action@master
         with:
           root_file: diary_IsabelleCharette.tex
