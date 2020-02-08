@@ -28,7 +28,7 @@ import kakuro.GameController.UserActions;
 
 public class GameView
 {
-    private final GameController controller;
+    private GameController controller;
     private Scanner inputReader = new Scanner(System.in);
     private ButtonMenu buttonMenu;
 
@@ -50,9 +50,12 @@ public class GameView
     {
         if (X11)
             frame = new JFrame("KAKURO");
-        this.controller = controller;
-        gridSizeX = controller.model.rows;
-        gridSizeY = controller.model.columns;
+        if (controller != null)
+        {
+            this.controller = controller;
+            gridSizeX = controller.model.rows;
+            gridSizeY = controller.model.columns;
+        }
         if (X11)
             buttonMenu = new ButtonMenu(frame, gridSizeX, gridSizeY, controller);
         numberFormatter.setValueClass(Integer.class);
