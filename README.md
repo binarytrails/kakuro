@@ -85,12 +85,12 @@ Filled cells notation means:
 Roles | Iteration 1 | Roles | Iteration 2 | Roles | Iteration 3
 --- | --- | --- |  --- | --- | ---
 Organizer | Jia | Organizer | Seva | Organizer | Audrey-Laure
-Organizer | Tiffany | Coder | Nolan | Coder | 
+Documenter | Tiffany | Coder | Nolan | Coder | 
 Coder | Seva | Coder | Josh | Coder | 
 Coder | Nalveer | Coder | Brian | Coder | 
 Coder | Isabelle | Documenter | Audrey-Laure | Documenter | 
 Documenter | Nolan | Documenter | Isabelle | Documenter | 
 Documenter | Ryan | Documenter | Jia | QA | 
-Documenter | Josh | QA | Tiffany | Tester | 
-Documenter | Chang | QA | Nalveer | Tester | 
-QA | Audrey-Laure | QA | Chang | Tester | 
+Documenter | Josh | QA | Tiffany | QA | 
+Documenter | Chang | QA | Nalveer | QA | 
+QA | Audrey-Laure | QA | Chang | QA | 
