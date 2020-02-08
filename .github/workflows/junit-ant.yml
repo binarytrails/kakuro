@@ -1,6 +1,10 @@
-name: Java CI
+name: Java Unit Test CI
 
-on: [push]
+on:
+  push:
+    paths:
+    - 'src/kakuro/*.java'
+    - 'tests/kakuro/*.java'
 
 jobs:
   build:

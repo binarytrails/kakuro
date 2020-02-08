@@ -6,6 +6,7 @@ package kakuro;
 
 import java.util.Enumeration;
 
+import javax.swing.JTextField;
 import javax.swing.tree.TreeNode;
 
 public class GameModel
@@ -14,6 +15,7 @@ public class GameModel
     public final int columns;
     public final int rows;
     public BoardCell[][] board;
+    public JTextField[][] saveInput;
     private static UniquePartitions partitions;
 
     public GameModel(final int columns, final int rows)
@@ -21,11 +23,12 @@ public class GameModel
         this.columns = columns;
         this.rows = rows;
         partitions = new UniquePartitions();
+        saveInput=new JTextField[rows][columns];
     }
 
     public void initBoard()
     {
-        board = new BoardCell[this.columns][this.rows];
+        board = new BoardCell[this.rows][this.columns];
 
         for(int row = 0; row < this.rows; row++)
         {

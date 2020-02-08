@@ -1,0 +1,16 @@
+name: Build LaTeX Documentation
+on:
+  push:
+    paths:
+    - 'documents/**/main.tex'
+jobs:
+  build_latex_iteration1_docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v1
+      - name: Compile Iteration-1 LaTeX document # TODO: add next every iteration
+        uses: xu-cheng/latex-action@master
+        with:
+          root_file: main.tex
+          working_directory: documents/iteration1

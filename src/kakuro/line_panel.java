@@ -17,20 +17,10 @@ import javax.swing.JTextField;
 
 /*
  * SOURCES 
- * Examples on extending JPanel class and using paintComponent method:
+ * Examples on extending JPanel class and using paintComponent method // Examples for textfield formatting
  * http://programmedlessons.org/java5/Notes/chap36/ch36_10.html
- * https://stackoverflow.com/questions/31519857/draw-triangle-on-top-of-rectangle-in-java
- * https://stackoverflow.com/questions/10767265/drawing-a-line-on-a-jframe
- * 
- * Examples for textfield formatting
- * https://stackoverflow.com/questions/7582238/changing-border-color-of-awt-textfield
- * https://www.programcreek.com/java-api-examples/?class=javax.swing.JTextField&method=setBorder
- * https://examples.javacodegeeks.com/desktop-java/swing/java-swing-layout-example/
- 
- * Examples on Frames, panels, labels and grids
- * https://www.guru99.com/java-swing-gui.html#8
- * https://docs.oracle.com/javase/tutorial/uiswing/layout/spring.html
- * 
+ * https://docs.oracle.com/javase/tutorial/uiswing/components/formattedtextfield.html
+ * https://docs.oracle.com/javase/8/docs/api/javax/swing/JFormattedTextField.html
  */
 
 public class line_panel extends JPanel {
