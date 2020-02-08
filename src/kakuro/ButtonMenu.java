@@ -43,11 +43,14 @@ public class ButtonMenu {
         mainPanel.add(pause_button);
         mainPanel.add(submit_button);
 
-        appFrame.getContentPane().add(chrono.getTimerLabel(), BorderLayout.BEFORE_FIRST_LINE);
-        appFrame.getContentPane().add(mainPanel, BorderLayout.AFTER_LAST_LINE);
-        appFrame.pack();
-        appFrame.setSize(x,y); 
-        appFrame.setVisible(true);
+        if (appFrame != null)
+        {
+            appFrame.getContentPane().add(chrono.getTimerLabel(), BorderLayout.BEFORE_FIRST_LINE);
+            appFrame.getContentPane().add(mainPanel, BorderLayout.AFTER_LAST_LINE);
+            appFrame.pack();
+            appFrame.setSize(x,y);
+            appFrame.setVisible(true);
+        }
     }
 
     public void chronoSetUp() {
