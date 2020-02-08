@@ -1,3 +1,6 @@
+// @author Vsevolod Ivanov
+// @author ...
+
 package kakuro;
 
 import static org.junit.Assert.*;
