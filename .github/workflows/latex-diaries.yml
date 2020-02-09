@@ -44,3 +44,9 @@ jobs:
         with:
           root_file: diary_IsabelleCharette.tex
           working_directory: diaries
+      - name: Compile Brian Gamboc-Javiniar diary
+        uses: xu-cheng/latex-action@master
+        with:
+          root_file: diary_BrianGambocJaviniar.tex
+          working_directory: diaries
+          
