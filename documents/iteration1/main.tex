@@ -7,6 +7,8 @@
 % tables
 \usepackage[utf8]{inputenc}
 \usepackage[table]{xcolor}
+\usepackage{enumitem}
+\setlist{nolistsep}
 
 \pagestyle{empty}
 \setcounter{secnumdepth}{2}
@@ -77,819 +79,899 @@ Jia Ming Wei & Organizer & 40078192 \\
 
 \newpage
 
-
-
- \renewcommand*\contentsname{Table of Contents}
-
- 
+\renewcommand*\contentsname{Table of Contents}
 
 \tableofcontents
 
-
 \newpage
-\section{Introduction}
-
-
-Kakuro or Kakkuro  is a kind of logic puzzle similar to a crossword but with numbers. It was developed and created by Canadian Jacob E.Funk,an employee of Dell Magazines in 1966. Like Sudoku, solving a Kakuro puzzle involves exploring different combinations and permutations.\\
-
-The objective of the puzzle is to insert a digit from 1 to 9 inclusive into each white cell such that the sum of the numbers in each entry matches the clue associated with it and that no digit is duplicated in any entry. \\
-
-The purpose of this document  is to depict how to use it, its operation, maintenance, or design of software of the kakuro puzzle. It will also describe its functions, graphical user interfaces, requirements and constraints of the game. The details on how to play will be detailed in the use case, diagram and more details will be available in the upcoming design phase.\\
-
+\section{System}
 
 \subsection{Purpose}
 
-This Software Requirements Document (SRD) describes the specification of the Kakuro puzzle game, which is in partial fulfillment of the requirements of COMP 354- Introduction to Software Engineering. It will define the requirements of the user interfaces, user stories, the rules and how this software works.The analysis model will include use UML, case diagrams, class diagrams, sequence diagrams and state transition diagrams. Furthermore, a detailed
-project plan will be provided, including the schedule of the upcoming phases. This document is intended primarily for the members of  Team PK-A and the project co-ordinator, Dr. Gregory Butler, as it will serve as a basis for the upcoming phases of the project.
+This Software Requirements Document describes the specifications of the Kakuro puzzle game, which is in partial fulfillment of the requirements of COMP 354 - Introduction to Software Engineering. It will define the requirements of user interfaces, user stories, game mechanics and how the software should work. The requirement analysis will include a use case diagrams and a domain model diagram to describe the problem domain of the application. It will also identifies non-functional requirements and hardware/software constraints. It also provides a glossary to formally describes key concepts involved in the project. This document is designed for Team Pk-A. [2]
  
-
-\subsection{Scope}
-
-Screen shots of the user interfaces will give the player an idea on how the game will look once it is completed. The user case will be based on every scenarios possible when the game is being played. The user description will include the target audience and working environment of the game. Specifications for the game will be outlined in the specific requirements section and the analysis model will contain UML diagrams. The use case diagrams will give an overview of the functions of Kakuro and how the users will interact with the game. The class diagrams will show the interrelationships between the different objects in the game and the sequence diagrams will model the flow of logic within the game.
-
-
-
 \subsection{Context}
 
-The software we are building is a puzzle game called Kakuro, which we are solely building it as a desktop application. We will be building other features in conjunction with the game mechanics of Kakuro as part of the experience that differs from the usual gameplay. The users are players of the game, who are able to interact with the application by playing as a known or as an anonymous user. The desktop application will utilize a database to store information, such as scores, users, difficulties, and other important information. 
-
+The software we are building is a requirement for our `Introduction to Software Engineering` class to show our acquired knowledge for software development. The requirements to the maintenance of the software will be taken into account as these are the fundamentals of development. We will be interchanging roles for three iterations and to expose ourselves to different kind of view points of expertise in the field.
 
 \subsection{Business Goals}
 
-The objective of this project is to design and implement a single-player desktop application of the game Kukuro. The application will enforce the rules of a classical Kukuro game. It will allow a single player to play a random 10x10 Kakuro, and it will also keep track of the best play record of each registered user. 
+The business objective of this project is to design and implement a single-player desktop game Kukuro based on the popular puzzle game of the same name. The application will enforce the rules of a classical Kukuro game and it will allow a single player to play a random 10x10 Kakuro game on a personal computer. Additionally, players can register, save a game in progress, resume a saved game and view their best game record.
 
-
+\newpage
 
 \section{Domain Model}
 
+The domain model of the Kakuro application consists of players, games, cells, game progresses and saved white cells. A player can play one game at a time. Each game contains cells. There are two types of cells. Black cells represent non-fillable cells. Some of them contain clues about the puzzle which it belongs to. White cells are cells in which players can enter a number from 0 to 9 inclusively. A player can also save a game that is currently being played. The saved game progress includes the elapsed time, and any prior input that the player has entered. 
+
 \begin{figure}[htbp]
-    \centering
-    \includegraphics[scale=0.6]{DomainModel}
-    \caption{Our current system}
+    \includegraphics[width=1\textwidth]{DomainModel}
+    \caption{Domain Model of the Kakuro Game System}
     \label{fig:DomainModel}
 \end{figure}
 
+\newpage
 
-\section{Actors}
-Anonymous user \\\\
-Anonymous users are players who are not registered but want to play the game without having added value to their gameplay. They have the same functionality as a normal user, but they have limited usage with the software application. If the anonymous user wants to ever save their score into our system, they will need to create an account. (no timer / not able to pause  if we allow timer / not able to view highscores of others /  other things?) \\
+\section{Actors} 
 
-Registered user\\\\
-Registered users are users who created an account and are able to fully use all the features in the desktop application. As a registered user, they can view the overall scores of all users, as well as their personal scores.\\
+Players are the only actors for this application. They are users who can play the game. They can register and login. Moreover, they can interact with the graphical user interface by starting the game, viewing overall scores of other players, as well as their personal scores. Finally, they have the ability to choose the difficulty and pause/resume when they need to.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USE CASE 1 - make a function to not repeat
+\newpage
 
 \section{Use Cases}
-\subsubsection{Use Case 1 - Start the game} \label{uc:1}
+
+\subsection{Overview}
+Our use case diagram represents our use cases and features that we will be implementing for the Kukuro game. As a player, they can normally start the game, pause, resume, or restart. Furthermore, they are able to save their progress and load it at any point of time. Also, the player is able to view other player's high-score, as well as choosing the level of difficulty.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[scale=0.6]{StartGame}
-    \caption{Use Case Diagram - Start the game}
-    \label{fig:StartGame}
+    \includegraphics[scale=0.6]{UseCaseDiagram}
+    \caption{Use Case Diagram}
+    \label{fig:UseCaseDiagram}
 \end{figure}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USE CASE 1 
+
+\subsection{Use Case 1 - Start game} 
+
+\begin{center}
+\setlength{\tabcolsep}{18pt}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{ |p{3.4cm}|p{10cm}| }
+    \hline
+    \textbf{Item} & \textbf{Description} \\
+    \hline
+    Name & Start game \\
+    \hline
+    Summary & A player starts a game \\
+    \hline
+    Actors & Player \\
+    \hline
+    Precondition &  
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+    \item The application is running
+    \item No game is in progress
+    \end{enumerate}  \\
+    \hline
+    Main Scenario &     
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+    \item The player clicks on the start button
+    \item A Kakuro game is displayed. All white cells of the game is empty.
+    \item The timer starts
+    \end{enumerate}  \\
+    \hline
+    Alternate Scenario & None  \\
+    \hline
+    Exceptions & None \\
+    \hline
+    Postcondition & 
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+    \item A new Kakuro game is displayed 
+    \end{enumerate}  \\
+    \hline
+    Priority & High  \\
+    \hline
+    \small{\small{Traces to Test Cases}} & Add when test cases done  \\
+    \hline
+\end{tabular}
+\end{center}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USE CASE 2 
+
+\subsection{Use Case 2 - Submit answer}
+
+\begin{center}
+\setlength{\tabcolsep}{16pt}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{ |p{3.4cm}|p{10cm}| }
+    \hline
+    \textbf{Item} & \textbf{Description} \\
+    \hline
+    Name & Submit answer \\
+    \hline
+    Summary & A player checks whether the entered numbers are a solution to the puzzle \\
+    \hline
+    Actors & Player \\
+    \hline
+    Precondition & 
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+    \item A game is in progress
+    \item All white cells are filled
+    \end{enumerate}  \\
+    \hline
+    Main Scenario &     
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+    \item The player clicks on the submit button
+    \item The application validates the answer and the answer is correct
+    \item The timer stops and time is shown
+    \item A message is displayed, informing the player that the answer was correct
+    \item The game ends
+    \end{enumerate}  \\
+    \hline
+    Alternate Scenario & 
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+    \item The player clicks on the submit button
+    \item The application validates the answer and the answer is wrong
+    \item A message is displayed, informing the player that the answer was incorrect
+    \item The game resumes
+    \end{enumerate}  \\
+    \hline
+    Exceptions &  None \\
+    \hline
+    Postcondition & None \\
+    \hline
+    Priority & High  \\
+    \hline
+    \small{Traces to Test Cases} & Added when test cases done  \\
+    \hline
+\end{tabular}
+\end{center}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USE CASE 3
+
+\subsection{Use Case 3 - Restart game}
 
 \begin{center}
 \setlength{\tabcolsep}{18pt}
 \renewcommand{\arraystretch}{1.3}
-\begin{tabular}{ |p{3cm}|p{10cm}| }
+\begin{tabular}{ |p{3.4cm}|p{10cm}| }
     \hline
-    \rowcolor{green}
-   Item & Description \\
+    
+   \textbf{Item} & \textbf{Description} \\
     \hline
-    Name & Start the game \\
+    Name & Restart game \\
     \hline
-    Summary & A player starts the game \\
+    Summary & The game restarts the current game. All the white cells will be return to empty and the timer will reset \\
+    \hline
+    Actors & Player \\
+    \hline
+    Precondition & A game is in progress \\
+    \hline
+    Main Scenario &     
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+    \item The player selects restart game
+    \item A confirmation message is shown
+    \item The player confirms restarting the game
+    \item All white cells are cleared
+    \item Timer resets
+    \end{enumerate}  \\
+    \hline
+    Alternate Scenario & \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+    \item The player declines to restart the game
+    \item The confirmation message disappears
+    \item The game resumes
+    \end{enumerate}  \\
+    \hline
+    Exceptions &  None\\
+    \hline
+    Postcondition & 
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item The same game begins from the start.
+    \end{enumerate}  \\
+    \hline
+    Priority & Medium  \\
+    \hline
+    \small{Traces to Test Cases} & Add when test cases done  \\
+    \hline
+\end{tabular}
+\end{center}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USE CASE 4 - Choose difficulty level
+
+\subsection{Use Case 4 - Choose difficulty level} 
+
+\begin{center}
+\setlength{\tabcolsep}{18pt}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{ |p{3.4cm}|p{10cm}| }
+    \hline
+   \textbf{Item} & \textbf{Description} \\
+    \hline
+    Name & Choose difficulty level \\
+    \hline
+    Summary & A player chooses a difficulty level (Easy - Medium - Hard) for the next game \\
+    \hline
+    Actors & Player \\
+    \hline
+    Precondition & 
+    None \\
+    \hline
+    Main Scenario &     
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item The player clicks on the difficulty button
+        \item A list of different difficulties (Easy - Medium - Hard) is displayed
+        \item The player selects a difficulty level 
+        \item The list disappears
+        \item The selected difficulty is displayed to the player
+    \end{enumerate}  \\
+    \hline
+    Alternate Scenario & None \\
+    \hline
+    Exceptions &  None\\
+    \hline
+    Postcondition & 
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item The system saves the player difficulty preference
+    \end{enumerate}  \\
+    \hline
+    Priority & Low  \\
+    \hline
+    \small{Traces to Test Cases} & Add when test cases done  \\
+    \hline
+\end{tabular}
+\end{center}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USE CASE 5 - Input number
+
+\subsection{Use Case 5 - Input number}
+
+\begin{center}
+\setlength{\tabcolsep}{18pt}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{ |p{3.4cm}|p{10cm}| }
+    \hline
+    \textbf{Item} & \textbf{Description} \\
+    \hline
+    Name & Input number \\
+    \hline
+    Summary & The player chooses a white cell and enter a number from 0 to 9 (inclusive) \\
+    \hline
+    Actors & Player \\
+    \hline
+    Precondition & 
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item A game that is in progress.
+    \end{enumerate}  \\
+    \hline
+    Main Scenario &     
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item The player chooses a white cell that is empty
+        \item The player enters a number between 0-9
+        \item The number chosen by the player is shown in the white cell
+    \end{enumerate}  \\
+    \hline
+    Alternate Scenario &     
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item The player chooses a white cell that is already filled
+        \item The player enters a number between 0-9
+        \item The number previously shown in the cell is removed and the new selected number is shown in the cell
+    \end{enumerate}  \\
+    \hline
+    Exceptions & 
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item The player chooses a white cell 
+        \item The player enters a letter
+    \end{enumerate}  \\
+    \hline
+   Postcondition & 
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item The chosen number entered by the player is shown in the selected cell 
+    \end{enumerate} \\
+    \hline
+    Priority & High  \\
+    \hline
+    \small{Traces to Test Cases} & Add when test cases done  \\
+    \hline
+\end{tabular}
+\end{center}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USE CASE 6 - Pause game
+
+\subsection{Use Case 6 - Pause game}
+
+\begin{center}
+\setlength{\tabcolsep}{18pt}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{ |p{3.4cm}|p{10cm}| }
+    \hline
+    \textbf{Item} & \textbf{Description} \\
+    \hline
+    Name & Pause game \\
+    \hline
+    Summary & The player pauses the game their currently playing \\
+    \hline
+    Actors & Player \\
+    \hline
+    Precondition & 
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item A game that is in progress.
+    \end{enumerate}  \\
+    \hline
+    Main Scenario &     
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item The player clicks on the pause button
+        \item The game board is blurred, preventing the player from playing
+        \item The timer stops  
+        \item The application informs the player that the game is paused
+    \end{enumerate}  \\
+    \hline
+    Alternate Scenario & None \\
+    \hline
+    Exceptions & None \\
+    \hline
+    Postcondition & \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item The game is paused
+    \end{enumerate}  \\
+    \hline
+    Priority & Medium  \\
+    \hline
+    \small{Traces to Test Cases} & Add when test cases done  \\
+    \hline
+\end{tabular}
+\end{center}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USE CASE 7 - Resume game
+
+\subsection{Use Case 7 - Resume game}
+
+\begin{center}
+\setlength{\tabcolsep}{18pt}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{ |p{3.4cm}|p{10cm}| }
+    \hline
+    \textbf{Item} & \textbf{Description} \\
+    \hline
+    Name & Resume game \\
+    \hline
+    Summary & The player resumes a game that is currently being paused \\
+    \hline
+    Actors & Player \\
+    \hline
+    Precondition & 
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item A game that is paused
+    \end{enumerate}  \\
+    \hline
+    Main Scenario &     
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item The player clicks on the resume button
+        \item The game board is unblurred and revealed to the user
+        \item The timer starts ticking again
+    \end{enumerate}  \\
+    \hline
+    Alternate Scenario & None \\
+    \hline
+    Exceptions & None \\
+    \hline
+    Postcondition & \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item The game is resumed and the player can continue playing
+    \end{enumerate}  \\
+    \hline
+    Priority & Medium  \\
+    \hline
+    \small{Traces to Test Cases} & Add when test cases done  \\
+    \hline
+\end{tabular}
+\end{center}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USE CASE 8 - Login
+
+\subsection{Use Case 8 - Login}
+
+\begin{center}
+\setlength{\tabcolsep}{18pt}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{ |p{3.4cm}|p{10cm}| }
+    \hline
+    
+   \textbf{Item} & \textbf{Description} \\
+    \hline
+    Name & Login \\
+    \hline
+    Summary & The player signs into their game account \\
     \hline
     Actors & Player \\
     \hline
     Precondition & None \\
     \hline
     Main Scenario &     
-    \vspace*{-0.2in}
-    \begin{enumerate}
-    \item The user starts the game
-    \item The board is initialized
-    \item Timer starts
-    \end{enumerate}  \\
-    \hline
-    Exceptions &  \\
-    \hline
-    Postcondition & 
-    \vspace*{-0.2in}
-    \begin{enumerate}
-    \item The player can now input answers
-    \end{enumerate}  \\
-    \hline
-    Priority & High  \\
-    \hline
-    Traces to Test Cases & Added when test cases done  \\
-    \hline
-\end{tabular}
-\end{center}
-
-\newpage
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USE CASE 2 - make a function to not repeat
-
-\subsubsection{Use Case 2 - Submit answer} \label{uc:2}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[scale=0.6]{SubmitAnswers}
-    \caption{Use Case Diagram - Submit answer}
-    \label{fig:SubmitAnswers}
-\end{figure}
-
-\begin{center}
-\setlength{\tabcolsep}{16pt}
-\renewcommand{\arraystretch}{1.1}
-\begin{tabular}{ |p{3cm}|p{10cm}| }
-    \hline
-    \rowcolor{green}
-   Item & Description \\
-    \hline
-    Name & Submit Answer \\
-    \hline
-    Summary & Player checks if the input is complete \\
-    \hline
-    Actors & Player \\
-    \hline
-    Precondition & Game has started \\
-    \hline
-    Main Scenario &     
     \vspace*{-0.1in}
-    \begin{enumerate}
-    \item The player submit answers
-    \item The answers are correct
-    \item Timer stops and time is shown
-    \item Game ends
-    \item Other paths
-        \begin{enumerate}
-            \item One or more of the answers are empty or incorrect
-            \item Game continues
-        \end{enumerate}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item The player provides a username and a password
+        \item The application authenticates the user
+    
+       
     \end{enumerate}  \\
     \hline
-    Exceptions &  \\
+    Alternate Scenario & None \\
     \hline
-    Postcondition & 
-    \vspace*{-0.2in}
-    \begin{enumerate}
-    \item User keeps playing
-    \item Main menu appears
+    Exceptions & 
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item The player enters an invalid username or password
+        \item The application informs the player that login was unsuccessful
     \end{enumerate}  \\
     \hline
-    Priority & High  \\
-    \hline
-    Traces to Test Cases & Added when test cases done  \\
-    \hline
-\end{tabular}
-\end{center}
-
-\newpage
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USE CASE 3 - make a function to not repeat
-
-\subsubsection{Use Case 3 - Quit Game} \label{uc:3}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[scale=0.6]{QuitGame}
-    \caption{Use Case Diagram - Quit Game}
-    \label{fig:QuitGame}
-\end{figure}
-
-\begin{center}
-\setlength{\tabcolsep}{18pt}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{ |p{3cm}|p{10cm}| }
-    \hline
-    \rowcolor{green}
-   Item & Description \\
-    \hline
-    Name & Quit game \\
-    \hline
-    Summary & The game has started \\
-    \hline
-    Actors & User \\
-    \hline
-    Precondition & The game was played \\
-    \hline
-    Main Scenario &     
-    \vspace*{-0.2in}
-    \begin{enumerate}
-    \item The player selects quit game
-    \item Confirmation shown
-    \item User confirms exit
-    \item The game ended
-    \item Solution is shown
-    \item Other paths
-        \begin{enumerate}
-            \item User declines confirmation
-            \item Game continues
-        \end{enumerate}
-    \end{enumerate}  \\
-    \hline
-    Exceptions &  \\
-    \hline
-    Postcondition & 
-    \vspace*{-0.2in}
-    \begin{enumerate}
-        \item Main menu appears
-    \end{enumerate}  \\
-    \hline
-    Priority & High  \\
-    \hline
-    Traces to Test Cases & Added when test cases done  \\
-    \hline
-\end{tabular}
-\end{center}
-
-\newpage
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USE CASE 4 - make a function to not repeat
-
-\subsubsection{Use Case 4 - Restart Game} \label{uc:4}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[scale=0.6]{RestartGame}
-    \caption{Use Case Diagram - Restart Game}
-    \label{fig:RestartGame}
-\end{figure}
-
-\begin{center}
-\setlength{\tabcolsep}{18pt}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{ |p{3cm}|p{10cm}| }
-    \hline
-    \rowcolor{green}
-   Item & Description \\
-    \hline
-    Name & Restart game \\
-    \hline
-    Summary & The game will be restarted and all the cells be return to empty and the timer will reset \\
-    \hline
-    Actors & Player \\
-    \hline
-    Precondition & The game has started \\
-    \hline
-    Main Scenario &     
-    \vspace*{-0.2in}
-    \begin{enumerate}
-    \item The player selects restart game
-    \item Confirmation shown
-    \item User confirms
-    \item All input is deleted and all cells are empty
-    \item Timer resets
-    \item Other paths
-        \begin{enumerate}
-            \item User declines confirmation
-            \item Game continues
-        \end{enumerate}
-    \end{enumerate}  \\
-    \hline
-    Exceptions &  \\
-    \hline
-    Postcondition & 
-    \vspace*{-0.2in}
-    \begin{enumerate}
-        \item Game begins
-    \end{enumerate}  \\
-    \hline
-    Priority & High  \\
-    \hline
-    Traces to Test Cases & Added when test cases done  \\
-    \hline
-\end{tabular}
-\end{center}
-
-\newpage
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USE CASE 5 - Choose difficulty level
-
-\subsubsection{Use Case 5 - Choose difficulty level} \label{uc:5}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[scale=0.6]{LevelDifficulty}
-    \caption{Use Case Diagram - Choose difficulty level}
-    \label{fig:LevelDifficulty}
-\end{figure}
-
-\begin{center}
-\setlength{\tabcolsep}{18pt}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{ |p{3cm}|p{10cm}| }
-    \hline
-    \rowcolor{green}
-   Item & Description \\
-    \hline
-    Name & Choose difficulty level \\
-    \hline
-    Summary & A registered user can choose the level of difficulty from level 1-3 \\
-    \hline
-    Actors & Registered user \\
-    \hline
-    Precondition & 
-    \vspace*{-0.2in}
-    \begin{enumerate}
-        \item The user is logged in
-        \item The user pressed start game
-    \end{enumerate}  \\
-    \hline
-    Main Scenario &     
-    \vspace*{-0.2in}
-    \begin{enumerate}
-        \item The user views the 'choose a level screen' which displays level 1-3
-        \item The user selects the level
-        \item The user views the grid and can now start the gameplay
-    \end{enumerate}  \\
-    \hline
-    Exceptions &  \\
-    \hline
-    Postcondition & 
-    \vspace*{-0.2in}
-    \begin{enumerate}
-        \item Game begins
-    \end{enumerate}  \\
+    Postcondition & None \\
     \hline
     Priority & Low  \\
     \hline
-    Traces to Test Cases & Added when test cases done  \\
+    \small{Traces to Test Cases} & Added when test cases done  \\
     \hline
 \end{tabular}
 \end{center}
 
 \newpage
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USE CASE 6 - Input number
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USE CASE 9 - Register player
 
-\subsubsection{Use Case 6 - Input number} \label{uc:6}
-
-\begin{figure}[htbp]
-    \centering
-    % \includegraphics[scale=0.6]{MIA}
-    \caption{Use Case Diagram - Input number ----- \textbf{missing}}
-    % \label{fig:MIA}
-\end{figure}
-
-\begin{center}
-\setlength{\tabcolsep}{18pt}
-\renewcommand{\arraystretch}{1}
-\begin{tabular}{ |p{3cm}|p{10cm}| }
-    \hline
-    \rowcolor{green}
-   Item & Description \\
-    \hline
-    Name & Input number \\
-    \hline
-    Summary & The player choose and enter a number from 0-9 into a blank cell \\
-    \hline
-    Actors & Player \\
-    \hline
-    Precondition & 
-    \vspace*{-0.2in}
-    \begin{enumerate}
-        \item Game is in progress
-    \end{enumerate}  \\
-    \hline
-    Main Scenario &     
-    \vspace*{-0.2in}
-    \begin{enumerate}
-        \item The player chooses a blank cell
-        \item The player enters a number between 0-9
-        \item The number chosen by the player is shown in the blank cell
-        \item Use case terminates successfully
-    \end{enumerate}  \\
-    \hline
-    Alternate Scenario &     
-    \vspace*{-0.2in}
-    \begin{enumerate}
-        \item The player chooses a blank cell that is already filled
-        \item The player enters a number between 0-9
-        \item The number previously shown in the cell is removed and the new selected number is shown in the cell
-        \item Use case terminates successfully
-    \end{enumerate}  \\
-    \hline
-    Exceptions & 
-    \begin{enumerate}
-        \item The player enters a letter
-        \item The use case terminates unsuccessfully
-    \end{enumerate}  \\
-    \hline
-    Postcondition & 
-    \vspace*{-0.2in}
-    \begin{enumerate}
-        \item The selected number is shown in the selected cell
-    \end{enumerate}  \\
-    \hline
-    Priority & High  \\
-    \hline
-    Traces to Test Cases & Added when test cases done  \\
-    \hline
-\end{tabular}
-\end{center}
-
-\newpage
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USE CASE 7 - Pause game
-
-\subsubsection{Use Case 7 - Pause game} \label{uc:7}
-
-\begin{figure}[htbp]
-    \centering
-    % \includegraphics[scale=0.6]{MIA}
-    \caption{Use Case Diagram - Pause game --- \textbf{missing}}
-    % \label{fig:MIA}
-\end{figure}
+\subsection{Use Case 9 - Register player}
 
 \begin{center}
 \setlength{\tabcolsep}{18pt}
 \renewcommand{\arraystretch}{1.3}
-\begin{tabular}{ |p{3cm}|p{10cm}| }
+\begin{tabular}{ |p{3.4cm}|p{10cm}| }
     \hline
-    \rowcolor{green}
-   Item & Description \\
-    \hline
-    Name & Pause game \\
-    \hline
-    Summary & The player pauses the game he/she is currently playing \\
-    \hline
-    Actors & Player \\
-    \hline
-    Precondition & 
-    \vspace*{-0.2in}
-    \begin{enumerate}
-        \item There is a game in progress
-    \end{enumerate}  \\
-    \hline
-    Main Scenario &     
-    \vspace*{-0.2in}
-    \begin{enumerate}
-        \item The player clicks on the pause button
-        \item The game board becomes black
-        \item The application informs the player that the game is paused
-        \item Use case terminates successfully
-    \end{enumerate}  \\
-    \hline
-    Exceptions &  \\
-    \hline
-    Postcondition & \\
-    \hline
-    Priority & Medium  \\
-    \hline
-    Traces to Test Cases & Added when test cases done  \\
-    \hline
-\end{tabular}
-\end{center}
-
-\newpage
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USE CASE 8 - Resume game
-
-\subsubsection{Use Case 8 - Resume game} \label{uc:8}
-
-\begin{figure}[htbp]
-    \centering
-    % \includegraphics[scale=0.6]{MIA}
-    \caption{Use Case Diagram - Resume game --- \textbf{missing}}
-    % \label{fig:MIA}
-\end{figure}
-
-\begin{center}
-\setlength{\tabcolsep}{18pt}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{ |p{3cm}|p{10cm}| }
-    \hline
-    \rowcolor{green}
-   Item & Description \\
-    \hline
-    Name & Resume game \\
-    \hline
-    Summary & The player resumes a game that is currently playing \\
-    \hline
-    Actors & Player \\
-    \hline
-    Precondition & 
-    \vspace*{-0.2in}
-    \begin{enumerate}
-        \item There is a game being paused
-    \end{enumerate}  \\
-    \hline
-    Main Scenario &     
-    \vspace*{-0.2in}
-    \begin{enumerate}
-        \item The player clicks on the resume button
-        \item The game board is revealed to the user
-        \item The timer starts ticking again
-        \item Use case terminates successfully
-    \end{enumerate}  \\
-    \hline
-    Exceptions &  \\
-    \hline
-    Postcondition & \\
-    \hline
-    Priority & Medium  \\
-    \hline
-    Traces to Test Cases & Added when test cases done  \\
-    \hline
-\end{tabular}
-\end{center}
-
-\newpage
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USE CASE 9 - Login
-
-\subsubsection{Use Case 9 - Login} \label{uc:9}
-
-\begin{figure}[htbp]
-    \centering
-    % \includegraphics[scale=0.6]{MIA}
-    \caption{Use Case Diagram - Login --- \textbf{missing}}
-    % \label{fig:MIA}
-\end{figure}
-
-\begin{center}
-\setlength{\tabcolsep}{18pt}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{ |p{3cm}|p{10cm}| }
-    \hline
-    \rowcolor{green}
-   Item & Description \\
-    \hline
-    Name & Login \\
-    \hline
-    Summary & The player signs into his or her game account \\
-    \hline
-    Actors & Player \\
-    \hline
-    Precondition & \\
-    \hline
-    Main Scenario &     
-    \vspace*{-0.2in}
-    \begin{enumerate}
-        \item The player provides a username and a password
-        \item The application authenticates the user
-        \item The application informs the player that login was successful
-        \item Use case terminates successfully
-    \end{enumerate}  \\
-    \hline
-    Exceptions & 
-    \vspace*{-0.2in}
-    \begin{enumerate}
-        \item The player enters an invalid username or password
-        \item The application informs the player that login was unsuccessful
-        \item Use case terminates unsuccessfully
-    \end{enumerate}  \\
-    \hline
-    Postcondition & \\
-    \hline
-    Priority & Medium  \\
-    \hline
-    Traces to Test Cases & Added when test cases done  \\
-    \hline
-\end{tabular}
-\end{center}
-
-\newpage
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USE CASE 10 - Register player
-
-\subsubsection{Use Case 10 - Register player} \label{uc:10}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[scale=0.6]{images/RegisterPlayer.png}
-    \caption{Use Case Diagram - Register Player}
-    \label{fig:RegisterPlayer}
-\end{figure}
-
-\begin{center}
-\setlength{\tabcolsep}{18pt}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{ |p{3cm}|p{10cm}| }
-    \hline
-    \rowcolor{green}
-   Item & Description \\
+    
+\textbf{Item} & \textbf{Description} \\
     \hline
     Name & Register player \\
     \hline
-    Summary & The user is able to register in order to play the kakuro game \\
+    Summary & The player registers and makes their account \\
     \hline
     Actors & Player \\
     \hline
     Precondition & 
-    \vspace*{-0.2in}
-    \begin{enumerate}
-        \item The user entered the application
-        \item The user pressed register button
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item The application is running
     \end{enumerate}  \\
     \hline
     Main Scenario &     
-    \vspace*{-0.2in}
-    \begin{enumerate}
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
         \item The user clicks the register button
-        \item the user registers by inputting username and password
-        \item The user gets his own account and starts game
-    \end{enumerate}  \\
+        \item The user registers by inputting username and password
+        \item The user gets their own account
+    \end{enumerate} \\
+    \hline
+    Alternate Scenario & None \\
     \hline
     Exceptions & 
-    \vspace*{-0.2in}
-    \begin{enumerate}
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
         \item Username and password are not following the validations
         \item The second password input doesn't match the first one
-        \item User name and password are too weak
+        \item Username and password are too weak
     \end{enumerate}  \\
     \hline
     Postcondition &
-    \vspace*{-0.2in}
-    \begin{enumerate}
-        \item Login
-        \item Game start
-    \end{enumerate}  \\
-    \hline
-    Priority & High \\
-    \hline
-    Traces to Test Cases & Added when test cases done  \\
-    \hline
-\end{tabular}
-\end{center}
-
-\newpage
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USE CASE 11 - Save game
-
-\subsubsection{Use Case 11 - Save Game} \label{uc:11}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[scale=0.6]{images/SaveGame.png}
-    \caption{Use Case Diagram - Save Game}
-    \label{fig:SaveGame}
-\end{figure}
-
-\begin{center}
-\setlength{\tabcolsep}{18pt}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{ |p{3cm}|p{10cm}| }
-    \hline
-    \rowcolor{green}
-   Item & Description \\
-    \hline
-    Name & Save Game \\
-    \hline
-    Summary & The user is able to save the current progress \\
-    \hline
-    Actors & Player \\
-    \hline
-    Precondition & 
-    \vspace*{-0.2in}
-    \begin{enumerate}
-        \item The player started the game
-        \item The player pressed the save button
-    \end{enumerate}  \\
-    \hline
-    Main Scenario &     
-    \vspace*{-0.2in}
-    \begin{enumerate}
-        \item The player press the save button
-        \item The current progress is saved in player's account
-    \end{enumerate}  \\
-    \hline
-    Exceptions & \\
-    \hline
-    Postcondition &
-    \vspace*{-0.2in}
-    \begin{enumerate}
-        \item Restart the game
-        \item Resume the game
-        \item Quit the game
-    \end{enumerate}  \\
-    \hline
-    Priority & Medium \\
-    \hline
-    Traces to Test Cases & Added when test cases done  \\
-    \hline
-\end{tabular}
-\end{center}
-
-\newpage
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USE CASE 12 - View the best score
-
-\subsubsection{Use Case 12 - View the best score} \label{uc:12}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[scale=0.6]{images/ViewTheBestScore.png}
-    \caption{Use Case Diagram - View the best score}
-    \label{fig:ViewTheBestScore}
-\end{figure}
-
-\begin{center}
-\setlength{\tabcolsep}{18pt}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{ |p{3cm}|p{10cm}| }
-    \hline
-    \rowcolor{green}
-   Item & Description \\
-    \hline
-    Name & View the best score \\
-    \hline
-    Summary & A player can view the best score and scoreboard after the gameplay \\
-    \hline
-    Actors & Player \\
-    \hline
-    Precondition & 
-    \vspace*{-0.2in}
-    \begin{enumerate}
-        \item The player finished the game
-        \item The player pressed the view high score button
-    \end{enumerate}  \\
-    \hline
-    Main Scenario &     
-    \vspace*{-0.2in}
-    \begin{enumerate}
-        \item The player views the scoreboard which displays every gameplay scores and time
-        \item The user views the best score
-    \end{enumerate}  \\
-    \hline
-    Exceptions & \\
-    \hline
-    Postcondition &
-    \vspace*{-0.2in}
-    \begin{enumerate}
-        \item Quit the game
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item The account is registered
     \end{enumerate}  \\
     \hline
     Priority & Low \\
     \hline
-    Traces to Test Cases & Added when test cases done  \\
+    \small{Traces to Test Cases} & Added when test cases done  \\
     \hline
 \end{tabular}
 \end{center}
 
 \newpage
 
-\subsection{Overview}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USE CASE 10 - Save game
+
+\subsection{Use Case 10 - Save game}
+
+\begin{center}
+\setlength{\tabcolsep}{18pt}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{ |p{3.4cm}|p{10cm}| }
+    \hline
+    \textbf{Item} & \textbf{Description}\\
+    \hline
+    Name & Save game \\
+    \hline
+    Summary & The Player is able to save the current progress \\
+    \hline
+    Actors & Player \\
+    \hline
+    Precondition & 
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item The player has logged in
+        \item A game is in progress.
+        
+    \end{enumerate}  \\
+    \hline
+    Main Scenario &     
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item The player pressed the save button
+        \item The current progress is saved in player's account
+    \end{enumerate}  \\
+    \hline
+    Alternate Scenario & None \\
+    \hline
+    Exceptions & None  \\
+    \hline
+    Postcondition &
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item The game is quit
+    \end{enumerate}  \\
+    \hline
+    Priority & Low \\
+    \hline
+    \small{Traces to Test Cases} & Added when test cases done  \\
+    \hline
+\end{tabular}
+\end{center}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USE CASE 11 - View the best score
+
+\subsection{Use Case 11 - View best times}
+
+\begin{center}
+\setlength{\tabcolsep}{18pt}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{ |p{3.4cm}|p{10cm}| }
+    \hline
+   \textbf{Item} & \textbf{Description} \\
+    \hline
+    Name & View best times \\
+    \hline
+    Summary & A player can view the best times. The scoreboard displays the top 10 fastest time to complete a game \\
+    \hline
+    Actors & Player \\
+    \hline
+    Precondition & 
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+     
+        \item No game is in progress
+        
+    \end{enumerate}  \\
+    \hline
+    Main Scenario & 
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item The player pressed the view best times button
+        \item The player views the scoreboard which displays the best times
+       
+    \end{enumerate}  \\
+    \hline
+    Alternate Scenario & None \\
+    \hline
+    Exceptions & None \\
+    \hline
+    Postcondition & 
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item Quit the game
+        \item Start a game
+    \end{enumerate} \\
+    \hline
+    Priority & Medium \\
+    \hline
+    \small{Traces to Test Cases} & Added when test cases done  \\
+    \hline
+\end{tabular}
+\end{center}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USE CASE 12 - Load the game
+
+\subsection{Use Case 12 - Load game}
+
+\begin{center}
+\setlength{\tabcolsep}{18pt}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{ |p{3.4cm}|p{10cm}| }
+    \hline
+   \textbf{Item} & \textbf{Description} \\
+    \hline
+    Name & Load game \\
+    \hline
+    Summary & A player loads a saved game \\
+    \hline
+    Actors & Player \\
+    \hline
+    Precondition & 
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item The player has logged in
+        \item There exists a game previously saved by the player
+    \end{enumerate}  \\
+    \hline
+    Main Scenario & 
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+    \item The player clicks on the load button 
+    \item The system checks that the player has saved a game previously
+    \item The Kakuro game that is the same as the saved game is shown to the player
+    \item White cells that are filled previously are filled with the same value as the previous game. 
+    \end{enumerate}  \\
+     \hline
+    Alternate Scenario & None  \\
+    \hline
+    Exceptions & None \\
+    \hline
+    Postcondition & 
+    \vspace*{-0.1in}
+    \begin{enumerate}[leftmargin=0.2in]
+        \item The game that the player previously saved is loaded
+    \end{enumerate} \\
+    \hline
+    Priority & Medium \\
+    \hline
+    \small{Traces to Test Cases} & Add when test cases done  \\
+    \hline
+\end{tabular}
+\end{center}
+
+\newpage
 
 \section{Non-Functional Constraints}
 
-In Kakuro, each puzzle consists of a blank grid with sum-clues in diverse location. The objective is to fill all empty squares using numbers from 1 to 9 so as the sum of each horizontal block equals the clue on its left, and the sum of each vertical block equals the clue on its top. Furthermore, no number may be used more than once in the same block.
+\subsection{Game Mechanism}
 
-One way to solve a Kakuro puzzle is incremental that is by using the current information on the board where you can find with certitude the value of a specific cell which can take only one possible value.
+In Kakuro, each puzzle consists of black cells with clues that need to be solved by the empty white cells. The objective is to fill all empty white cells using numbers from 1 to 9. Each number can only used once for a clue in both vertical and horizontal white cells. The sum of each horizontal black cell must equal the clue on its left. Similarly the sum of each vertical cell must equal the clue on its right. [1]
+
+\subsection{Software Requirements}
+\textbf{Constraints — Application:}
+\begin{itemize}
+   \item Standalone JAVA application
+   \item JAVA Swing GUI
+   \item SQLite DB or text files for data storage 
+\end{itemize}
+
+\textbf{Constraints — Work Environment:}
+\begin{itemize}
+   \item Java as the programming language
+   \item Eclipse as the integrated development environment (IDE)
+   \item JUnit for unit testing in Java
+   \item Draw.io for UML modeling
+   \item Git software repository for team on GitHub and version control
+   \item Latex for documentation
+\end{itemize}
+
+\vspace{5mm}
+
+The application constraints consist of making Kakuro a standalone java application, which can launched in any operating system due to the compilation being in the Java Virtual Machine (JVM). Secondly, the software must be built using Java Swing as a Graphical User Interface (GUI), and finally, it should have a database that runs in SQLite.
+
+\vspace{5mm}
+
+The work environment constraints restrict the application to be written in Java with JUnit for unit testing. Diagrams and especially Unified Modeling Language (UML) to be drawn in draw.io. Coupled with GitHub as our software repository and git as version control. Finally, all documentation must be written in Latex. 
+ 
+
+\subsection{Non-Functional Requirements}
+ 
+\textbf{Reliability}: It is vital that the Kakuro game is error free throughout the game because the players might be bothered by constant errors and would not enjoy fully the game.
+
+\vspace{5mm}
+
+\textbf{Maintainability}: The design of the Kakuro project will be in a modular form which will allow many developers to work on different modules simultaneously. Documentation will be expanded in order to simplify upcoming modification to the code. 
+
+\vspace{5mm}
+
+\textbf{Usability}: The graphical user interface must be agreeable to the eye, organized and intuitive to
+use. This will attract the user to play. 
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{User Interface}
+
+The user interface of the Kakuro game application should be easy to use. It is the bridge connecting players and the application. A user friendly interface allows easy navigation through the game and improves players' overall experience. The user interface should be intuitive to players and helps them complete the game successfully.
+
+When the application starts, the first thing shown to the players is a start menu. The menu includes buttons that allow players to start playing a Kakuro game, quit the application, register for an account and login to an existing account. Figure 3 describes a prototype proposed for the user interface of the start menu. 
+
 \begin{figure}[htbp]
     \centering
-    \includegraphics[scale=0.4]{images/UI1.png}
+    \includegraphics[scale=0.8]{UI-1.png}
+    \caption{KAKURO Start Menu}
+    \label{fig:UI-1}
+\end{figure}
+
+After clicking on the start button, a game will begin. Figure 4 proposes a prototype for the gameplay user interface. In this interface, the black cells represent non-fillable cells. Black cells that have bars contain clues. The clues situate on the left or right of the bar. They hint the players for the sum of the corresponding column or row. The white cells are empty slots, where a number from 0 to 9 can be entered in each cell by the player. The interface also contains buttons to pause the game, submit the answer, and save the current game. 
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.5]{UI-0.png}
     \caption{Game Board}
-    \label{fig:Game Board}
+    \label{fig:UI-0}
 \end{figure}
 
-In Kakuro, the User Interface should be concise and easy to navigate users to register,login,start and finish the game. It is the bridge connecting the users and our Kakuro game, a convenient and friendly user interface can guide the users through the whole game play in order to improve the users' overall experience. The user interface should help users to familiarize the game and guide them to complete the game successfully.
+When the player submits a correct attempt, a menu is displayed informing the player that the game is completed successfully. Now the player can view the best score of all time, restart the game, or quit the game by clicking on the corresponding button. Figure 5 describes the game completed interface.   
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[scale=0.5]{images/UI2.png}
-      \includegraphics[scale=0.5]{images/UI3.png}
-          \includegraphics[scale=0.5]{images/UI4.png}
-    \caption{User Interface}
-    \label{fig:UI}
+    \includegraphics[scale=0.8]{UI-2.png}
+    \caption{Game complete Interface}
+    \label{fig:UI-2}
 \end{figure}
 
-\section{Design Constraints}
-% MOCKED
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.8]{UI-3.png}
+    \caption{Wrong Answer Interface}
+    \label{fig:UI-3}
+
+\end{figure}
+
+When a wrong solution is submitted the game will display that the solution was incorrect. The player will then have the option to resume the game and try again, restart the game or quit the game. Figure 6 describes the menu when a wrong solution is displayed. 
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.8]{UI-4.png}
+    \caption{Top Times}
+    \label{fig:UI-4}
+\end{figure}
+
+Figure 7 describes what the scoreboard will look like. The player will be able to look through the list of 10 fastest times to complete a game. The scoreboard will consist of usernames and the associated times.
+
+\newpage
 
 \section{Glossary}
 
+\textbf{Player}
+\vspace{5mm}
+\begin{itemize}
+   \item Player is the user that will engage in the game and interact with the interface.
+\end{itemize}
 
+\vspace{5mm}
 
-Grid/Game board\\\\
-The grid will have a static size of 10x10, which consist of white and colored tiles. The white tiles consist of empty slots, where numbers are placed. On the other hand, the black tiles consists of numbers that are divided in a half cell. The black tiles fills the first row and first column entirely with its unique property that can be in half or full colored with appropriate numbers that acts as hints for the player.\\
+\textbf{Game}
+\vspace{5mm}
+\begin{itemize}
+   \item It is a round of the Kakuro game. The player will launch it and play. The game end when the player submits  their answer
+\end{itemize}
 
-High score\\\\
-A high score consist of personal or overall scores of players based on how fast they completed the game.\\
+\vspace{5mm}
 
-Timer \\\\
-A timer represents the number of times left to complete the game before losing the score.\\
+\textbf{Account}
+\vspace{5mm}
+\begin{itemize}
+   \item The account is a record relating to the player. It will contain the saved game progress of the player. When the player will logins in, they will have access to their data.
+\end{itemize}
 
-Database\\\\
-A data storage that runs on SQLite\\
+\vspace{5mm}
 
+\textbf{Grid}
+\vspace{5mm}
+\begin{itemize}
+   \item The grid will have a static size of 10x10, which consist of white and black cells. The black cells fills the first row and first column entirely.
+\end{itemize}
+
+\vspace{5mm}
+
+\textbf{Cell} 
+\vspace{5mm}
+\begin{itemize}
+   \item A cell is either a black cell or a white cell. A black cell contains 'clues' that situates on the left or right of the backslash. The white cell are empty slots, where numbers are placed.
+\end{itemize}
+
+\vspace{5mm}
+
+\textbf{Best score}
+\vspace{5mm}
+\begin{itemize}
+   \item A high score consist of personal or overall scores of players based on how fast they completed the game.
+\end{itemize}
+
+\vspace{5mm}
+
+\textbf{Timer or Time}
+\vspace{5mm}
+\begin{itemize}
+   \item A timer represents the number of times left to complete the game before losing the score.
+\end{itemize}
+
+\vspace{5mm}
+
+\textbf{Database}
+\vspace{5mm}
+\begin{itemize}
+   \item A data storage that organized and keep information that runs on SQLite.
+\end{itemize}
+
+\vspace{5mm}
+
+\textbf{Game Progress}
+\vspace{5mm}
+\begin{itemize}
+   \item The state of the game that the player saved. It contains the amount of time that has passed and all the numbers that the user entered.
+\end{itemize}
+
+\vspace{5mm}
+
+\textbf{Saved White Cell}
+\vspace{5mm}
+\begin{itemize}
+   \item The saved white cell contains the player's input.
+\end{itemize}
+
+\vspace{5mm}
 
 \newpage
 
 \section{References}
 
-1) Introduction: https://en.wikipedia.org/wiki/Kakuro
+[1] Wikipedia, Kakuro, last edited on 18 December 2019, at 09:11 (UTC). \\
+https://en.wikipedia.org/wiki/Kakuro
 
-2) Game Mechanics: https://www.kakuros.com/solve
-
+\vspace{5mm}
+  
+[2] Monopoly - Project Analysis and Development Plan Version 1.3 \\
+Team Redmond on 30 September 2003
 
 \setlength{\parindent}{10ex}
+
+\newpage
+
+\section{Description of File Format}
+
+\subsection{.java}
+File extension for Java code. The java files contains development `Java` code, where it will be compiled to `.class`.
+\subsection{.tex}
+File extension for Latex. All written `words` that are formatted in latex will be converted to produce a quality text format file in PDF.
+\subsection{.jar}
+File extension for Java executable. The game application will be distributed as a jar file. In order to start the application, the jar file associate with the application must be run.
+
 \end{document}
 
