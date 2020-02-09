@@ -4,6 +4,14 @@
 
 Source Code: https://github.com/binarytrails/kakuro
 
+## Dependencies
+
+### Documentation
+
+**Arch Linux**
+
+- latex-enumitem
+
 ## Rules
 
 1. Enter numbers from 1-9 in the input cells
