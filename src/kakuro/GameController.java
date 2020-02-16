@@ -37,7 +37,7 @@ public class GameController
         model.initBoard();
         if (model.columns == 10 && model.rows == 10)
             model.generateBoard10x10();
-        System.out.println(gson.toJson(this.model)); 
+        System.out.println(gson.toJson(this.model));
         this.view = new GameView(this, gui);
         view.printStartup();
         view.printBoard(false/*show answer values*/);
