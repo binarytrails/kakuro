@@ -1,0 +1,126 @@
+\documentclass[12pt]{article}
+
+\pagestyle{empty}
+\setcounter{secnumdepth}{2}
+
+\topmargin=0cm
+\oddsidemargin=0cm
+\textheight=22.0cm
+\textwidth=16cm
+\parindent=0cm
+\parskip=0.15cm
+\topskip=0truecm
+\raggedbottom
+\abovedisplayskip=3mm
+\belowdisplayskip=3mm
+\abovedisplayshortskip=0mm
+\belowdisplayshortskip=2mm
+\normalbaselineskip=12pt
+\normalbaselines
+
+\begin{document}
+\vspace*{0.5in}
+\centerline{\bf\Large Requirements for the Kakuro project}
+
+\vspace*{0.5in}
+\centerline{\bf\Large Iteration 2 COMP354}
+
+\vspace*{0.5in}
+\centerline{\bf\Large Team PK-A}
+
+\vspace*{0.5in}
+\centerline{\bf\Large 15 March 2020}
+
+\vspace*{1.5in}
+\begin{table}[htbp]
+\caption{Team Members}
+\begin{center}
+\begin{tabular}{|c |c | c|}
+\hline
+Name & Role & ID Number \\
+\hline\hline
+Tiffany Ah King & Quality Control & 40082976 \\
+\hline
+Isabelle Charette & Documenter & 40008121 \\
+\hline
+Brian Gamboc-Javiniar & Coder & 40033124 \\
+\hline
+Vsevolod Ivanov & Organizer & 40004286 \\
+\hline
+Chang Liu & Quality Control & 40056360 \\
+\hline
+Nolan Mckay & Coder & 27873557 \\
+\hline
+Nalveer Moocheet & Quality Control & 40072605 \\
+\hline
+Hoang Thuan Pham & Coder & 40022992 \\
+\hline
+Audrey-Laure St-Louis & Documenter & 27558783 \\
+\hline
+Jia Ming Wei & Documenter & 40078192 \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+\newpage
+
+\renewcommand*\contentsname{Table of Contents}
+
+\tableofcontents
+
+\clearpage
+
+\section{Introduction}
+
+The introduction of the document provides an overview of the entire document,
+briefly introducing what are its goals, and what information is to be found in it.
+
+\section{Architectural Design} \label{sec:arch}
+
+This section must give a high-level description of the system in terms of its modules
+and their respective purpose and exact interfaces.
+
+\subsection{Architectural Diagram}
+
+A UML class diagram or package diagram depicting the high-level structure of the system,
+accompanied by a one-paragraph text describing the rationale of this design.
+It is mandatory that the system be divided into at least two subsystems,
+and that the purpose of each of these subsystems be exposed here.
+
+\subsection{Subsystem Interface Specifications}
+
+Specification of the software interfaces between the subsystems,
+i.e. specific messages (or function calls) that are exchanged by the subsystems.
+These are also often called ``Module Interface Specifications''.
+Description of the parameters to be passed into these function calls in order to have a service fulfilled,
+including valid and invalid ranges of values.
+Each subsystem interface must be presented in a separate subsection.
+
+\section{Detailed Design} \label{sec:detail}
+
+Complete description of the system design, describing one subsystem separately in respective subsection.
+UML class diagrams are to be used, as well as a short textual description describing the purpose of each class.
+
+\subsection{Subsystem X}
+
+\subsubsection{Detailed Design Diagram}
+
+UML class diagram depicting the internal structure of the subsystem,
+accompanied by a paragraph of text describing the rationale of this design.
+
+\subsubsection{Units Description}
+
+List each class in this subsystem and write a short description of its purpose,
+as well as notes or reminders useful for the programmers who will implement them.
+List all attributes and functions of the class.
+
+\section{Dynamic Design Scenarios}
+
+Describe some (at least two) important execution scenarios of the system using UML sequence diagrams.
+These scenarios must demonstrate how the various subsystems and units are interacting to achieve a system-level service.
+Units and subsystems depicted here must be compatible with the descriptions provided in
+section \ref{sec:arch} and \ref{sec:detail}.
+
+\end{document}
