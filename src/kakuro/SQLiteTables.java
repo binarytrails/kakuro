@@ -38,15 +38,16 @@ public class SQLiteTables {
                 System.out.println("Game table has been created");
             }
 
-            if(!res2.next()) {  
-                //need to build the table
-                Statement state2 = con.createStatement();
-                state2.execute("CREATE TABLE gameProgress(gameProgressID integer primary key," 
-                + "username varchar(60)," + "time integer," + "cells blob," + "gameID integer," 
-                        + "FOREIGN KEY(gameID) REFERENCES game (gameID)"
-                        + ");");
-                System.out.println("GameProgress table been created");
-            }
+               if(!res2.next()) {  
+	                //need to build the table
+	                Statement state2 = con.createStatement();
+	                state2.execute("CREATE TABLE gameProgress(gameProgressID integer primary key," 
+	                + "username varchar(60)," + "time integer," + "cells blob," + "gameID integer," + "playerID integer," 
+	                        + "FOREIGN KEY(gameID) REFERENCES game (gameID),"
+	                        + "FOREIGN KEY(playerID) REFERENCES player (playerID)"
+	                        + ");");
+	                System.out.println("GameProgress table been created");
+	            }
 
             if(!res3.next()) {  
                 //need to build the table
