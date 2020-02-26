@@ -5,14 +5,48 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DatabaseConnection {
-    Connection connection = null;
+    private Connection connection = null;
+    private final static String DATABASE_FILE_PATH = "resources/SQLiteKakuro.db";
     
-    protected Connection connect() {
+    public Connection connect() {
+        String createGameTableQuery = "CREATE TABLE IF NOT EXISTS game"
+                                        + "(gameID INTEGER PRIMARY KEY AUTOINCREMENT," 
+                                        + "username VARCHAR(60)," 
+                                        + "time INTEGER," + 
+                                        "cells BLOB);";
+        
+        String createGameProgressQuery = "CREATE TABLE IF NOT EXISTS gameProgress"
+                                            + "(gameProgressID INTEGER PRIMARY KEY AUTOINCREMENT," 
+                                            + "time INTEGER,"
+                                            + "cells BLOB,"
+                                            + "gameID INTEGER,"
+                                            + "username VARCHAR(60),"
+                                            + "FOREIGN KEY(gameID) REFERENCES game (gameID),"
+                                            + "FOREIGN KEY(username) REFERENCES player (username)"
+                                            + ");";
+        
+        String createPlayerQuery = "CREATE TABLE IF NOT EXISTS player"
+                                    + "(username VARCHAR(60) PRIMARY KEY,"
+                                    + "password VARCHAR(60)"
+                                    + ");";
+        
         try {
-            connection = DriverManager.getConnection("jdbc:sqlite:test.db");
+            
+            connection = DriverManager.getConnection("jdbc:sqlite:" + DATABASE_FILE_PATH);
             System.out.println("Success! Connected to SQLite database");
+
+            Statement gameTableStmt = connection.createStatement();
+            Statement gameProgressStmt = connection.createStatement();
+            Statement playerStmt = connection.createStatement();
+            
+            gameTableStmt.execute(createGameTableQuery);
+            gameProgressStmt.execute(createGameProgressQuery);
+            playerStmt.execute(createPlayerQuery);
+            
+            
         } catch (Exception e) {
             System.err.println("Failed to connect to SQLite database");
         }
@@ -20,7 +54,7 @@ public class DatabaseConnection {
         return connection;
     }
     
-    protected void disconnect() {
+    public void disconnect() {
         try {
             if (connection != null) {
                 connection.close();
@@ -102,6 +136,8 @@ public class DatabaseConnection {
         
         return false;
     }
+    
+    
     
     // save 
     // take in object / array 
