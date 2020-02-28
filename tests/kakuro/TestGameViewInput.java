@@ -13,12 +13,15 @@ import org.junit.Test;
 
 public class TestGameViewInput
 {
+
+    private static GameController gameController;
     private static GameView gameView;
 
     @BeforeClass
     public static void onlyOnce()
     {
-        gameView = new GameView(null, false/*GUI*/);
+        gameController = new GameController(10, 10, false);
+        gameView = new GameView(gameController, false/*GUI*/);
     }
 
     private boolean hasValidRange(final int value)
