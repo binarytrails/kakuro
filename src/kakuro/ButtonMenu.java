@@ -15,6 +15,7 @@ public class ButtonMenu {
     JButton submit_button;
     JButton newGame_button;
     JButton save_button;
+    JButton restart_button;
     JPanel mainPanel;
     Chrono chrono;
     public Chrono getChrono() {
@@ -35,6 +36,7 @@ public class ButtonMenu {
         submit_button = new JButton("Submit");
         newGame_button = new JButton("New Game");
         save_button = new JButton("Save");
+        restart_button = new JButton("Restart");
         mainPanel = new JPanel();
         chrono = new Chrono();
 
@@ -42,7 +44,8 @@ public class ButtonMenu {
         mainPanel.add(play_button);
         mainPanel.add(pause_button);
         mainPanel.add(submit_button);
-
+        mainPanel.add(restart_button);
+        
         if (appFrame != null)
         {
             appFrame.getContentPane().add(chrono.getTimerLabel(), BorderLayout.BEFORE_FIRST_LINE);
@@ -108,6 +111,16 @@ public class ButtonMenu {
             public void actionPerformed(ActionEvent e)
             {
                 // Call save method
+            }
+        });
+        
+        restart_button.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                chrono.resetTimer();
+                chrono.chronoStart();
+                gameController.view.clearInput();
             }
         });
     }

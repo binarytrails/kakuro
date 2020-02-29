@@ -334,4 +334,25 @@ public class GameView
         buttonMenu.chronoSetUp();
         buttonMenu.buttonsSetUp();
     }
+    
+    public void clearInput() {
+        for(int row = 0; row < controller.model.columns; row++)
+        {
+            for(int column = 0; column < controller.model.rows; column++)
+            {
+                BoardCell cell = controller.model.board[row][column];
+                String value = controller.model.saveInput[row][column].getText();
+                if(!value.isEmpty()) {
+                    switch (cell.getType())
+                    {
+                        case INPUT:
+                            controller.model.saveInput[row][column].setText("");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+    }
 }
