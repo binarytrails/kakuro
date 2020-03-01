@@ -97,7 +97,7 @@ public class ButtonMenu {
             {
                 chrono.chronoPause();
                 //loads data into model
-                gameController.view.loadInputInModel();
+                gameController.loadInputInModel(false); //No clearing inputs
                 gameController.solveBoard();
                 gameController.view.printSolveBoard();
             }
@@ -120,7 +120,7 @@ public class ButtonMenu {
             {
                 chrono.resetTimer();
                 chrono.chronoStart();
-                gameController.view.clearInput();
+                gameController.loadInputInModel(true); //Clear inputs
             }
         });
     }

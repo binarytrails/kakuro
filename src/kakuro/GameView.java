@@ -31,6 +31,7 @@ public class GameView
     private GameController controller;
     private Scanner inputReader = new Scanner(System.in);
     private ButtonMenu buttonMenu;
+    public JTextField[][] saveInput;
 
     public ButtonMenu getButtonMenu() {
         return buttonMenu;
@@ -56,8 +57,11 @@ public class GameView
             gridSizeX = controller.model.rows;
             gridSizeY = controller.model.columns;
         }
-        if (X11)
+        if (X11) {
             buttonMenu = new ButtonMenu(frame, gridSizeX, gridSizeY, controller);
+            saveInput = new JTextField[controller.model.rows][controller.model.columns];
+        }
+        
         numberFormatter.setValueClass(Integer.class);
         numberFormatter.setMinimum(1);
         numberFormatter.setMaximum(9);
@@ -76,7 +80,7 @@ public class GameView
             for(int column = 0; column < controller.model.rows; column++)
             {
                 BoardCell cell = controller.model.board[row][column];
-                String value = controller.model.saveInput[row][column].getText();
+                String value = saveInput[row][column].getText();
                 if(!value.isEmpty()) {
                     switch (cell.getType())
                     {
@@ -179,7 +183,7 @@ public class GameView
                         break;
                 }
                 //placing textfield value in input array to track user input
-                controller.model.saveInput[row][column] = textField;
+                saveInput[row][column] = textField;
             }
         }
         int x = frameSize*gridSizeX;
@@ -333,26 +337,5 @@ public class GameView
         //chronoSetUp MUST be called before buttonsSetUp.
         buttonMenu.chronoSetUp();
         buttonMenu.buttonsSetUp();
-    }
-    
-    public void clearInput() {
-        for(int row = 0; row < controller.model.columns; row++)
-        {
-            for(int column = 0; column < controller.model.rows; column++)
-            {
-                BoardCell cell = controller.model.board[row][column];
-                String value = controller.model.saveInput[row][column].getText();
-                if(!value.isEmpty()) {
-                    switch (cell.getType())
-                    {
-                        case INPUT:
-                            controller.model.saveInput[row][column].setText("");
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
-        }
     }
 }
