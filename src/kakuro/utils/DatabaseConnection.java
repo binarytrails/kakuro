@@ -70,13 +70,4 @@ public class DatabaseConnection {
         Statement stmt = connection.createStatement();
         stmt.execute(CREATE_PLAYER_TABLE_QUERY);
     }
-
-    // save
-    // take in object / array
-    // insert to db (serializing)
-    // talk :d
-    // load
-    // select the username
-    // de-serialize back to an object
-    // return data (which format)
 }
