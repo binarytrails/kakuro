@@ -55,6 +55,7 @@ public class PlayerDaoImpl implements PlayerDao {
         if (count > 0) {
             System.err.println("User already exist");
             return false;
+            
         } else {
             PreparedStatement registerPsmt = conn.prepareStatement(INSERT_PLAYER_QUERY);
             
