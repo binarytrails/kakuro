@@ -19,7 +19,8 @@ public class TestChrono
     {
         // Arrange
         int waitSeconds = 3;
-        GameView gameView = new GameView(null, false/*GUI*/);
+        GameController gameController = new GameController(10, 10, false);
+        GameView gameView = new GameView(gameController, false/*GUI*/);
         gameView.setButtonMenu(new ButtonMenu(null, 0, 0, null));
         // Act
         gameView.settingUpMenu(); // chrono starts
