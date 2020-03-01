@@ -7,14 +7,11 @@ package kakuro;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.google.gson.Gson;
-
 public class GameController
 {
     public GameView view;
     public GameModel model;
     private Boolean gui = true;
-    private Gson gson;
 
     public enum UserActions
     {
@@ -26,7 +23,6 @@ public class GameController
 
     public GameController(final int columns, final int rows, final Boolean gui)
     {
-        gson = new Gson();
         this.model = new GameModel(columns, rows);
         this.gui = gui;
         initGame(model);
@@ -37,7 +33,6 @@ public class GameController
         model.initBoard();
         if (model.columns == 10 && model.rows == 10)
             model.generateBoard10x10();
-        System.out.println(gson.toJson(this.model)); 
         this.view = new GameView(this, gui);
         view.printStartup();
         view.printBoard(false/*show answer values*/);
