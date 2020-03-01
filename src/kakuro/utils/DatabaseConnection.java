@@ -1,3 +1,5 @@
+//@author Brian Gamboc-Javiniar and Nolan Mckay
+
 package kakuro.utils;
 
 import java.sql.Connection;

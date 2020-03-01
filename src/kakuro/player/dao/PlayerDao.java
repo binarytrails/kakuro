@@ -1,3 +1,5 @@
+//@author Brian Gamboc-Javiniar
+
 package kakuro.player.dao;
 
 import java.sql.SQLException;
