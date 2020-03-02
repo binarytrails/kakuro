@@ -3,12 +3,21 @@
 // @brief Game controller class which handles the Kakuro game.
 
 package kakuro;
+import com.google.gson.*;
 
+import kakuro.gameprogress.dao.GameProgressDaoImpl;
+import kakuro.utils.DatabaseConnection;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GameController
 {
+    public DatabaseConnection database;
+    public GameProgressDaoImpl gameProgress;
+    
     public GameView view;
     public GameModel model;
     private Boolean gui = true;
@@ -33,7 +42,12 @@ public class GameController
         model.initBoard();
         if (model.columns == 10 && model.rows == 10)
             model.generateBoard10x10();
+        
         this.view = new GameView(this, gui);
+        
+        database = new DatabaseConnection();
+        gameProgress = new GameProgressDaoImpl();
+        
         view.printStartup();
         view.printBoard(false/*show answer values*/);
         if (gui){
@@ -64,6 +78,37 @@ public class GameController
                 default:
                     break;
             }
+        }
+    }
+    
+    public Connection getDatabaseConnection() {
+        return database.connect();
+    }
+    
+    public void disconnectDatabase() {
+        database.disconnect();
+    }
+    
+    public void saveGame() {
+        
+        try {            
+            //TODO: fixed player and to fix in iteration 3
+            gameProgress.save(getDatabaseConnection(), "TestPlayer", model.board);
+            
+            System.out.println("Successfully saved game progress");
+        } catch(SQLException e) {
+            System.err.println("Failed to save game");
+        }
+    }
+    
+    public void loadGame() {
+        try {            
+            //TODO: fixed player and to fix in iteration 3
+            gameProgress.load(getDatabaseConnection(), "TestPlayer");
+            
+            System.out.println("Successfully loaded game progress");
+        } catch(SQLException e) {
+            System.err.println("Failed to load game");
         }
     }
 
@@ -210,9 +255,5 @@ public class GameController
     	  return true;
           else
           return false;
-    	
-    	
-    	
-    	
     }
 }
