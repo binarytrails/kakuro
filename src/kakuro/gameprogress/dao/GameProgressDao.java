@@ -8,7 +8,7 @@ import kakuro.BoardCell;
 
 public interface GameProgressDao {
     /**
-     * TODO: confirm the datatype
+     * TODO: confirm the datatypes
      * 
      * Serialize the BoardCell object to JSON and stores a JSON object to the gameprogress table in the database
      * @param conn
@@ -19,7 +19,7 @@ public interface GameProgressDao {
     void save(Connection conn, String uid, BoardCell[][] board) throws SQLException;
     
     /**
-     * TODO: confirm the datatype
+     * TODO: confirm the datatypes
      * 
      * Deserialize the JSON object and returns a BoardCell object
      * @param conn
