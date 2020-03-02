@@ -7,12 +7,15 @@
   <path id="classpath.test">
     <pathelement location="lib/junit-4.12.0.jar"/>
     <pathelement location="lib/org.hamcrest.core_1.3.0.jar"/>
+    <pathelement location="lib/gson-2.8.6.jar"/>
     <pathelement location="${main.build.dir}"/>
   </path>
 
   <target name="compile">
     <mkdir dir="${main.build.dir}"/>
-    <javac srcdir="${main.src.dir}" destdir="${main.build.dir}" includeantruntime="false"/>
+    <javac srcdir="${main.src.dir}" destdir="${main.build.dir}" includeantruntime="false">
+        <classpath refid="classpath.test"/>
+    </javac>
   </target>
 
   <target name="test-compile" depends="compile">
