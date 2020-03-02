@@ -117,9 +117,10 @@ public class ButtonMenu {
             }
         });
         
-        /* With the use of an Action Listener to know if the user has clicked on the button, this part of the method will save the current state of
-         * the game.
-         *  */
+        /* 
+         * With the use of an Action Listener to know if the user has clicked on the button, this part of the method will load a saved game of a user
+         *  
+         **/
         load_button.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
