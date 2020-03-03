@@ -63,6 +63,16 @@ public class ButtonMenu {
     public void chronoSetUp() {
         chrono.timerSetUp();
     }
+    
+    private void toggleMenu() {
+        play_button.setVisible(true);
+        pause_button.setVisible(true);
+        submit_button.setVisible(true);
+        save_button.setVisible(true);
+        
+        choose_game_button.setVisible(false);
+        load_button.setVisible(false);
+    }
 
     public void buttonsSetUp() {
 
@@ -131,6 +141,7 @@ public class ButtonMenu {
             {
                 if(gameController.loadGame() != null) {
                    JOptionPane.showMessageDialog(null, "Successfully loaded saved game!");
+                   toggleMenu();
                 } else {
                     JOptionPane.showMessageDialog(null, "You do not have any saved game!", "Not Found", JOptionPane.ERROR_MESSAGE);
                 }
@@ -152,13 +163,7 @@ public class ButtonMenu {
                 
                 if(chooseGame != null) {
                     int gameLevel = Integer.parseInt(chooseGame);
-                    play_button.setVisible(true);
-                    pause_button.setVisible(true);
-                    submit_button.setVisible(true);
-                    save_button.setVisible(true);
-                    
-                    choose_game_button.setVisible(false);
-                    load_button.setVisible(false);
+                    toggleMenu();
                     
                     gameController.loadPreconfiguredGame(gameLevel);
                 }
