@@ -197,10 +197,11 @@ public class GameView
         
         //If a panel is already attached to the frame, remove it
         if(currentPanel != null)
-        frame.getContentPane().remove(currentPanel);
+            frame.getContentPane().remove(currentPanel);
         
         //Save a reference to the new panel
         frame.getContentPane().add(panel);
+        currentPanel = panel;
         
        // currentPanel = panel;
         frame.setVisible(true);
