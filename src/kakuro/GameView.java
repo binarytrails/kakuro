@@ -149,6 +149,9 @@ public class GameView
                         textField = new JFormattedTextField(numberFormatter);
                         textField.setHorizontalAlignment(JTextField.CENTER);
                         textField.setBorder(new LineBorder(Color.GRAY,1));
+                        //When you load a game, there is some data exists. We have to check to make sure we are displaying the saved input
+                        if(cell.getFirstValue()!=-1)
+                            textField.setValue(cell.getFirstValue());
                         panel.add(textField);
                         break;
 
