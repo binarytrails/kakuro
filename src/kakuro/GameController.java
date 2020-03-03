@@ -3,8 +3,8 @@
 // @brief Game controller class which handles the Kakuro game.
 
 package kakuro;
-import com.google.gson.*;
 
+import kakuro.gameprogress.dao.GameProgressDao;
 import kakuro.gameprogress.dao.GameProgressDaoImpl;
 import kakuro.utils.DatabaseConnection;
 
@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class GameController
 {
     public DatabaseConnection database;
-    public GameProgressDaoImpl gameProgress;
+    public GameProgressDao gameProgress;
     
     public GameView view;
     public GameModel model;
