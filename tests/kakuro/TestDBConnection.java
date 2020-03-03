@@ -1,7 +1,8 @@
 package tests;
 
 import static org.junit.Assert.assertEquals;
-
+import java.sql.Connection;
+import java.sql.SQLException;
 
 import org.junit.Test;
 
@@ -16,7 +17,11 @@ public class TestDBConnection {
 		  	
 	  DatabaseConnection db = new DatabaseConnection();
 	  
-	  assertEquals(db!=null, true);
+	  db.connect();
+	  
+	  Connection conn = db.getConnection(); 
+	  
+	  assertEquals(conn!=null, true);
 	  
 	  db.disconnect();
 	
@@ -26,11 +31,19 @@ public class TestDBConnection {
 	public void testDisconnect() {
 	
 	  DatabaseConnection db = new DatabaseConnection();
-      db.connect();
-	 	  
+      
+	  db.connect();
+	  
 	  db.disconnect();
 	  
-	  assertEquals(db==null, true);
+	  Connection conn = db.getConnection();
+	  
+	  try {
+		assertEquals(conn.isClosed(), true);
+	  } catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	  }
 	   
 	
 	}

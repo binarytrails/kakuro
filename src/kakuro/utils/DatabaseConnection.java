@@ -123,4 +123,12 @@ public class DatabaseConnection {
         
         pstmt.executeUpdate();
     }
+    
+    public Connection getConnection() {
+    	
+    	return connection;
+    	
+    }
+    
+    
 }
