@@ -22,7 +22,7 @@ public class TestDBConnection {
 		  	
 	  DatabaseConnection db = new DatabaseConnection();
 	  
-	  assertEquals(expectedOutput, outContent.toString());
+	  assertEquals(outContent.toString(),expectedOutput);
 	  
 	  db.disconnect();
 	
@@ -41,7 +41,7 @@ public class TestDBConnection {
 	  
 	  db.disconnect();
 	  
-	  assertEquals(expectedOutput, outContent.toString());
+	  assertEquals(outContent.toString(),expectedOutput);
 	   
 	
 	}
