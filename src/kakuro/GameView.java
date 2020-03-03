@@ -50,16 +50,17 @@ public class GameView
     
     public GameView(final GameController controller, Boolean X11)
     {
-        if (X11)
-            frame = new JFrame("KAKURO");
         if (controller != null)
         {
             this.controller = controller;
             gridSizeX = controller.model.rows;
             gridSizeY = controller.model.columns;
         }
-        if (X11)
-            buttonMenu = new ButtonMenu(frame, gridSizeX, gridSizeY, controller);
+        if (X11) {
+            frame = new JFrame("KAKURO");
+            buttonMenu = new ButtonMenu(frame, gridSizeX, gridSizeY, controller);            
+        }
+        
         numberFormatter.setValueClass(Integer.class);
         numberFormatter.setMinimum(1);
         numberFormatter.setMaximum(9);

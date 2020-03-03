@@ -4,6 +4,8 @@
 
 package kakuro;
 
+import kakuro.game.dao.GameDao;
+import kakuro.game.dao.GameDaoImpl;
 import kakuro.gameprogress.dao.GameProgressDao;
 import kakuro.gameprogress.dao.GameProgressDaoImpl;
 import kakuro.utils.DatabaseConnection;
@@ -17,6 +19,7 @@ public class GameController
 {
     public DatabaseConnection database;
     public GameProgressDao gameProgress;
+    public GameDao game;
     
     public GameView view;
     public GameModel model;
@@ -34,19 +37,21 @@ public class GameController
     {
         this.model = new GameModel(columns, rows);
         this.gui = gui;
+        
+        database = new DatabaseConnection();
+        database.connect();
+        gameProgress = new GameProgressDaoImpl();
+        game = new GameDaoImpl();
+        
         initGame(model);
     }
 
     private void initGame(GameModel model)
     {
-        model.initBoard();
-        if (model.columns == 10 && model.rows == 10)
-            model.generateBoard10x10();
+        
+        model.initBoard();        
         
         this.view = new GameView(this, gui);
-        
-        database = new DatabaseConnection();
-        gameProgress = new GameProgressDaoImpl();
         
         view.printStartup();
         view.printBoard(false/*show answer values*/);
@@ -82,7 +87,11 @@ public class GameController
     }
     
     public Connection getDatabaseConnection() {
-        return database.connect();
+        return database.getConnection();
+    }
+    
+    public void connectDatabase() {
+        database.connect();
     }
     
     public void disconnectDatabase() {
@@ -101,14 +110,49 @@ public class GameController
         }
     }
     
-    public void loadGame() {
+    public BoardCell[][] loadGame() {
         try {            
             //TODO: fixed player and to fix in iteration 3
-            gameProgress.load(getDatabaseConnection(), "TestPlayer");
+            BoardCell[][] boardCell = gameProgress.load(getDatabaseConnection(), "TestPlayer");
             
-            System.out.println("Successfully loaded game progress");
+            if(boardCell != null) {
+                model.board = boardCell;         
+                System.out.println("Successfully loaded game progress");
+                
+                view.printStartup();
+                view.printBoard(false);
+                
+                if (gui){
+                    view.board_ui();
+                }
+                
+                return model.board;
+            }
+            
+            
         } catch(SQLException e) {
             System.err.println("Failed to load game");
+        }
+        
+        return null;
+    }
+    
+    public void loadPreconfiguredGame(int gameLevel) {
+        try {
+            ArrayList<BoardCell[][]> boardCells = game.loadAllPreconfiguredGames(getDatabaseConnection());
+
+            model.board = boardCells.get(gameLevel-1);
+            
+            
+            view.printStartup();
+            view.printBoard(false);
+            
+            if (gui){
+                view.board_ui();
+            }
+            
+        } catch(SQLException e) {
+            System.err.println("Failed to load preconfigred game");
         }
     }
 

@@ -31,21 +31,9 @@ public class DatabaseConnection {
     private final String INSERT_PLAYER_QUERY = "INSERT INTO player(username,password) VALUES(?,?)";
     //TODO: remove this in iteration 3
     private final String INSERT_PLAYER_DATA_QUERY = "INSERT INTO game_progress(username) VALUES(?)";
+    private final String INSERT_PRECONFIGURED_GAME_DATA_QUERY = "INSERT INTO game(cells) VALUES(?)";
     
-    public DatabaseConnection() {
-        this.connect();
-        
-        /** TODO: to discuss with team - iteration 2
-         * To discuss if we should disconnect every time for memory leaks or not. 
-         * I would not because we will have a player playing one at a time in there desktop
-         * If we agree to not disconnecting for memory leaks due to the argument above,
-         * we can listen to the event of closing the application window and close the database.
-         * But I think it closes the database anyhow when closing the window.
-         */
-//        this.disconnect();
-    }
-    
-    public Connection connect() {
+    public void connect() {
         
         try {
             File file = new File(System.getProperty("user.dir") + "/" + DATABASE_FILE_PATH);
@@ -62,18 +50,18 @@ public class DatabaseConnection {
                 insertMainPlayer();      
               //TODO: remove hardcoded player in iteration 3
                 insertPlayerData();
+                insertPreconfiguredGames();
             }
             else {
          
                 connection = DriverManager.getConnection("jdbc:sqlite:" + DATABASE_FILE_PATH);
                 System.out.println("Success! Connected to SQLite database");
             }
+            
 
         } catch (Exception e) {
             System.err.println("Failed to connect to SQLite database");
         }
-
-        return connection;
     }
 
     public void disconnect() {
@@ -88,6 +76,10 @@ public class DatabaseConnection {
             System.err.println("Failed to disconnect from SQLite database");
         }
 
+    }
+    
+    public Connection getConnection() {
+        return this.connection;
     }
     
     private void createGameTable() throws SQLException {
@@ -120,6 +112,16 @@ public class DatabaseConnection {
         PreparedStatement pstmt = connection.prepareStatement(INSERT_PLAYER_DATA_QUERY);
         
         pstmt.setString(1, "TestPlayer");
+        
+        pstmt.executeUpdate();
+    }
+    
+    private void insertPreconfiguredGames() throws SQLException {
+        String preconfiguredGame1 = "[[{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"FILLED10\",\"value1\":37,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1}],[{\"type\":\"FILLED01\",\"value1\":-1,\"value2\":43},{\"type\":\"INPUT\",\"value1\":-1,\"value2\":1},{\"type\":\"INPUT\",\"value1\":-1,\"value2\":3},{\"type\":\"INPUT\",\"value1\":-1,\"value2\":4},{\"type\":\"INPUT\",\"value1\":-1,\"value2\":5},{\"type\":\"INPUT\",\"value1\":-1,\"value2\":6},{\"type\":\"INPUT\",\"value1\":-1,\"value2\":7},{\"type\":\"INPUT\",\"value1\":-1,\"value2\":8},{\"type\":\"INPUT\",\"value1\":-1,\"value2\":9},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1}],[{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"INPUT\",\"value1\":-1,\"value2\":2},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1}],[{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"INPUT\",\"value1\":-1,\"value2\":3},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1}],[{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"INPUT\",\"value1\":-1,\"value2\":4},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1}],[{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"INPUT\",\"value1\":-1,\"value2\":5},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1}],[{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"INPUT\",\"value1\":-1,\"value2\":6},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1}],[{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"INPUT\",\"value1\":-1,\"value2\":7},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1}],[{\"type\":\"FILLED01\",\"value1\":-1,\"value2\":39},{\"type\":\"INPUT\",\"value1\":-1,\"value2\":9},{\"type\":\"INPUT\",\"value1\":-1,\"value2\":8},{\"type\":\"INPUT\",\"value1\":-1,\"value2\":7},{\"type\":\"INPUT\",\"value1\":-1,\"value2\":5},{\"type\":\"INPUT\",\"value1\":-1,\"value2\":4},{\"type\":\"INPUT\",\"value1\":-1,\"value2\":3},{\"type\":\"INPUT\",\"value1\":-1,\"value2\":2},{\"type\":\"INPUT\",\"value1\":-1,\"value2\":1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1}],[{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1},{\"type\":\"EMPTY\",\"value1\":-1,\"value2\":-1}]]"; 
+
+        PreparedStatement pstmt = connection.prepareStatement(INSERT_PRECONFIGURED_GAME_DATA_QUERY);
+        
+        pstmt.setString(1, preconfiguredGame1);
         
         pstmt.executeUpdate();
     }
