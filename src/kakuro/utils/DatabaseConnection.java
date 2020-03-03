@@ -70,7 +70,7 @@ public class DatabaseConnection {
             }
 
         } catch (Exception e) {
-            System.err.println("Failed to connect to SQLite databasef");
+            System.err.println("Failed to connect to SQLite database");
         }
 
         return connection;
@@ -85,7 +85,7 @@ public class DatabaseConnection {
                         .println("Success! Disconnected from SQLite database");
             }
         } catch (Exception e) {
-            System.err.println("Failed to disconnect from SQLite databasef");
+            System.err.println("Failed to disconnect from SQLite database");
         }
 
     }
