@@ -39,7 +39,8 @@ public class GameController
         this.gui = gui;
         
         database = new DatabaseConnection();
-        database.connect();
+        connectDatabase();
+        
         gameProgress = new GameProgressDaoImpl();
         game = new GameDaoImpl();
         
