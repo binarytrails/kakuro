@@ -31,6 +31,7 @@ public class GameView
     private GameController controller;
     private Scanner inputReader = new Scanner(System.in);
     private ButtonMenu buttonMenu;
+    // TODO remove and use listeners to interact directly with model.board
     public JTextField[][] saveInput;
 
     public ButtonMenu getButtonMenu() {
@@ -65,6 +66,8 @@ public class GameView
         numberFormatter.setValueClass(Integer.class);
         numberFormatter.setMinimum(1);
         numberFormatter.setMaximum(9);
+        // TODO remove see definition comment
+        saveInput=new JTextField[controller.model.rows][controller.model.columns];
     }
 
     public void printStartup()
@@ -80,7 +83,7 @@ public class GameView
             for(int column = 0; column < controller.model.rows; column++)
             {
                 BoardCell cell = controller.model.board[row][column];
-                String value = saveInput[row][column].getText();
+                String value = this.saveInput[row][column].getText();
                 if(!value.isEmpty()) {
                     switch (cell.getType())
                     {
@@ -183,7 +186,7 @@ public class GameView
                         break;
                 }
                 //placing textfield value in input array to track user input
-                saveInput[row][column] = textField;
+                this.saveInput[row][column] = textField;
             }
         }
         int x = frameSize*gridSizeX;

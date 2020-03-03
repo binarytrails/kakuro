@@ -4,6 +4,12 @@
 
 package kakuro;
 
+import kakuro.gameprogress.dao.GameProgressDao;
+import kakuro.gameprogress.dao.GameProgressDaoImpl;
+import kakuro.utils.DatabaseConnection;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,6 +17,9 @@ import javax.swing.JTextField;
 
 public class GameController
 {
+    public DatabaseConnection database;
+    public GameProgressDao gameProgress;
+    
     public GameView view;
     public GameModel model;
     private Boolean gui = true;
@@ -35,7 +44,12 @@ public class GameController
         model.initBoard();
         if (model.columns == 10 && model.rows == 10)
             model.generateBoard10x10();
+        
         this.view = new GameView(this, gui);
+        
+        database = new DatabaseConnection();
+        gameProgress = new GameProgressDaoImpl();
+        
         view.printStartup();
         view.printBoard(false/*show answer values*/);
         if (gui){
@@ -66,6 +80,37 @@ public class GameController
                 default:
                     break;
             }
+        }
+    }
+    
+    public Connection getDatabaseConnection() {
+        return database.connect();
+    }
+    
+    public void disconnectDatabase() {
+        database.disconnect();
+    }
+    
+    public void saveGame() {
+        
+        try {            
+            //TODO: fixed player and to fix in iteration 3
+            gameProgress.save(getDatabaseConnection(), "TestPlayer", model.board);
+            
+            System.out.println("Successfully saved game progress");
+        } catch(SQLException e) {
+            System.err.println("Failed to save game");
+        }
+    }
+    
+    public void loadGame() {
+        try {            
+            //TODO: fixed player and to fix in iteration 3
+            gameProgress.load(getDatabaseConnection(), "TestPlayer");
+            
+            System.out.println("Successfully loaded game progress");
+        } catch(SQLException e) {
+            System.err.println("Failed to load game");
         }
     }
 
@@ -212,20 +257,6 @@ public class GameController
     	  return true;
           else
           return false;
-    }
-    
-    public void updateBoard(int[][] cellContent) {
-        for(int row = 0; row < model.columns; row++)
-        {
-            for(int column = 0; column < model.rows; column++)
-            {
-                BoardCell cell = model.board[row][column];
-                //We assume that all input is correct since error handling is done at the view level
-                if(cell.getType() == BoardCell.CellType.INPUT) {
-                    model.board[row][column].setFirstValue(cellContent[row][column]);
-                }
-            }
-        }
     }
     
     public void loadInputInModel(boolean clearInput) {

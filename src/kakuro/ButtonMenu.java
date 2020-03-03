@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 public class ButtonMenu {
     JButton pause_button;
@@ -16,6 +15,7 @@ public class ButtonMenu {
     JButton newGame_button;
     JButton save_button;
     JButton restart_button;
+    JButton load_button;
     JPanel mainPanel;
     Chrono chrono;
     public Chrono getChrono() {
@@ -37,6 +37,7 @@ public class ButtonMenu {
         newGame_button = new JButton("New Game");
         save_button = new JButton("Save");
         restart_button = new JButton("Restart");
+        load_button = new JButton("Load Game");
         mainPanel = new JPanel();
         chrono = new Chrono();
 
@@ -46,6 +47,9 @@ public class ButtonMenu {
         mainPanel.add(submit_button);
         mainPanel.add(restart_button);
         
+        mainPanel.add(save_button);
+        mainPanel.add(load_button);
+
         if (appFrame != null)
         {
             appFrame.getContentPane().add(chrono.getTimerLabel(), BorderLayout.BEFORE_FIRST_LINE);
@@ -110,7 +114,22 @@ public class ButtonMenu {
         {
             public void actionPerformed(ActionEvent e)
             {
-                // Call save method
+                chrono.chronoPause();
+                gameController.view.loadInputInModel();
+               
+                gameController.saveGame();
+            }
+        });
+        
+        /* 
+         * With the use of an Action Listener to know if the user has clicked on the button, this part of the method will load a saved game of a user
+         *  
+         **/
+        load_button.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                gameController.loadGame();
             }
         });
         
