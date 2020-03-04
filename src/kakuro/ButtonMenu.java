@@ -158,7 +158,7 @@ public class ButtonMenu {
             {
                 
                 //TODO: hardcoded for now and need other boards solution boards -iteration 2 UI
-                Object[] levels = {"1"};
+                Object[] levels = {"1", "2", "3"};
                 String chooseGame = (String) JOptionPane.showInputDialog(null, "Choose a level (1 - 3), 1 being easiest to 3 being the hardest", "Difficulty level", JOptionPane.PLAIN_MESSAGE, null, levels, levels[0]);
                 
                 if(chooseGame != null) {
