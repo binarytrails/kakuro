@@ -1,4 +1,4 @@
-package tests;
+package kakuro;
 
 import static org.junit.Assert.assertEquals;
 import java.sql.Connection;

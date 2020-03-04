@@ -11,7 +11,6 @@ import com.google.gson.*;
 import kakuro.BoardCell;
 
 public class GameProgressDaoImpl implements GameProgressDao {
-    // TODO: to verify with team -multiple or single saved games - iteration 2
     private final String SAVE_GAME_PROGRESS = "UPDATE game_progress SET cells=? WHERE username=?";
     private final String LOAD_GAME_PROGRESS = "SELECT cells FROM game_progress WHERE username=?";
 
@@ -20,7 +19,6 @@ public class GameProgressDaoImpl implements GameProgressDao {
         Gson gson = new Gson();
         
         String boardCellJSON = gson.toJson(board);
-        
         PreparedStatement pstmt = conn.prepareStatement(SAVE_GAME_PROGRESS);
         
         pstmt.setString(1, boardCellJSON);
