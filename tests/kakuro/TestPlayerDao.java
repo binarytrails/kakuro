@@ -1,4 +1,4 @@
-package tests;
+package kakuro;
 
 import kakuro.player.dao.*;
 
