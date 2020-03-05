@@ -41,32 +41,32 @@ public class TestPlayerDao {
 	}
 	
 	
-	@Test
-	public void testRegisterFirstTime() {
-		
-		DatabaseConnection db = new DatabaseConnection(); 
-		db.connect();
-		
-		String name = "Player1";                //new user
-		String password = "password1";
-		
-		PlayerDaoImpl playerDoa = new PlayerDaoImpl();
-		
-		boolean registered = false;
-		
-		try {
-			
-		registered = playerDoa.register(db.getConnection(),name,password);
-		
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		assertEquals(registered,true);
-		
-		db.disconnect();
-	}
+	// TODO change once can unregister a user
+//	@Test
+//	public void testRegisterFirstTime() {
+//		
+//		DatabaseConnection db = new DatabaseConnection(); 
+//		db.connect();
+//		
+//		String name = "Player1";                //new user
+//		String password = "password1";
+//		
+//		PlayerDaoImpl playerDoa = new PlayerDaoImpl();
+//		
+//		boolean registered = false;
+//		
+//		try {
+//			
+//		registered = playerDoa.register(db.getConnection(),name,password);
+//		
+//		} catch (SQLException e) {
+//		    e.printStackTrace();
+//		}
+//		
+//		assertEquals(registered,true);
+//		
+//		db.disconnect();
+//	}
 	
 	@Test
 	public void testLoginRegistered() {
