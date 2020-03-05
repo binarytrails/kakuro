@@ -17,6 +17,7 @@ public class TestPlayerDao {
 	public void testRegisterAlreadyRegistered() {
 		
 		DatabaseConnection db = new DatabaseConnection(); //has hard coded player "TestPlayer" password: "123" already in db 
+		db.connect();
 		
 		String name = "TestPlayer";
 		String password = "123";
@@ -44,6 +45,7 @@ public class TestPlayerDao {
 	public void testRegisterFirstTime() {
 		
 		DatabaseConnection db = new DatabaseConnection(); 
+		db.connect();
 		
 		String name = "Player1";                //new user
 		String password = "password1";
@@ -70,6 +72,7 @@ public class TestPlayerDao {
 	public void testLoginRegistered() {
 		
 		DatabaseConnection db = new DatabaseConnection(); 
+		db.connect();
 		
 		String name = "TestPlayer";                //hard coded in table
 		String password = "123";
@@ -96,6 +99,7 @@ public class TestPlayerDao {
 	public void testLoginNotRegistered() {
 		
 		DatabaseConnection db = new DatabaseConnection(); 
+		db.connect();
 		
 		String name = "NotInDB";                //hard coded in table
 		String password = "NOPass";
