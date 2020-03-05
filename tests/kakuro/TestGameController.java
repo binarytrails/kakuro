@@ -14,13 +14,14 @@ import kakuro.gameprogress.dao.GameProgressDaoImpl;
 import kakuro.utils.DatabaseConnection;
 
 public class TestGameController {
-
+    
+   
     @Test
     public void testGameController() {
         
         int rows = 3;
         int columns = 5;
-        GameController gameController = new GameController(columns,rows, true);
+        GameController gameController = new GameController(columns,rows, false);
         assertEquals(columns, gameController.model.columns);
         assertEquals(rows, gameController.model.rows);
         
@@ -90,7 +91,7 @@ public class TestGameController {
         
     }
 
-    /*@Test
+    @Test
     public void testLoadGame() {
         DatabaseConnection db = new DatabaseConnection();
         int rows = 10;
@@ -130,7 +131,7 @@ public class TestGameController {
         } catch(SQLException e) {
             System.err.println("Failed to load preconfigred game");
         }
-    }*/
+    }
     
 
     @Test
