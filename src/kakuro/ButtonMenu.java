@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class ButtonMenu {
@@ -13,6 +14,7 @@ public class ButtonMenu {
     JButton play_button;
     JButton submit_button;
     JButton newGame_button;
+    JButton choose_game_button;
     JButton save_button;
     JButton restart_button;
     JButton load_button;
@@ -35,6 +37,7 @@ public class ButtonMenu {
         play_button = new JButton("Play");
         submit_button = new JButton("Submit");
         newGame_button = new JButton("New Game");
+        choose_game_button = new JButton("Choose a game");
         save_button = new JButton("Save");
         restart_button = new JButton("Restart");
         load_button = new JButton("Load Game");
@@ -42,12 +45,12 @@ public class ButtonMenu {
         chrono = new Chrono();
 
         // Set up
-        mainPanel.add(play_button);
-        mainPanel.add(pause_button);
-        mainPanel.add(submit_button);
-        mainPanel.add(restart_button);
-        
-        mainPanel.add(save_button);
+        mainPanel.add(play_button).setVisible(false);
+        mainPanel.add(pause_button).setVisible(false);
+        mainPanel.add(submit_button).setVisible(false);
+        mainPanel.add(choose_game_button);
+        mainPanel.add(save_button).setVisible(false);
+        mainPanel.add(restart_button).setVisible(false);
         mainPanel.add(load_button);
 
         if (appFrame != null)
@@ -62,6 +65,17 @@ public class ButtonMenu {
 
     public void chronoSetUp() {
         chrono.timerSetUp();
+    }
+    
+    private void toggleMenu() {
+        play_button.setVisible(true);
+        pause_button.setVisible(true);
+        submit_button.setVisible(true);
+        save_button.setVisible(true);
+        restart_button.setVisible(true);
+        
+        choose_game_button.setVisible(false);
+        load_button.setVisible(false);
     }
 
     public void buttonsSetUp() {
@@ -129,7 +143,34 @@ public class ButtonMenu {
         {
             public void actionPerformed(ActionEvent e)
             {
-                gameController.loadGame();
+                if(gameController.loadGame() != null) {
+                   JOptionPane.showMessageDialog(null, "Successfully loaded saved game!");
+                   toggleMenu();
+                } else {
+                    JOptionPane.showMessageDialog(null, "You do not have any saved game!", "Not Found", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        
+        /* 
+         * With the use of an Action Listener to know if the user has clicked on the button, this part of the method will pop a dialog with preconfigured games
+         *  
+         **/
+        choose_game_button.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                
+                //TODO: hardcoded for now and need other boards solution boards -iteration 2 UI
+                Object[] levels = {"1", "2", "3"};
+                String chooseGame = (String) JOptionPane.showInputDialog(null, "Choose a level (1 - 3), 1 being easiest to 3 being the hardest", "Difficulty level", JOptionPane.PLAIN_MESSAGE, null, levels, levels[0]);
+                
+                if(chooseGame != null) {
+                    int gameLevel = Integer.parseInt(chooseGame);
+                    toggleMenu();
+                    
+                    gameController.loadPreconfiguredGame(gameLevel);
+                }
             }
         });
         
