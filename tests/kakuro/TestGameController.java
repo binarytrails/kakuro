@@ -69,7 +69,7 @@ public class TestGameController {
          
     }
 
-    /*@Test
+    @Test
     public void testSaveGame() {
         DatabaseConnection db = new DatabaseConnection();
         int rows = 10;
@@ -90,7 +90,7 @@ public class TestGameController {
         
     }
 
-    @Test
+    /*@Test
     public void testLoadGame() {
         DatabaseConnection db = new DatabaseConnection();
         int rows = 10;
@@ -110,7 +110,7 @@ public class TestGameController {
        } catch(SQLException e) {
             System.err.println("Failed to load game");
         }
-    }*/
+    }
 
     @Test
     public void testLoadPreconfiguredGame() {
@@ -130,7 +130,7 @@ public class TestGameController {
         } catch(SQLException e) {
             System.err.println("Failed to load preconfigred game");
         }
-    }
+    }*/
     
 
     @Test
