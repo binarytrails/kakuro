@@ -34,7 +34,7 @@ public class Chrono
     /* Checks if the user have clicked on a button. If he clicks on pause, the timer will stop. If he clicks on start, the timer will start. If 
      * he clicks on new game, the timer will restart and a new grid will appear on the screen. 
      * The timer is set to start automatically when the application is launched since a game will already be ready to play.
-     * Need to implement : Save button
+     * Need to implement : Save feature
      */
 
     public void checkTime() {

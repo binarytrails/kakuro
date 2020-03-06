@@ -4,11 +4,25 @@
 
 package kakuro;
 
+import kakuro.game.dao.GameDao;
+import kakuro.game.dao.GameDaoImpl;
+import kakuro.gameprogress.dao.GameProgressDao;
+import kakuro.gameprogress.dao.GameProgressDaoImpl;
+import kakuro.utils.DatabaseConnection;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.JTextField;
+
 public class GameController
 {
+    public DatabaseConnection database;
+    public GameProgressDao gameProgress;
+    public GameDao game;
+    
     public GameView view;
     public GameModel model;
     private Boolean gui = true;
@@ -25,15 +39,23 @@ public class GameController
     {
         this.model = new GameModel(columns, rows);
         this.gui = gui;
+        
+        database = new DatabaseConnection();
+        connectDatabase();
+        
+        gameProgress = new GameProgressDaoImpl();
+        game = new GameDaoImpl();
+        
         initGame(model);
     }
 
     private void initGame(GameModel model)
     {
-        model.initBoard();
-        if (model.columns == 10 && model.rows == 10)
-            model.generateBoard10x10();
+        
+        model.initBoard();        
+        
         this.view = new GameView(this, gui);
+        
         view.printStartup();
         view.printBoard(false/*show answer values*/);
         if (gui){
@@ -64,6 +86,76 @@ public class GameController
                 default:
                     break;
             }
+        }
+    }
+    
+    public Connection getDatabaseConnection() {
+        return database.getConnection();
+    }
+    
+    public void connectDatabase() {
+        database.connect();
+    }
+    
+    public void disconnectDatabase() {
+        database.disconnect();
+    }
+    
+    public void saveGame() {
+        
+        try {            
+            //TODO: fixed player and to fix in iteration 3
+            gameProgress.save(getDatabaseConnection(), "TestPlayer", model.board);
+            
+            System.out.println("Successfully saved game progress");
+        } catch(SQLException e) {
+            System.err.println("Failed to save game");
+        }
+    }
+    
+    public BoardCell[][] loadGame() {
+        try {            
+            //TODO: fixed player and to fix in iteration 3
+            BoardCell[][] boardCell = gameProgress.load(getDatabaseConnection(), "TestPlayer");
+            
+            if(boardCell != null) {
+                model.board = boardCell;         
+                System.out.println("Successfully loaded game progress");
+                
+                view.printStartup();
+                view.printBoard(false);
+                
+                if (gui){
+                    view.board_ui();
+                }
+                
+                return model.board;
+            }
+            
+            
+        } catch(SQLException e) {
+            System.err.println("Failed to load game");
+        }
+        
+        return null;
+    }
+    
+    public void loadPreconfiguredGame(int gameLevel) {
+        try {
+            ArrayList<BoardCell[][]> boardCells = game.loadAllPreconfiguredGames(getDatabaseConnection());
+
+            model.board = boardCells.get(gameLevel-1);
+            
+            
+            view.printStartup();
+            view.printBoard(false);
+            
+            if (gui){
+                view.board_ui();
+            }
+            
+        } catch(SQLException e) {
+            System.err.println("Failed to load preconfigred game");
         }
     }
 
@@ -210,9 +302,31 @@ public class GameController
     	  return true;
           else
           return false;
-    	
-    	
-    	
-    	
+    }
+    
+    public void loadInputInModel(boolean clearInput) {
+        JTextField[][] saveInput = view.saveInput;
+        String value;
+        
+        for(int row = 0; row < model.columns; row++)
+        {
+            for(int column = 0; column < model.rows; column++)
+            {
+                BoardCell cell = model.board[row][column];
+               
+                if (cell.getType() == BoardCell.CellType.INPUT)
+                {
+                    if(clearInput) {
+                        saveInput[row][column].setText("");
+                        model.board[row][column].setFirstValue(-1);
+                    }
+                    else {
+                        value = saveInput[row][column].getText();
+                        if(!value.isEmpty())
+                            model.board[row][column].setFirstValue(Integer.parseInt(value));
+                    }
+                }
+            }
+        }
     }
 }
