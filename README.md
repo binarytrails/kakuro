@@ -11,6 +11,7 @@ Source Code: https://github.com/binarytrails/kakuro
 **Arch Linux**
 
 - latex-enumitem
+- textlive-latexextra
 
 ## Rules
 
