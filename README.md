@@ -24,8 +24,8 @@ Filled cells notation means:
 
 ## UI
 
+![iteration1-ui](resources/images/iteration2-ui.png)
 ![iteration1-ui](resources/images/iteration2-ui-1.png)
-
 ![iteration1-ui](resources/images/iteration2-ui-2.png)
 
 ## Console
