@@ -37,6 +37,7 @@ public class GameModel
         }
     }
 
+    //TODO: to remove - iteration2
     public void generateBoard10x10()
     {
         // second row

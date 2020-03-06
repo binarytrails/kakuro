@@ -33,6 +33,7 @@ public class GameView
     private ButtonMenu buttonMenu;
     // TODO remove and use listeners to interact directly with model.board
     public JTextField[][] saveInput;
+    private JPanel currentPanel; //The reference to the current displaying pane (board UI)
 
     public ButtonMenu getButtonMenu() {
         return buttonMenu;
@@ -50,8 +51,6 @@ public class GameView
     
     public GameView(final GameController controller, Boolean X11)
     {
-        if (X11)
-            frame = new JFrame("KAKURO");
         if (controller != null)
         {
             this.controller = controller;
@@ -59,6 +58,7 @@ public class GameView
             gridSizeY = controller.model.columns;
         }
         if (X11) {
+            frame = new JFrame("KAKURO");
             buttonMenu = new ButtonMenu(frame, gridSizeX, gridSizeY, controller);
             saveInput = new JTextField[controller.model.rows][controller.model.columns];
         }
@@ -150,6 +150,9 @@ public class GameView
                         textField = new JFormattedTextField(numberFormatter);
                         textField.setHorizontalAlignment(JTextField.CENTER);
                         textField.setBorder(new LineBorder(Color.GRAY,1));
+                        //When you load a game, there is some data exists. We have to check to make sure we are displaying the saved input
+                        if(cell.getFirstValue()!=-1)
+                            textField.setValue(cell.getFirstValue());
                         panel.add(textField);
                         break;
 
@@ -195,7 +198,16 @@ public class GameView
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(x, y);
         frame.setResizable(false);
+        
+        //If a panel is already attached to the frame, remove it
+        if(currentPanel != null)
+            frame.getContentPane().remove(currentPanel);
+        
+        //Save a reference to the new panel
         frame.getContentPane().add(panel);
+        currentPanel = panel;
+        
+       // currentPanel = panel;
         frame.setVisible(true);
 
     }
