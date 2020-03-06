@@ -16,6 +16,7 @@ public class ButtonMenu {
     JButton newGame_button;
     JButton choose_game_button;
     JButton save_button;
+    JButton restart_button;
     JButton load_button;
     JPanel mainPanel;
     Chrono chrono;
@@ -38,6 +39,7 @@ public class ButtonMenu {
         newGame_button = new JButton("New Game");
         choose_game_button = new JButton("Choose a game");
         save_button = new JButton("Save");
+        restart_button = new JButton("Restart");
         load_button = new JButton("Load Game");
         mainPanel = new JPanel();
         chrono = new Chrono();
@@ -45,6 +47,7 @@ public class ButtonMenu {
         // Set up
         mainPanel.add(play_button).setVisible(false);
         mainPanel.add(pause_button).setVisible(false);
+        mainPanel.add(restart_button);
         mainPanel.add(submit_button).setVisible(false);
         mainPanel.add(choose_game_button);
         mainPanel.add(save_button).setVisible(false);
@@ -111,7 +114,7 @@ public class ButtonMenu {
             {
                 chrono.chronoPause();
                 //loads data into model
-                gameController.view.loadInputInModel();
+                gameController.loadInputInModel(false); //No clearing inputs
                 gameController.solveBoard();
                 gameController.view.printSolveBoard();
             }
@@ -167,6 +170,16 @@ public class ButtonMenu {
                     
                     gameController.loadPreconfiguredGame(gameLevel);
                 }
+            }
+        });
+        
+        restart_button.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                chrono.resetTimer();
+                chrono.chronoStart();
+                gameController.loadInputInModel(true); //Clear inputs
             }
         });
     }

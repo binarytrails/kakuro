@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.JTextField;
+
 public class GameController
 {
     public DatabaseConnection database;
@@ -300,5 +302,31 @@ public class GameController
     	  return true;
           else
           return false;
+    }
+    
+    public void loadInputInModel(boolean clearInput) {
+        JTextField[][] saveInput = view.saveInput;
+        String value;
+        
+        for(int row = 0; row < model.columns; row++)
+        {
+            for(int column = 0; column < model.rows; column++)
+            {
+                BoardCell cell = model.board[row][column];
+               
+                if (cell.getType() == BoardCell.CellType.INPUT)
+                {
+                    if(clearInput) {
+                        saveInput[row][column].setText("");
+                        model.board[row][column].setFirstValue(-1);
+                    }
+                    else {
+                        value = saveInput[row][column].getText();
+                        if(!value.isEmpty())
+                            model.board[row][column].setFirstValue(Integer.parseInt(value));
+                    }
+                }
+            }
+        }
     }
 }
