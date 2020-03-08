@@ -59,7 +59,8 @@ public class GameView
         }
         if (X11) {
             frame = new JFrame("KAKURO");
-            buttonMenu = new ButtonMenu(frame, gridSizeX, gridSizeY, controller);            
+            buttonMenu = new ButtonMenu(frame, gridSizeX, gridSizeY, controller);
+            saveInput = new JTextField[controller.model.rows][controller.model.columns];
         }
         
         numberFormatter.setValueClass(Integer.class);

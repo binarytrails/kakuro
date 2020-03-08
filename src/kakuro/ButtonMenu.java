@@ -47,6 +47,7 @@ public class ButtonMenu {
         // Set up
         mainPanel.add(play_button).setVisible(false);
         mainPanel.add(pause_button).setVisible(false);
+        mainPanel.add(restart_button);
         mainPanel.add(submit_button).setVisible(false);
         mainPanel.add(choose_game_button);
         mainPanel.add(save_button).setVisible(false);
