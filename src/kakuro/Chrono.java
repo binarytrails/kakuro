@@ -2,6 +2,10 @@ package kakuro;
 //@author Audrey St-Louis
 //@brief Timer class 
 
+/**
+	 *@author Audrey St-Louis
+	 *Brief Timer Class
+*/
 import javax.swing.*;
 
 import java.awt.BorderLayout;

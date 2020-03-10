@@ -1,5 +1,6 @@
-// @author Vsevolod Ivanov
-// @author ...
+/**
+   	 *@author Vsevolod Ivanov
+ */
 
 package kakuro;
 

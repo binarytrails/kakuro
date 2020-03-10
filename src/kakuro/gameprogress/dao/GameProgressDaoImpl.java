@@ -1,5 +1,9 @@
 //@author Brian Gamboc-Javiniar
 
+/**
+   	 *@author  Brian Gamboc-Javiniar
+   	 
+ */
 package kakuro.gameprogress.dao;
 
 import java.sql.Connection;

@@ -2,6 +2,12 @@
 // @author Nalveer Moocheet
 // @brief Game controller class which handles the Kakuro game.
 
+
+/**
+   	 *@author Vsevolod Ivanov
+   	 *@author Nalveer Moocheet
+ */
+
 package kakuro;
 
 import kakuro.game.dao.GameDao;

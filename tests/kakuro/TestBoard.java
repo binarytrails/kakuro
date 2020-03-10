@@ -1,6 +1,10 @@
 // @author Vsevolod Ivanov
 // @author Nalveer Moocheet
 
+/**
+   	 *@author Vsevolod Ivanov
+   	 *@author Nalveer Moocheet
+ */
 package kakuro;
 
 import static org.junit.Assert.*;
@@ -13,6 +17,9 @@ public class TestBoard
     private Boolean GUI = false;
     private Boolean solved = false;
 
+    /**
+	 *testSize method is used to initialize columns and rows as 10 and check if this method  in class Board works
+	 */
     @Test
     public void testSize()
     {
@@ -25,7 +32,11 @@ public class TestBoard
         assertEquals(model.columns, columns);
         assertEquals(model.rows, rows);
     }
+    
 
+    /**
+   	 *testValidBoard method is to check if the board structure is good and what have been asked
+   	 */
     @Test
     public void testValidBoard()
     {
@@ -45,6 +56,9 @@ public class TestBoard
         assertEquals(solved, true);
     }
     
+    /**
+   	 *testNotValidBoardOneSumIsWrong is a method 
+   	 */
     @Test 
     public void testNotValidBoardOneSumIsWrong()
     {

@@ -1,4 +1,7 @@
-//@author Brian Gamboc-Javiniar
+
+/**
+   	 *@author Brian Gamboc-Javiniar
+ */
 
 package kakuro.player.dao;
 
