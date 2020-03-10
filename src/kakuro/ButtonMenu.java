@@ -20,6 +20,39 @@ public class ButtonMenu {
     JButton load_button;
     JPanel mainPanel;
     Chrono chrono;
+    
+    private enum GameDifficulty{
+        EASY,
+        MEDIUM,
+        DIFFICULT;
+        
+        public static int GameDifficultyToInt(GameDifficulty difficulty) {
+            switch(difficulty) {
+                case EASY: return 1;
+                case MEDIUM: return 2;
+                default: return 3;
+            }
+        }
+    }
+    
+    private class GameDifficultyListItem{
+        private String description;
+        private GameDifficulty difficulty; 
+        
+        public GameDifficultyListItem(String description, GameDifficulty difficulty) {
+            this.description = description;
+            this.difficulty = difficulty;
+        }
+        
+        public GameDifficulty getDifficulty() {
+            return difficulty;
+        }
+        
+        public String toString() {
+            return description;
+        }
+    }
+    
     public Chrono getChrono() {
         return chrono;
     }
@@ -163,14 +196,18 @@ public class ButtonMenu {
             {
                 
                 //TODO: hardcoded for now and need other boards solution boards -iteration 2 UI
-                Object[] levels = {"1", "2", "3"};
-                String chooseGame = (String) JOptionPane.showInputDialog(null, "Choose a level (1 - 3), 1 being easiest to 3 being the hardest", "Difficulty level", JOptionPane.PLAIN_MESSAGE, null, levels, levels[0]);
+                GameDifficultyListItem[] levels = {new GameDifficultyListItem("Easy", GameDifficulty.EASY),
+                                                    new GameDifficultyListItem("Medium", GameDifficulty.MEDIUM),
+                                                    new GameDifficultyListItem("Difficult", GameDifficulty.DIFFICULT)};
                 
-                if(chooseGame != null) {
-                    int gameLevel = Integer.parseInt(chooseGame);
+                GameDifficultyListItem difficultyItem = (GameDifficultyListItem) JOptionPane.showInputDialog(null, "Choose a difficulty level", "Difficulty level", JOptionPane.PLAIN_MESSAGE, null, levels, levels[0]);
+                
+                if(difficultyItem != null) {
+                    int gameLevel = GameDifficulty.GameDifficultyToInt(difficultyItem.getDifficulty());
                     toggleMenu();
                     
                     gameController.loadPreconfiguredGame(gameLevel);
+                    chrono.chronoStart();
                 }
             }
         });

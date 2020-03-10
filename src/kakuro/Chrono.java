@@ -20,6 +20,7 @@ public class Chrono
     /* Constructor : Creates all the UI components and add them on the panel. */
     public Chrono()
     {
+        System.out.println("Initializing the timer...");
         timerLabel = new JLabel("0:"+hours+":"+minutes+":"+seconds); 
     }
 
@@ -67,7 +68,6 @@ public class Chrono
         };
 
         time = new Timer(delay,timerListener);
-        time.start(); 
     }
 
     public void chronoPause() {
