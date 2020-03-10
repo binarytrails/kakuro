@@ -37,7 +37,7 @@ public class ButtonMenu {
         play_button = new JButton("Play");
         submit_button = new JButton("Submit");
         newGame_button = new JButton("New Game");
-        choose_game_button = new JButton("Choose a game");
+        choose_game_button = new JButton("New Game");
         save_button = new JButton("Save");
         restart_button = new JButton("Restart");
         load_button = new JButton("Load Game");
@@ -172,6 +172,7 @@ public class ButtonMenu {
                     
                     gameController.loadPreconfiguredGame(gameLevel);
                     chrono.chronoStart();
+                    chrono.toggleTimerDisplay();
                 }
             }
         });

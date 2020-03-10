@@ -6,13 +6,16 @@ package kakuro;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.text.NumberFormat;
 import java.util.Scanner;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.text.NumberFormatter;
 
@@ -33,7 +36,8 @@ public class GameView
     private ButtonMenu buttonMenu;
     // TODO remove and use listeners to interact directly with model.board
     public JTextField[][] saveInput;
-    private JPanel currentPanel; //The reference to the current displaying pane (board UI)
+    private JPanel boardPanel; //The reference to the current displaying pane (board UI)
+    private JTextField gameTitle;
 
     public ButtonMenu getButtonMenu() {
         return buttonMenu;
@@ -61,6 +65,14 @@ public class GameView
             frame = new JFrame("KAKURO");
             buttonMenu = new ButtonMenu(frame, gridSizeX, gridSizeY, controller);
             saveInput = new JTextField[controller.model.rows][controller.model.columns];
+            
+            //Initialize the application frame
+            int frameSize = 60;
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            int x = frameSize*gridSizeX;
+            int y = frameSize*gridSizeY;
+            frame.setSize(x, y);
+            frame.setResizable(false);
         }
         
         numberFormatter.setValueClass(Integer.class);
@@ -106,15 +118,20 @@ public class GameView
         return numberFormatter.getClass();
     }
     
-    
     public int getMaxNumberValid() {
         return (int) numberFormatter.getMaximum();
     }
 
+    public void start_ui() {
+        JLabel gameTitle = new JLabel("KAKURO", SwingConstants.CENTER);
+        gameTitle.setFont(new Font(gameTitle.getFont().getFontName(), Font.PLAIN, 120));
+       
+        frame.getContentPane().add(gameTitle);
+        frame.setVisible(true);
+    }
+    
     //creates user interface of the game board 
     public void board_ui() {
-
-        int frameSize = 60;
         //creating grid of cells
         JPanel panel = new JPanel(new GridLayout(gridSizeX,gridSizeY));
         //creating window of the game
@@ -192,24 +209,17 @@ public class GameView
                 this.saveInput[row][column] = textField;
             }
         }
-        int x = frameSize*gridSizeX;
-        int y = frameSize*gridSizeY;
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(x, y);
-        frame.setResizable(false);
         
         //If a panel is already attached to the frame, remove it
-        if(currentPanel != null)
-            frame.getContentPane().remove(currentPanel);
+        if(boardPanel != null)
+            frame.getContentPane().remove(boardPanel);
         
         //Save a reference to the new panel
         frame.getContentPane().add(panel);
-        currentPanel = panel;
+        boardPanel = panel;
         
        // currentPanel = panel;
         frame.setVisible(true);
-
     }
 
     public void settingTextField(JTextField txt) {
@@ -218,6 +228,7 @@ public class GameView
         txt.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         txt.setEditable(false);
     }
+    
     public void printBoard(Boolean showAnswerValues)
     {
         System.out.println("board:");
@@ -353,4 +364,6 @@ public class GameView
         buttonMenu.chronoSetUp();
         buttonMenu.buttonsSetUp();
     }
+
+
 }

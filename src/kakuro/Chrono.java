@@ -3,8 +3,10 @@ package kakuro;
 //@brief Timer class 
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.event.*;
 
 public class Chrono
@@ -13,6 +15,7 @@ public class Chrono
     private int minutes=0;
     private int seconds=0;
     private int delay=1000;
+    private boolean isVisible=false;
     JLabel timerLabel;
     ActionListener timerListener;
     Timer time;
@@ -20,7 +23,10 @@ public class Chrono
     /* Constructor : Creates all the UI components and add them on the panel. */
     public Chrono()
     {
-        timerLabel = new JLabel("0:"+hours+":"+minutes+":"+seconds); 
+        timerLabel = new JLabel("0:"+hours+":"+minutes+":"+seconds, SwingConstants.CENTER); 
+        timerLabel.setFont(new Font(timerLabel.getFont().getFontName(), Font.PLAIN, 20));
+        timerLabel.setVisible(false);
+        timerLabel.setBorder(new EmptyBorder(10,0,10,0));//top,left,bottom,right
     }
 
     public JLabel getTimerLabel() {
@@ -107,6 +113,10 @@ public class Chrono
 
     public void setSeconds(int seconds) {
         this.seconds = seconds;
+    }
+    
+    public void toggleTimerDisplay() {
+        timerLabel.setVisible(!isVisible);
     }
 }
 
