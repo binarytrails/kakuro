@@ -59,7 +59,8 @@ public class GameController
         view.printStartup();
         view.printBoard(false/*show answer values*/);
         if (gui){
-            view.board_ui();
+            //view.board_ui();
+            view.start_ui();
             view.settingUpMenu();
         }
     }
