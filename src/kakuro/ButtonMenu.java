@@ -45,9 +45,8 @@ public class ButtonMenu {
         chrono = new Chrono();
 
         // Set up
-        mainPanel.add(play_button).setVisible(false);
         mainPanel.add(pause_button).setVisible(false);
-        mainPanel.add(restart_button);
+        mainPanel.add(restart_button).setVisible(false);;
         mainPanel.add(submit_button).setVisible(false);
         mainPanel.add(choose_game_button);
         mainPanel.add(save_button).setVisible(false);
@@ -68,10 +67,10 @@ public class ButtonMenu {
     }
     
     private void toggleMenu() {
-        play_button.setVisible(true);
         pause_button.setVisible(true);
         submit_button.setVisible(true);
         save_button.setVisible(true);
+        restart_button.setVisible(true);
         
         choose_game_button.setVisible(false);
         load_button.setVisible(false);
@@ -161,14 +160,18 @@ public class ButtonMenu {
             {
                 
                 //TODO: hardcoded for now and need other boards solution boards -iteration 2 UI
-                Object[] levels = {"1", "2", "3"};
-                String chooseGame = (String) JOptionPane.showInputDialog(null, "Choose a level (1 - 3), 1 being easiest to 3 being the hardest", "Difficulty level", JOptionPane.PLAIN_MESSAGE, null, levels, levels[0]);
+                GameDifficultyListItem[] levels = {new GameDifficultyListItem("Easy", GameDifficulty.EASY),
+                        new GameDifficultyListItem("Medium", GameDifficulty.MEDIUM),
+                        new GameDifficultyListItem("Difficult", GameDifficulty.DIFFICULT)};
+
+                GameDifficultyListItem difficultyItem = (GameDifficultyListItem) JOptionPane.showInputDialog(null, "Choose a difficulty level", "Difficulty level", JOptionPane.PLAIN_MESSAGE, null, levels, levels[0]);
                 
-                if(chooseGame != null) {
-                    int gameLevel = Integer.parseInt(chooseGame);
+                if(difficultyItem != null) {
+                    int gameLevel = GameDifficulty.GameDifficultyToInt(difficultyItem.getDifficulty());
                     toggleMenu();
                     
                     gameController.loadPreconfiguredGame(gameLevel);
+                    chrono.chronoStart();
                 }
             }
         });

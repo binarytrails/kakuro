@@ -67,7 +67,6 @@ public class Chrono
         };
 
         time = new Timer(delay,timerListener);
-        time.start(); 
     }
 
     public void chronoPause() {
