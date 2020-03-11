@@ -1,3 +1,7 @@
+// @author Brian Gamboc-Javiniar
+// @author Nalveer Moocheet
+// @brief Test for the database connection
+
 package kakuro;
 
 import static org.junit.Assert.assertEquals;
@@ -9,45 +13,32 @@ import org.junit.Test;
 import kakuro.utils.DatabaseConnection;
 
 public class TestDBConnection {
-
-	
-	@Test
-	public void testConnect() {
-	  
-		  	
-	  DatabaseConnection db = new DatabaseConnection();
-	  
-	  db.connect();
-	  
-	  Connection conn = db.getConnection(); 
-	  
-	  assertEquals(conn!=null, true);
-	  
-	  db.disconnect();
-	
+    @Test
+	public void testConnect(){
+	    //Arrange
+        DatabaseConnection db = new DatabaseConnection();
+        db.connect();
+        //Act
+        Connection conn = db.getConnection(); 
+        assertEquals(conn!=null, true);
+        //Assert
+        db.disconnect();
 	}
      
 	@Test
-	public void testDisconnect() {
-	
-	  DatabaseConnection db = new DatabaseConnection();
-      
-	  db.connect();
-	  
-	  db.disconnect();
-	  
-	  Connection conn = db.getConnection();
-	  
-	  try {
-		assertEquals(conn.isClosed(), true);
-	  } catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	  }
-	   
-	
-	}
-	
-	
-	
+	public void testDisconnect(){
+	    //Arrange
+        DatabaseConnection db = new DatabaseConnection();
+        db.connect();
+        db.disconnect();
+        //Act
+        Connection conn = db.getConnection();
+        //Assert
+        try {
+        assertEquals(conn.isClosed(), true);
+          } catch (SQLException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+        }
+	}	
 }

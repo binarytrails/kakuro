@@ -1,5 +1,5 @@
 // @author Vsevolod Ivanov
-// @author ...
+// @brief Test for the UniquePartitions class
 
 package kakuro;
 
@@ -17,13 +17,12 @@ public class TestUniquePartitions
     private static UniquePartitions partitions;
 
     @BeforeClass
-    public static void setUpBeforeClass() throws Exception
-    {
+    public static void setUpBeforeClass() throws Exception{
         partitions = new UniquePartitions();
     }
+    
     @Test
-    public void testHasAllParts()
-    {
+    public void testHasAllParts(){
         // Arrange
         int part;
         int index = 0;
@@ -39,8 +38,7 @@ public class TestUniquePartitions
     }
 
     @Test
-    public void testNumberEqualsPartitionSum()
-    {
+    public void testNumberEqualsPartitionSum(){
         // Act
         for(Enumeration<TreeNode> partNode = partitions.root.children(); partNode.hasMoreElements();)
         {
@@ -67,5 +65,4 @@ public class TestUniquePartitions
             }
         }
     }
-
 }

@@ -1,6 +1,7 @@
 // @author Isabelle Charette
 // @author Audrey-Laure St-Louis
 // @author Vsevolod Ivanov
+// @brief Test for the Chrono class
 
 package kakuro;
 import static org.junit.Assert.*;
@@ -10,13 +11,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 
-public class TestChrono
-{
+public class TestChrono{
     private int faultToleranceMs = 200;
     
     @Test
-    public void testRunStopChronoAfter3Seconds() throws InterruptedException
-    {
+    public void testRunStopChronoAfter3Seconds() throws InterruptedException{
         // Arrange
         int waitSeconds = 3;
         GameController gameController = new GameController(10, 10, false);

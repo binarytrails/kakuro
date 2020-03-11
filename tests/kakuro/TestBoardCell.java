@@ -1,5 +1,5 @@
 // @author Vsevolod Ivanov
-// @author ...
+// @brief Test for the BoardCell class
 
 package kakuro;
 
@@ -9,11 +9,9 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestBoardCell
-{
+public class TestBoardCell{
     @Test
-    public void testNonInputCell()
-    {
+    public void testNonInputCell(){
         // Arrange
         BoardCell.CellType cellType = BoardCell.CellType.EMPTY;
         // Act
@@ -23,8 +21,7 @@ public class TestBoardCell
     }
 
     @Test
-    public void testInputCell()
-    {
+    public void testInputCell(){
         // Arrange
         int inputNumber = 1;
         BoardCell.CellType cellType = BoardCell.CellType.EMPTY;
@@ -36,8 +33,7 @@ public class TestBoardCell
     }
 
     @Test
-    public void testInputAnswerCell()
-    {
+    public void testInputAnswerCell(){
         // Arrange
         int inputNumber = 1;
         int answerNumber = 3;
