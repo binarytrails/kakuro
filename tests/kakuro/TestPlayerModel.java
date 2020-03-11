@@ -11,11 +11,8 @@ import kakuro.PlayerModel;
 //iteration 3
 
 public class TestPlayerModel {
-
-	
 	@Test
-	public void testConstructor()
-	{
+	public void testConstructor(){
 		//Arrange
 		String trueUsername = "name1";
 		String truePassword = "password1";
@@ -24,12 +21,10 @@ public class TestPlayerModel {
 		//Assert
 		assertEquals(plaMod.getPlayerUsername(),trueUsername);
 		assertEquals(plaMod.getPlayerPassword(),truePassword);
-		
 	}
 	
 	@Test
-	public void testGetterMethod()
-	{
+	public void testGetterMethod(){
 		//Act
 		PlayerModel plaMod = new PlayerModel("name1", "password1");
 		//Assert
@@ -39,11 +34,9 @@ public class TestPlayerModel {
 	}
 	
 	@Test
-	public void testSetterMethod()
-	{
+	public void testSetterMethod(){
 		//Arrange
 		PlayerModel plaMod = new PlayerModel("dummyName", "dummyPassword");
-		
 		String newName = "name1";
 		String newPassword = "password1";
 		//Act
@@ -52,9 +45,5 @@ public class TestPlayerModel {
 		//Assert
 		assertEquals(plaMod.getPlayerUsername(),newName);
 		assertEquals(plaMod.getPlayerPassword(),newPassword);
-		
 	}
-	
-	
-	
 }

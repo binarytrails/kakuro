@@ -13,11 +13,8 @@ import org.junit.Test;
 import kakuro.utils.DatabaseConnection;
 
 public class TestDBConnection {
-
-	
-	@Test
-	public void testConnect()
-	{
+    @Test
+	public void testConnect(){
 	    //Arrange
         DatabaseConnection db = new DatabaseConnection();
         db.connect();
@@ -29,8 +26,7 @@ public class TestDBConnection {
 	}
      
 	@Test
-	public void testDisconnect()
-	{
+	public void testDisconnect(){
 	    //Arrange
         DatabaseConnection db = new DatabaseConnection();
         db.connect();

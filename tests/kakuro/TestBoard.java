@@ -9,14 +9,12 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestBoard
-{
+public class TestBoard{
     private Boolean GUI = false; //disable GUI
     private Boolean solved = false;
-
+  
     @Test
-    public void testSize()
-    {
+    public void testSize(){
         // Arrange
         int columns = 10;
         int rows = 10;
@@ -28,8 +26,7 @@ public class TestBoard
     }
 
     @Test
-    public void testValidBoard()
-    {
+    public void testValidBoard(){
         // Arrange
         GameController controller = new GameController(10,10, GUI);
         GameModel model = new GameModel(10,10); 
@@ -47,8 +44,7 @@ public class TestBoard
     }
     
     @Test 
-    public void testNotValidBoardOneSumIsWrong()
-    {
+    public void testNotValidBoardOneSumIsWrong(){
          // Arrange
          GameController controller = new GameController(10,10, GUI);
          GameModel model = new GameModel(10,10); 
@@ -66,8 +62,7 @@ public class TestBoard
     }
 
     @Test
-    public void testNotValidBoardCorrectSumDuplicateEntries()
-    {
+    public void testNotValidBoardCorrectSumDuplicateEntries(){
         // Arrange
         GameController controller = new GameController(10,10, GUI);
         GameModel model = new GameModel(10,10); 

@@ -12,8 +12,7 @@ import org.junit.Test;
 
 public class TestBoardUI {
     @Test
-    public void testBoardUIGeneration()
-    {
+    public void testBoardUIGeneration(){
         //Arrange
         int rows = 3;
         int columns = 5;
