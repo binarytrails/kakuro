@@ -1,5 +1,6 @@
 // @author Vsevolod Ivanov
 // @author Nalveer Moocheet
+// @brief Test for validating the board
 
 package kakuro;
 
@@ -10,7 +11,7 @@ import org.junit.Test;
 
 public class TestBoard
 {
-    private Boolean GUI = false;
+    private Boolean GUI = false; //disable GUI
     private Boolean solved = false;
 
     @Test

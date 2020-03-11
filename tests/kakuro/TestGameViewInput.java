@@ -1,6 +1,7 @@
 // @author Isabelle Charette
 // @author Audrey-Laure St-Louis
 // @author Vsevolod Ivanov
+// @brief Test for the input of GameView
 
 package kakuro;
 import static org.junit.Assert.*;

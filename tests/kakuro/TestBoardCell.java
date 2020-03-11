@@ -1,5 +1,5 @@
 // @author Vsevolod Ivanov
-// @author ...
+// @brief Test for the BoardCell class
 
 package kakuro;
 

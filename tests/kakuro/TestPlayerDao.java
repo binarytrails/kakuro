@@ -1,3 +1,7 @@
+// @author Vsevolod Ivanov
+// @author Nalveer Moocheet
+// @brief Test for the PlayerDao class
+
 package kakuro;
 
 import kakuro.player.dao.*;
@@ -14,8 +18,9 @@ public class TestPlayerDao {
 
 	
 	@Test
-	public void testRegisterAlreadyRegistered() {
-		
+	public void testRegisterAlreadyRegistered()
+	{
+		//arrange
 		DatabaseConnection db = new DatabaseConnection(); //has hard coded player "TestPlayer" password: "123" already in db 
 		db.connect();
 		
@@ -27,14 +32,14 @@ public class TestPlayerDao {
 		boolean registered = true;
 		
 		try {
-			
+		//Act	
 		registered = playerDoa.register(db.getConnection(),name,password);
 		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		//Assert
 		assertEquals(registered,false);
 		
 		db.disconnect();
@@ -69,8 +74,9 @@ public class TestPlayerDao {
 //	}
 	
 	@Test
-	public void testLoginRegistered() {
-		
+	public void testLoginRegistered()
+	{
+		//Arrange
 		DatabaseConnection db = new DatabaseConnection(); 
 		db.connect();
 		
@@ -82,22 +88,23 @@ public class TestPlayerDao {
 		boolean login  = false;
 		
 		try {
-			
+		//Act	
 		login = playerDoa.login(db.getConnection(),name,password);
 		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		//Assert
 		assertEquals(login,true);
 		
 		db.disconnect();
 	}
 	
 	@Test
-	public void testLoginNotRegistered() {
-		
+	public void testLoginNotRegistered()
+	{
+		//Arrange
 		DatabaseConnection db = new DatabaseConnection(); 
 		db.connect();
 		
@@ -109,14 +116,14 @@ public class TestPlayerDao {
 		boolean login  = true;
 		
 		try {
-			
+		//Act	
 		login = playerDoa.login(db.getConnection(),name,password);
 		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		//Assert
 		assertEquals(login,false);
 		
 		db.disconnect();

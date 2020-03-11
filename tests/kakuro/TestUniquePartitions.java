@@ -1,5 +1,5 @@
 // @author Vsevolod Ivanov
-// @author ...
+// @brief Test for the UniquePartitions class
 
 package kakuro;
 
