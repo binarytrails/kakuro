@@ -5,15 +5,15 @@
 //      Level 2 : possible sums for that number of cells
 //      Level 3 : an array of its values representing consecutively cells values from smallest to largest
 
-package kakuro;
+package kakuro.core;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
 public class UniquePartitions
 {
-    DefaultMutableTreeNode root;
+    public DefaultMutableTreeNode root;
     
-    UniquePartitions()
+    public UniquePartitions()
     {
         this.root = new DefaultMutableTreeNode(0);
         fillCombinations(this.root);

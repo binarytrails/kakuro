@@ -4,9 +4,8 @@
 
 package kakuro;
 
+import kakuro.core.DatabaseConnection;
 import kakuro.player.dao.*;
-
-import kakuro.utils.DatabaseConnection;
 
 import static org.junit.Assert.assertEquals;
 

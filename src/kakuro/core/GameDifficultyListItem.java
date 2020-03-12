@@ -1,4 +1,4 @@
-package kakuro;
+package kakuro.core;
 
 public class GameDifficultyListItem {
     private String description;

@@ -9,7 +9,10 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestBoardCell{
+import kakuro.core.BoardCell;
+
+public class TestBoardCell
+{
     @Test
     public void testNonInputCell(){
         // Arrange
