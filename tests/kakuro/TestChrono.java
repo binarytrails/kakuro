@@ -17,7 +17,6 @@ import kakuro.controllers.ChronoController;
 import kakuro.views.ButtonMenuView;
 import kakuro.views.GameView;
 
-
 public class TestChrono{
     private int faultToleranceMs = 200;
     
