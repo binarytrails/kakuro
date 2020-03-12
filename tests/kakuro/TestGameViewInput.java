@@ -23,10 +23,12 @@ public class TestGameViewInput{
         gameView = new GameView(gameController, false/*GUI*/);
     }
 
+    // hasValidRange method is to check if a number is in the range set from the start
     private boolean hasValidRange(final int value){
         return (value <= gameView.getMaxNumberValid() && value >= gameView.getMinNumberValid());
     }
 
+    // testValidInputNumber1 will test the method with the value 1.
     @Test
     public void testValidInputNumber1(){
         // Arrange
@@ -38,6 +40,7 @@ public class TestGameViewInput{
         assertTrue(isValid);
     }
     
+    //testValidInputNumber9 method where 9 will be used to test the method. 9 is a valid value to be used in the game
     @Test
     public void testValidInputNumber9(){
         // Arrange
@@ -49,6 +52,7 @@ public class TestGameViewInput{
         assertTrue(isValid);
     }
     
+    //testInvalidInputNumber12 method will check this method by having 12 as a tetsing case and where it wont be validated
     @Test
     public void testInvalidInputNumber12(){
         // Arrange
@@ -60,6 +64,7 @@ public class TestGameViewInput{
         assertFalse(isValid);
     }
     
+    //testInvalidNegativeInputMinus12 will verify with a dummy value 12 to check if this method works or not
     @Test
     public void testInvalidNegativeInputMinus12(){
         // Arrange
@@ -71,6 +76,7 @@ public class TestGameViewInput{
         assertFalse(isValid);
     }
     
+    //testInvalidInputNumber0 method produce an error if the number 0 is entered.
     @Test
     public void testInvalidInputNumber0(){
         // Arrange
@@ -82,6 +88,7 @@ public class TestGameViewInput{
         assertFalse(isValid);
     }
     
+    //testInvalidInputString method will not accept a string in one of the cell and the player will have to change before playing further
     @Test
     public void testInvalidInputString(){
         // Arrange

@@ -14,6 +14,8 @@ import java.sql.SQLException;
 
 import org.junit.Test;
 
+//TestPlayerDao will verify if either the user is registered or not and if the user is login or not. It will also test if the username and password match the data available in the Database 
+
 public class TestPlayerDao {
 	@Test
 	public void testRegisterAlreadyRegistered(){

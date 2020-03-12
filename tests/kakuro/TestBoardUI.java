@@ -11,7 +11,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class TestBoardUI {
-    @Test
+	//The testBoardUIGeneration will test if the board will be created base of the rows and columns defined. If this works, then a bigger board can be produced.
+	@Test
     public void testBoardUIGeneration(){
         //Arrange
         int rows = 3;

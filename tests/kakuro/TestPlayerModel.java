@@ -8,9 +8,9 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import kakuro.PlayerModel;
 
-//iteration 3
-
-public class TestPlayerModel {
+	//iteration 3
+	// TestPlayerModel class will test with dummy values of username and password. It will also test the set and get methods.
+	public class TestPlayerModel {
 	@Test
 	public void testConstructor(){
 		//Arrange

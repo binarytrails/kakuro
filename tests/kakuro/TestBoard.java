@@ -12,7 +12,8 @@ import org.junit.Test;
 public class TestBoard{
     private Boolean GUI = false; //disable GUI
     private Boolean solved = false;
-  
+    				
+    //testSize method is used to initialize columns and rows as 10 and use those values to test if this method works or not
     @Test
     public void testSize(){
         // Arrange
@@ -25,6 +26,7 @@ public class TestBoard{
         assertEquals(model.rows, rows);
     }
 
+    //testValidBoard is to verify if the values of the board are what is asked and expected
     @Test
     public void testValidBoard(){
         // Arrange
@@ -43,6 +45,7 @@ public class TestBoard{
         assertEquals(solved, true);
     }
     
+    //testNotValidBoardOneSumIsWrong method will verify the sum. If it's not good then it won't be accepted or even validated.
     @Test 
     public void testNotValidBoardOneSumIsWrong(){
          // Arrange
@@ -61,6 +64,7 @@ public class TestBoard{
          assertEquals(solved, false);
     }
 
+  //testNotValidBoardCorrectSumDuplicateEntries method where the Board is not correct but some sum are correctly inputted
     @Test
     public void testNotValidBoardCorrectSumDuplicateEntries(){
         // Arrange

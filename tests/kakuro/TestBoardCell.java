@@ -10,6 +10,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class TestBoardCell{
+	
+	/*The TestBoardCell class contain different methods to test if the BoardCell class is implemented in the right way. 
+	  The user will enter a value which will be compared and checked if its correct or not. 
+	  This test class is needed to ensure the BoardCell class is error proof.
+	*/
+	
     @Test
     public void testNonInputCell(){
         // Arrange
@@ -31,8 +37,9 @@ public class TestBoardCell{
         assertEquals(cell.getFirstValue(), inputNumber);
         assertEquals(cell.getType(), BoardCell.CellType.EMPTY);
     }
-
-    @Test
+    
+    
+    |@Test
     public void testInputAnswerCell(){
         // Arrange
         int inputNumber = 1;

@@ -14,6 +14,7 @@ import org.junit.Test;
 public class TestChrono{
     private int faultToleranceMs = 200;
     
+    //The testRunStopChronoAfter3Seconds() method will check if the Chrono Class works properly by using 3 second as an experimental value
     @Test
     public void testRunStopChronoAfter3Seconds() throws InterruptedException{
         // Arrange

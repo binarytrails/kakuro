@@ -12,7 +12,10 @@ import org.junit.Test;
 
 import kakuro.utils.DatabaseConnection;
 
+//The TestDBConnection method will check if the connection and the disconnection to the SQL Lite Database is successful or not
 public class TestDBConnection {
+	
+    //testConnect method will check if it is possible to connect to the database or not by simulating it
     @Test
 	public void testConnect(){
 	    //Arrange
@@ -24,7 +27,8 @@ public class TestDBConnection {
         //Assert
         db.disconnect();
 	}
-     
+    
+  //testDisconnect method will check if there is no issues while disconnecting to the database
 	@Test
 	public void testDisconnect(){
 	    //Arrange
