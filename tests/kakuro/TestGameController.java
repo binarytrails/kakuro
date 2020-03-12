@@ -73,7 +73,7 @@ public class TestGameController {
 
     @Test
 //  @brief Test Valid Board
-    public void testSolveBoard1() {
+    public void testBoardSolveValidBoard() {
         // Arrange
         int columns = 10;
         int rows = 10;
@@ -100,7 +100,7 @@ public class TestGameController {
     
     @Test
 //  @brief Test Invalid Board with one wrong vertical sum
-    public void testSolveBoard2() {       
+    public void testBoardSolveInvalidBoardWithOneWrongVerticalSum() {       
         // Arrange
         int columns = 10;
         int rows = 10;
@@ -126,7 +126,7 @@ public class TestGameController {
     
     @Test
 //  @brief Test Invalid Board with one wrong horizontal sum
-    public void testSolveBoard3() {       
+    public void testBoardSolveInvalidBoardWithOneWrongHorizontalSum() {       
         // Arrange
         int columns = 10;
         int rows = 10;
@@ -152,7 +152,7 @@ public class TestGameController {
     
     @Test
 //  @brief Test Invalid Board with correct sum but duplicate entries
-    public void testSolveBoard4() {        
+    public void testBoardSolveInvalidBoardWithDuplicateEntries() {        
         // Arrange
         int columns = 10;
         int rows = 10;
