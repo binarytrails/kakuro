@@ -2,15 +2,15 @@ package kakuro.views;
 
 import java.util.Scanner;
 
-import kakuro.controllers.AppController;
-import kakuro.controllers.AppController.UserActions;
+import kakuro.controllers.GameController;
+import kakuro.controllers.GameController.UserActions;
 import kakuro.core.*;
 
 public class GameConsole {
-    private AppController controller;
+    private GameController controller;
     private Scanner inputReader = new Scanner(System.in);
     
-    public GameConsole(final AppController controller) {
+    public GameConsole(final GameController controller) {
         this.controller = controller;
     }
     

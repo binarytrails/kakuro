@@ -19,8 +19,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.text.NumberFormatter;
 
-import kakuro.controllers.AppController;
-import kakuro.controllers.AppController.UserActions;
+import kakuro.controllers.GameController;
+import kakuro.controllers.GameController.UserActions;
 import kakuro.controllers.BoardController;
 import kakuro.controllers.ButtonMenuController;
 import kakuro.controllers.ChronoController;
@@ -29,7 +29,7 @@ import kakuro.core.LinePanel;
 
 public class GameView
 {
-    private AppController controller;
+    private GameController controller;
     
     //Subviews
     ChronoView chronoView;
@@ -50,7 +50,7 @@ public class GameView
     
     private JLabel startUI;
      
-    public GameView(final AppController controller, Boolean X11, ChronoView chronoView, BoardView boardView, ButtonMenuView buttonMenuView)
+    public GameView(final GameController controller, Boolean X11, ChronoView chronoView, BoardView boardView, ButtonMenuView buttonMenuView)
     {
         if (controller != null)
         {

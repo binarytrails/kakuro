@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import kakuro.controllers.ChronoController;
-import kakuro.controllers.AppController;
+import kakuro.controllers.GameController;
 import kakuro.controllers.ButtonMenuController;
 import kakuro.core.GameDifficulty;
 import kakuro.core.GameDifficultyListItem;

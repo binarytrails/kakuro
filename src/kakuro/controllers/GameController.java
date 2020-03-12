@@ -22,7 +22,7 @@ import java.util.HashMap;
 
 import javax.swing.JTextField;
 
-public class AppController
+public class GameController
 {
     public DatabaseConnection database;
     public GameProgressDao gameProgress;
@@ -49,7 +49,7 @@ public class AppController
         ANSWERS
     }
 
-    public AppController(final int columns, final int rows, final Boolean gui)
+    public GameController(final int columns, final int rows, final Boolean gui)
     {
         this.model = new GameModel(columns, rows);
         this.gui = gui;
