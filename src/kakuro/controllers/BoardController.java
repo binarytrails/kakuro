@@ -40,7 +40,7 @@ public class BoardController {
     
     //Number formatter methods
     public int getMinNumberValid() {
-        return boardView.getMaxNumberValid();
+        return boardView.getMinNumberValid();
     }
     
     public Object getNumberFormatterClassType() {

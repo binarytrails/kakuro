@@ -27,7 +27,7 @@ public class TestChrono{
         ChronoController chronoController = new ChronoController();
        
         // Act
-        //gameView.settingUpMenu(); // chrono starts
+        chronoController.chronoStart(); 
         Thread.sleep(waitSeconds * 1000/*ms*/ + faultToleranceMs);
         chronoController.chronoPause();
         
