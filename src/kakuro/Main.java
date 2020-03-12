@@ -4,7 +4,7 @@
 
 package kakuro;
 
-import kakuro.controllers.AppController;
+import kakuro.controllers.GameController;
 
 public class Main
 {
@@ -13,7 +13,7 @@ public class Main
         int columns = 10;
         int rows = 10;
 
-        AppController game = new AppController(columns, rows, true/*GUI*/);
+        GameController game = new GameController(columns, rows, true/*GUI*/);
         game.loopGame();
     }
 }

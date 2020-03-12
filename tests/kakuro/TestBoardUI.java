@@ -10,7 +10,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import kakuro.controllers.AppController;
+import kakuro.controllers.GameController;
 
 public class TestBoardUI {
     @Test
@@ -19,7 +19,7 @@ public class TestBoardUI {
         int rows = 3;
         int columns = 5;
         //Act
-        AppController gameController = new AppController(columns,rows, false);
+        GameController gameController = new GameController(columns,rows, false);
         //Assert
         assertEquals(columns, gameController.model.columns);
         assertEquals(rows, gameController.model.rows);

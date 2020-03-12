@@ -8,7 +8,7 @@ import kakuro.core.BoardCell;
 import kakuro.views.BoardView;
 
 public class BoardController {
-    AppController appController;
+    GameController appController;
     
     int gridSizeX;
     int gridSizeY;
@@ -16,12 +16,12 @@ public class BoardController {
     BoardView boardView;
     JPanel currentPanel;
     
-    public BoardController(int gridSizeX, int gridSizeY, AppController appController) {
+    public BoardController(int gridSizeX, int gridSizeY, GameController appController) {
         this.gridSizeX = gridSizeX;
         this.gridSizeY = gridSizeY;
         this.appController = appController; 
         
-        boardView = new BoardView(10, 10, gridSizeX, gridSizeY);
+        boardView = new BoardView(appController.model.columns, appController.model.rows, gridSizeX, gridSizeY);
         boardView.getBoardUI(appController.model.board);
         //boardView.
     }

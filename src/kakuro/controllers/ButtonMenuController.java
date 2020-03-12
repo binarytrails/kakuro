@@ -5,12 +5,12 @@ import kakuro.core.GameDifficulty;
 import kakuro.views.ButtonMenuView;
 
 public class ButtonMenuController {
-    AppController appController;
+    GameController appController;
     
     private ButtonMenuView buttonMenuView;
     private boolean isPaused;
     
-    public ButtonMenuController(AppController appController){
+    public ButtonMenuController(GameController appController){
         this.appController = appController;
         buttonMenuView = new ButtonMenuView(this);
     }

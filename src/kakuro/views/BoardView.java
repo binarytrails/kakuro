@@ -31,7 +31,7 @@ public class BoardView {
     NumberFormat numberFormat = NumberFormat.getInstance();
     NumberFormatter numberFormatter = new NumberFormatter(numberFormat);
     
-    public BoardView(int rows, int columns, int gridSizeX, int gridSizeY) {
+    public BoardView(int columns, int rows, int gridSizeX, int gridSizeY) {
         cells = new JTextField[rows][columns];
         this.gridSizeX = gridSizeX;
         this.gridSizeY = gridSizeY;

@@ -10,7 +10,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import kakuro.controllers.AppController;
+import kakuro.controllers.GameController;
 import kakuro.controllers.BoardController;
 import kakuro.controllers.ButtonMenuController;
 import kakuro.controllers.ChronoController;

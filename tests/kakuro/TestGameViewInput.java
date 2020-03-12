@@ -12,20 +12,20 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import kakuro.controllers.AppController;
+import kakuro.controllers.GameController;
 import kakuro.controllers.BoardController;
 import kakuro.views.GameView;
 
 public class TestGameViewInput
 {
 
-    private static AppController gameController;
+    private static GameController gameController;
     private static BoardController boardController;
 
     @BeforeClass
     public static void onlyOnce()
     {
-        gameController = new AppController(10, 10, false);
+        gameController = new GameController(10, 10, false);
         boardController = new BoardController(10, 10, gameController);
     }
 
