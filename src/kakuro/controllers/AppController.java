@@ -2,14 +2,19 @@
 // @author Nalveer Moocheet
 // @brief Game controller class which handles the Kakuro game.
 
-package kakuro;
+package kakuro.controllers;
 
+import kakuro.core.BoardCell;
+import kakuro.core.DatabaseConnection;
 import kakuro.game.dao.GameDao;
 import kakuro.game.dao.GameDaoImpl;
 import kakuro.gameprogress.dao.GameProgressDao;
 import kakuro.gameprogress.dao.GameProgressDaoImpl;
-import kakuro.utils.DatabaseConnection;
+import kakuro.models.GameModel;
+import kakuro.views.GameConsole;
+import kakuro.views.GameView;
 
+import java.awt.BorderLayout;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,7 +22,7 @@ import java.util.HashMap;
 
 import javax.swing.JTextField;
 
-public class GameController
+public class AppController
 {
     public DatabaseConnection database;
     public GameProgressDao gameProgress;
@@ -26,6 +31,15 @@ public class GameController
     public GameView view;
     public GameModel model;
     private Boolean gui = true;
+    
+    //Sub-views controller
+    private ChronoController chronoController;
+    public BoardController boardController;
+    public ButtonMenuController buttonMenuController;
+    
+    public GameConsole console;
+    
+    public boolean isPaused = false;
 
     public enum UserActions
     {
@@ -35,7 +49,7 @@ public class GameController
         ANSWERS
     }
 
-    public GameController(final int columns, final int rows, final Boolean gui)
+    public AppController(final int columns, final int rows, final Boolean gui)
     {
         this.model = new GameModel(columns, rows);
         this.gui = gui;
@@ -54,34 +68,35 @@ public class GameController
         
         model.initBoard();        
         
-        this.view = new GameView(this, gui);
+        //Currently the view must be loaded the first to populate the data
+        chronoController = new ChronoController();
+        boardController = new BoardController(model.rows, model.columns, this);
+        buttonMenuController = new ButtonMenuController(this);
         
-        view.printStartup();
-        view.printBoard(false/*show answer values*/);
-        if (gui){
-            //view.board_ui();
-            view.start_ui();
-            view.settingUpMenu();
-        }
+        this.view = new GameView(this, gui, chronoController.getView(), boardController.getView(), buttonMenuController.getView());;
+        this.console = new GameConsole(this);
+        
+        console.printStartup();
+        console.printBoard(false/*show answer values*/);
     }
 
     public void loopGame()
     {
         while (true)
         {
-            switch (view.printGetUserAction())
+            switch (console.printGetUserAction())
             {
                 case INPUT:
-                    view.printGetInputNumber();
-                    view.printBoard(false/*show answer values*/);
+                    console.printGetInputNumber();
+                    console.printBoard(false/*show answer values*/);
                     break;
                 case SOLVE:
                     if (gui)
-                        view.loadInputInModel();
-                    view.printSolveBoard();
+                        loadInputInModel(false);
+                    console.printSolveBoard();
                     break;
                 case ANSWERS:
-                    view.printBoard(true/*show answer values*/);
+                    console.printBoard(true/*show answer values*/);
                     break;
                 case UNKNOWN:
                 default:
@@ -105,6 +120,8 @@ public class GameController
     public void saveGame() {
         
         try {            
+            chronoController.chronoPause();
+            loadInputInModel(false);
             //TODO: fixed player and to fix in iteration 3
             gameProgress.save(getDatabaseConnection(), "TestPlayer", model.board);
             
@@ -123,11 +140,11 @@ public class GameController
                 model.board = boardCell;         
                 System.out.println("Successfully loaded game progress");
                 
-                view.printStartup();
-                view.printBoard(false);
+                console.printStartup();
+                console.printBoard(false);
                 
                 if (gui){
-                    view.board_ui();
+                    view.updateView(boardController.loadGame());
                 }
                 
                 return model.board;
@@ -145,14 +162,19 @@ public class GameController
         try {
             ArrayList<BoardCell[][]> boardCells = game.loadAllPreconfiguredGames(getDatabaseConnection());
 
+            //Load the new game model
             model.board = boardCells.get(gameLevel-1);
             
-            
-            view.printStartup();
-            view.printBoard(false);
+            console.printStartup();
+            console.printBoard(false);
             
             if (gui){
-                view.board_ui();
+                //Update the new view
+                view.updateView(boardController.loadGame());
+                
+                //Start the timer
+                chronoController.show();
+                chronoController.chronoStart();
             }
             
         } catch(SQLException e) {
@@ -306,7 +328,7 @@ public class GameController
     }
     
     public void loadInputInModel(boolean clearInput) {
-        JTextField[][] saveInput = view.saveInput;
+        JTextField[][] saveInput = boardController.getSavedInput();
         String value;
         
         for(int row = 0; row < model.columns; row++)
@@ -329,5 +351,30 @@ public class GameController
                 }
             }
         }
+    }
+
+    public void pause() {
+        isPaused = true;
+        chronoController.chronoPause();
+        view.hideBoard();
+    }
+    
+    public void resume() {
+        isPaused = false;
+        chronoController.chronoStart();
+        view.showBoard();
+    }
+    
+    public void restart() {
+        chronoController.resetTimer();
+        chronoController.chronoStart();
+        loadInputInModel(true); //Clear inputs
+    }
+    
+    public void submit() {
+        chronoController.chronoPause();
+        loadInputInModel(false); //No clearing inputs
+        solveBoard();
+        console.printSolveBoard();
     }
 }

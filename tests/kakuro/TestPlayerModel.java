@@ -2,7 +2,8 @@ package kakuro;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import kakuro.PlayerModel;
+
+import kakuro.models.PlayerModel;
 
 //iteration 3
 

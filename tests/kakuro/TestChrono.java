@@ -9,6 +9,13 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import kakuro.controllers.AppController;
+import kakuro.controllers.BoardController;
+import kakuro.controllers.ButtonMenuController;
+import kakuro.controllers.ChronoController;
+import kakuro.views.ButtonMenuView;
+import kakuro.views.GameView;
+
 
 public class TestChrono
 {
@@ -19,17 +26,16 @@ public class TestChrono
     {
         // Arrange
         int waitSeconds = 3;
-        GameController gameController = new GameController(10, 10, false);
-        GameView gameView = new GameView(gameController, false/*GUI*/);
-        gameView.setButtonMenu(new ButtonMenu(null, 0, 0, null));
+        ChronoController chronoController = new ChronoController();
+       
         // Act
-        gameView.settingUpMenu(); // chrono starts
+        //gameView.settingUpMenu(); // chrono starts
         Thread.sleep(waitSeconds * 1000/*ms*/ + faultToleranceMs);
-        gameView.getButtonMenu().getChrono().chronoPause();
+        chronoController.chronoPause();
         
-        int hours = gameView.getButtonMenu().getChrono().getHours();
-        int minutes = gameView.getButtonMenu().getChrono().getMinutes();
-        int seconds = gameView.getButtonMenu().getChrono().getSeconds();
+        int hours = chronoController.getHours();
+        int minutes = chronoController.getMinutes();
+        int seconds = chronoController.getSeconds();
         // Assert
         System.out.println("Chrono was run for " + seconds + " seconds");
         assertTrue(waitSeconds == seconds);

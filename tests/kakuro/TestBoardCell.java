@@ -9,6 +9,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import kakuro.core.BoardCell;
+
 public class TestBoardCell
 {
     @Test

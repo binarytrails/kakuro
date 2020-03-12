@@ -3,7 +3,7 @@
 // @brief class used to populate non-playable board cells: adds numbers and diagonal line
 // class extending JPanel to use the graphics with paintComponent method overriding
 
-package kakuro;
+package kakuro.core;
 
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
@@ -23,10 +23,10 @@ import javax.swing.JTextField;
  * https://docs.oracle.com/javase/8/docs/api/javax/swing/JFormattedTextField.html
  */
 
-public class line_panel extends JPanel {
+public class LinePanel extends JPanel {
     
     //constructor used if only one number in the cell
-    public line_panel(LayoutManager layout, JTextField textField, Boolean align) {
+    public LinePanel(LayoutManager layout, JTextField textField, Boolean align) {
         super(layout);
         this.setBackground(Color.black);
         settingTxt(textField);
@@ -41,7 +41,7 @@ public class line_panel extends JPanel {
     }
 
     //constructor used if two numbers in the cell
-    public line_panel(LayoutManager layout, JTextField textFieldLEFT, JTextField textFieldRIGHT) {
+    public LinePanel(LayoutManager layout, JTextField textFieldLEFT, JTextField textFieldRIGHT) {
         super(layout);
         this.setBackground(Color.black);
  

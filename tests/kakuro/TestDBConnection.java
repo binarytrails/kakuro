@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import org.junit.Test;
 
-import kakuro.utils.DatabaseConnection;
+import kakuro.core.DatabaseConnection;
 
 public class TestDBConnection {
 

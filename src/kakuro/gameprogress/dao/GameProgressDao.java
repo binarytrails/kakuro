@@ -4,7 +4,8 @@ package kakuro.gameprogress.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import kakuro.BoardCell;
+
+import kakuro.core.BoardCell;
 
 public interface GameProgressDao {
     /**

@@ -8,6 +8,10 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import kakuro.controllers.AppController;
+import kakuro.core.BoardCell;
+import kakuro.models.GameModel;
+
 public class TestBoard
 {
     private Boolean GUI = false;
@@ -30,7 +34,7 @@ public class TestBoard
     public void testValidBoard()
     {
         // Arrange
-        GameController controller = new GameController(10,10, GUI);
+        AppController controller = new AppController(10,10, GUI);
         GameModel model = new GameModel(10,10); 
         model.initBoard();  //initialize board
         model.board[0][1] = new BoardCell(BoardCell.CellType.FILLED10, 5);
@@ -49,7 +53,7 @@ public class TestBoard
     public void testNotValidBoardOneSumIsWrong()
     {
          // Arrange
-         GameController controller = new GameController(10,10, GUI);
+         AppController controller = new AppController(10,10, GUI);
          GameModel model = new GameModel(10,10); 
          model.initBoard();
          model.board[0][1] = new BoardCell(BoardCell.CellType.FILLED10, 5);
@@ -68,7 +72,7 @@ public class TestBoard
     public void testNotValidBoardCorrectSumDuplicateEntries()
     {
         // Arrange
-        GameController controller = new GameController(10,10, GUI);
+        AppController controller = new AppController(10,10, GUI);
         GameModel model = new GameModel(10,10); 
         model.initBoard();
         model.board[0][1] = new BoardCell(BoardCell.CellType.FILLED10, 5);

@@ -12,6 +12,8 @@ import javax.swing.tree.TreeNode;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import kakuro.core.*;
+
 public class TestUniquePartitions
 {
     private static UniquePartitions partitions;

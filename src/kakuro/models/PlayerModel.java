@@ -1,4 +1,4 @@
-package kakuro;
+package kakuro.models;
 
 //TODO: iteration 3 work
 public class PlayerModel {

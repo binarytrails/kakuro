@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.google.gson.*;
 
-import kakuro.BoardCell;
+import kakuro.core.BoardCell;
 
 public class GameProgressDaoImpl implements GameProgressDao {
     private final String SAVE_GAME_PROGRESS = "UPDATE game_progress SET cells=? WHERE username=?";

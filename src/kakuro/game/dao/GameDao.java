@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import kakuro.BoardCell;
+import kakuro.core.BoardCell;
 
 public interface GameDao {
  

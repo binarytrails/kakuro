@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
-import kakuro.BoardCell;
+import kakuro.core.BoardCell;
 
 public class GameDaoImpl implements GameDao {
     private final String LOAD_ALL_PRECONFIGURED_GAMES = "SELECT cells FROM game";
