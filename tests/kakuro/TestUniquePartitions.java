@@ -12,8 +12,7 @@ import javax.swing.tree.TreeNode;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import kakuro.core.*;
-
+//The TestUniquePartitions class will check that the layout and the division of all parts are consistent
 public class TestUniquePartitions
 {
     private static UniquePartitions partitions;
