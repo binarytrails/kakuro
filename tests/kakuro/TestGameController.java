@@ -10,13 +10,7 @@ import static org.junit.Assert.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-
 import org.junit.Test;
-
-import kakuro.game.dao.GameDao;
-import kakuro.game.dao.GameDaoImpl;
-import kakuro.gameprogress.dao.GameProgressDaoImpl;
 import kakuro.models.GameModel;
 import kakuro.controllers.GameController;
 import kakuro.core.BoardCell;
@@ -79,14 +73,6 @@ public class TestGameController {
  // @brief Test Valid Board
     public void testBoardSolveValidBoard() {
         //Arrange
-        int columns = 10;
-        int rows = 10;
-        //Act
-        GameModel model = new GameModel(columns, rows);
-        //Assert
-        assertEquals(model.columns, columns);
-        assertEquals(model.rows, rows);        
-        //Arrange
         GameController controller1 = new GameController(10,10, GUI);
         GameModel model1 = new GameModel(10,10); 
         model1.initBoard();  //initialize board
@@ -106,13 +92,6 @@ public class TestGameController {
  // @brief Test Invalid Board with one wrong vertical sum
     public void testBoardSolveInvalidBoardWithOneWrongVerticalSum() {       
         //Arrange
-        int columns = 10;
-        int rows = 10;
-        //Act
-        GameModel model = new GameModel(columns, rows);
-        //Assert
-        assertEquals(model.columns, columns);
-        assertEquals(model.rows, rows);
         GameController controller2 = new GameController(10,10, GUI);
         GameModel model2 = new GameModel(10,10); 
         model2.initBoard();
@@ -132,13 +111,6 @@ public class TestGameController {
  // @brief Test Invalid Board with one wrong horizontal sum
     public void testBoardSolveInvalidBoardWithOneWrongHorizontalSum() {       
         //Arrange
-        int columns = 10;
-        int rows = 10;
-        //Act
-        GameModel model = new GameModel(columns, rows);
-        //Assert
-        assertEquals(model.columns, columns);
-        assertEquals(model.rows, rows);
         GameController controller2 = new GameController(10,10, GUI);
         GameModel model2 = new GameModel(10,10); 
         model2.initBoard();
@@ -157,14 +129,6 @@ public class TestGameController {
     @Test
  // @brief Test Invalid Board with correct sum but duplicate entries
     public void testBoardSolveInvalidBoardWithDuplicateEntries() {        
-        //Arrange
-        int columns = 10;
-        int rows = 10;
-        //Act
-        GameModel model = new GameModel(columns, rows);
-        //Assert
-        assertEquals(model.columns, columns);
-        assertEquals(model.rows, rows);   
         //Arrange
         GameController controller3 = new GameController(10,10, GUI);
         GameModel model3 = new GameModel(10,10); 
