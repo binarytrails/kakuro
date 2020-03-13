@@ -16,7 +16,7 @@ public class GameModel
 
     public final int columns;
     public final int rows;
-    public BoardCell[][] board;
+    public Cell[][] board;
     private static UniquePartitions partitions;
 
     public GameModel(final int columns, final int rows)
@@ -28,13 +28,13 @@ public class GameModel
 
     public void initBoard()
     {
-        board = new BoardCell[this.rows][this.columns];
+        board = new Cell[this.rows][this.columns];
 
         for(int row = 0; row < this.rows; row++)
         {
             for(int column = 0; column < this.columns; column++)
             {
-                board[row][column] = new BoardCell(BoardCell.CellType.EMPTY);
+                board[row][column] = new Cell(Cell.CellType.EMPTY);
             }
         }
     }

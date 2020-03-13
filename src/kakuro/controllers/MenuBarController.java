@@ -1,21 +1,23 @@
 package kakuro.controllers;
 
-import kakuro.core.BoardCell;
-import kakuro.core.GameDifficulty;
-import kakuro.views.ButtonMenuView;
+import javax.swing.JComponent;
 
-public class ButtonMenuController {
+import kakuro.core.Cell;
+import kakuro.core.GameDifficulty;
+import kakuro.views.MenuBarView;
+
+public class MenuBarController {
     GameController appController;
     
-    private ButtonMenuView buttonMenuView;
+    private MenuBarView buttonMenuView;
     private boolean isPaused;
     
-    public ButtonMenuController(GameController appController){
+    public MenuBarController(GameController appController){
         this.appController = appController;
-        buttonMenuView = new ButtonMenuView(this);
+        buttonMenuView = new MenuBarView(this);
     }
     
-    public ButtonMenuView getButtonMenuView() {
+    public MenuBarView getButtonMenuView() {
         return buttonMenuView;
     }
     
@@ -31,8 +33,8 @@ public class ButtonMenuController {
        appController.resume();
     }
     
-    public ButtonMenuView getView() {
-        return buttonMenuView;
+    public JComponent getView() {
+        return buttonMenuView.mainPanel;
     }
     
     public void submit() {
@@ -43,7 +45,7 @@ public class ButtonMenuController {
         appController.saveGame();
     }
     
-    public BoardCell[][] load() {
+    public Cell[][] load() {
         return appController.loadGame();
     }
     

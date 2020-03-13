@@ -8,14 +8,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.google.gson.*;
 
-import kakuro.core.BoardCell;
+import kakuro.core.Cell;
 
 public class GameProgressDaoImpl implements GameProgressDao {
     private final String SAVE_GAME_PROGRESS = "UPDATE game_progress SET cells=? WHERE username=?";
     private final String LOAD_GAME_PROGRESS = "SELECT cells FROM game_progress WHERE username=?";
 
     @Override
-    public void save(Connection conn, String uid, BoardCell[][] board) throws SQLException {
+    public void save(Connection conn, String uid, Cell[][] board) throws SQLException {
         Gson gson = new Gson();
         
         String boardCellJSON = gson.toJson(board);
@@ -27,7 +27,7 @@ public class GameProgressDaoImpl implements GameProgressDao {
     }
 
     @Override
-    public BoardCell[][] load(Connection conn, String uid) throws SQLException {
+    public Cell[][] load(Connection conn, String uid) throws SQLException {
         Gson gson = new Gson();
         
         PreparedStatement pstmt = conn.prepareStatement(LOAD_GAME_PROGRESS);
@@ -38,7 +38,7 @@ public class GameProgressDaoImpl implements GameProgressDao {
 
         if(rs.next()) {
             String cells = rs.getString("cells");
-            return gson.fromJson(cells, BoardCell[][].class);
+            return gson.fromJson(cells, Cell[][].class);
         }
         
         return null;

@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import org.junit.Test;
 import kakuro.models.GameModel;
 import kakuro.controllers.GameController;
-import kakuro.core.BoardCell;
+import kakuro.core.Cell;
 import kakuro.core.DatabaseConnection;
 
 public class TestGameController {
@@ -76,11 +76,11 @@ public class TestGameController {
         GameController controller = new GameController(10,10, GUI);
         GameModel model = controller.model;
         model.initBoard();  //initialize board
-        model.board[0][1] = new BoardCell(BoardCell.CellType.FILLED10, 5);
-        model.board[1][0] = new BoardCell(BoardCell.CellType.FILLED01,-1,4);
-        model.board[1][1] = new BoardCell(BoardCell.CellType.INPUT,3,-1);
-        model.board[2][1] = new BoardCell(BoardCell.CellType.INPUT,2,-1);
-        model.board[1][2] = new BoardCell(BoardCell.CellType.INPUT,1,-1);
+        model.board[0][1] = new Cell(Cell.CellType.FILLED10, 5);
+        model.board[1][0] = new Cell(Cell.CellType.FILLED01,-1,4);
+        model.board[1][1] = new Cell(Cell.CellType.INPUT,3,-1);
+        model.board[2][1] = new Cell(Cell.CellType.INPUT,2,-1);
+        model.board[1][2] = new Cell(Cell.CellType.INPUT,1,-1);
         //Act
         solved = controller.solveBoard();
         //Assert
@@ -94,11 +94,11 @@ public class TestGameController {
         GameController controller = new GameController(10,10, GUI);
         GameModel model = controller.model;
         model.initBoard();  //initialize board
-        model.board[0][1] = new BoardCell(BoardCell.CellType.FILLED10, 5);
-        model.board[1][0] = new BoardCell(BoardCell.CellType.FILLED01,-1,4);
-        model.board[1][1] = new BoardCell(BoardCell.CellType.INPUT,3,-1);
-        model.board[2][1] = new BoardCell(BoardCell.CellType.INPUT,6,-1);
-        model.board[1][2] = new BoardCell(BoardCell.CellType.INPUT,1,-1);
+        model.board[0][1] = new Cell(Cell.CellType.FILLED10, 5);
+        model.board[1][0] = new Cell(Cell.CellType.FILLED01,-1,4);
+        model.board[1][1] = new Cell(Cell.CellType.INPUT,3,-1);
+        model.board[2][1] = new Cell(Cell.CellType.INPUT,6,-1);
+        model.board[1][2] = new Cell(Cell.CellType.INPUT,1,-1);
         //Act
         solved = controller.solveBoard();
         //Assert
@@ -112,11 +112,11 @@ public class TestGameController {
         GameController controller = new GameController(10,10, GUI);
         GameModel model = controller.model;
         model.initBoard();  //initialize board
-        model.board[0][1] = new BoardCell(BoardCell.CellType.FILLED10, 5);
-        model.board[1][0] = new BoardCell(BoardCell.CellType.FILLED01,-1,8);
-        model.board[1][1] = new BoardCell(BoardCell.CellType.INPUT,3,-1);
-        model.board[2][1] = new BoardCell(BoardCell.CellType.INPUT,2,-1);
-        model.board[1][2] = new BoardCell(BoardCell.CellType.INPUT,1,-1);
+        model.board[0][1] = new Cell(Cell.CellType.FILLED10, 5);
+        model.board[1][0] = new Cell(Cell.CellType.FILLED01,-1,8);
+        model.board[1][1] = new Cell(Cell.CellType.INPUT,3,-1);
+        model.board[2][1] = new Cell(Cell.CellType.INPUT,2,-1);
+        model.board[1][2] = new Cell(Cell.CellType.INPUT,1,-1);
         //Act
         solved = controller.solveBoard();
         //Assert
@@ -130,11 +130,11 @@ public class TestGameController {
         GameController controller = new GameController(10,10, GUI);
         GameModel model = controller.model;
         model.initBoard();  //initialize board
-        model.board[0][1] = new BoardCell(BoardCell.CellType.FILLED10, 5);
-        model.board[1][0] = new BoardCell(BoardCell.CellType.FILLED01,-1,4);
-        model.board[1][1] = new BoardCell(BoardCell.CellType.INPUT,2,-1);
-        model.board[2][1] = new BoardCell(BoardCell.CellType.INPUT,3,-1);
-        model.board[1][2] = new BoardCell(BoardCell.CellType.INPUT,2,-1);         
+        model.board[0][1] = new Cell(Cell.CellType.FILLED10, 5);
+        model.board[1][0] = new Cell(Cell.CellType.FILLED01,-1,4);
+        model.board[1][1] = new Cell(Cell.CellType.INPUT,2,-1);
+        model.board[2][1] = new Cell(Cell.CellType.INPUT,3,-1);
+        model.board[1][2] = new Cell(Cell.CellType.INPUT,2,-1);         
         //Act
         solved = controller.solveBoard();
         //Assert

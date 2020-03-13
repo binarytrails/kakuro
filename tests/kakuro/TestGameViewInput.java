@@ -13,25 +13,22 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import kakuro.controllers.GameController;
-import kakuro.controllers.BoardController;
 import kakuro.views.GameView;
 
 public class TestGameViewInput
 {
 
     private static GameController gameController;
-    private static BoardController boardController;
 
     @BeforeClass
     public static void onlyOnce()
     {
         gameController = new GameController(10, 10, false);
-        boardController = new BoardController(10, 10, gameController);
     }
 
     private boolean hasValidRange(final int value)
     {
-        return (value <= boardController.getMaxNumberValid() && value >= boardController.getMinNumberValid());
+        return (value <= gameController.getMaxNumberValid() && value >= gameController.getMinNumberValid());
     }
 
     @Test
@@ -95,7 +92,7 @@ public class TestGameViewInput
         String value = "yo";
         Boolean isValid = false;
         // Act
-        isValid = boardController.getNumberFormatterClassType().equals(value.getClass());
+        isValid = gameController.getNumberFormatterClassType().equals(value.getClass());
         // Assert
         assertFalse(isValid);
     }

@@ -29,7 +29,7 @@ public class GameConsole {
             {
                 int value = 0;
                 int value2 = 0;
-                BoardCell cell = controller.model.board[row][column];
+                Cell cell = controller.model.board[row][column];
                 switch (cell.getType())
                 {
                     case EMPTY:
@@ -115,7 +115,7 @@ public class GameConsole {
                     inputReader.nextLine();
                 }
             }
-            if (controller.model.board[row-1][column-1].getType() == BoardCell.CellType.INPUT)
+            if (controller.model.board[row-1][column-1].getType() == Cell.CellType.INPUT)
                 break;
             else {
                 System.out.println("error: not an input cell");

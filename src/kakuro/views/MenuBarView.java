@@ -11,13 +11,13 @@ import javax.swing.JPanel;
 
 import kakuro.controllers.ChronoController;
 import kakuro.controllers.GameController;
-import kakuro.controllers.ButtonMenuController;
+import kakuro.controllers.MenuBarController;
 import kakuro.core.GameDifficulty;
 import kakuro.core.GameDifficultyListItem;
 
-public class ButtonMenuView {
+public class MenuBarView {
     //Controller
-    ButtonMenuController buttonMenuController;
+    MenuBarController menuBarController;
     
     //UI components
     JButton pause_button;
@@ -26,10 +26,10 @@ public class ButtonMenuView {
     JButton save_button;
     JButton restart_button;
     JButton load_button;
-    JPanel mainPanel;
+    public JPanel mainPanel;
 
-    public ButtonMenuView(ButtonMenuController buttonMenuController) {
-        this.buttonMenuController = buttonMenuController;
+    public MenuBarView(MenuBarController menuBarController) {
+        this.menuBarController = menuBarController;
         
         //Initialize the buttons
         pause_button = new JButton("Pause");
@@ -69,13 +69,13 @@ public class ButtonMenuView {
         {
             public void actionPerformed(ActionEvent e)
             {
-                if(!buttonMenuController.isPaused()) {
+                if(!menuBarController.isPaused()) {
                     pause_button.setText("Resume");
-                    buttonMenuController.pause();
+                    menuBarController.pause();
                 }
                 else {
                     pause_button.setText("Pause");
-                    buttonMenuController.resume();
+                    menuBarController.resume();
                 }
             }
         });
@@ -85,7 +85,7 @@ public class ButtonMenuView {
         {
             public void actionPerformed(ActionEvent e)
             {
-                buttonMenuController.submit();
+                menuBarController.submit();
             }
         });
 
@@ -96,7 +96,7 @@ public class ButtonMenuView {
         {
             public void actionPerformed(ActionEvent e)
             {
-                buttonMenuController.save();
+                menuBarController.save();
             }
         });
         
@@ -108,7 +108,7 @@ public class ButtonMenuView {
         {
             public void actionPerformed(ActionEvent e)
             {
-                if(buttonMenuController.load() != null) {
+                if(menuBarController.load() != null) {
                    JOptionPane.showMessageDialog(null, "Successfully loaded saved game!");
                    toggleMenu();
                 } else {
@@ -134,7 +134,7 @@ public class ButtonMenuView {
                 GameDifficultyListItem difficultyItem = (GameDifficultyListItem) JOptionPane.showInputDialog(null, "Choose a difficulty level", "Difficulty level", JOptionPane.PLAIN_MESSAGE, null, levels, levels[0]);
                 
                 if(difficultyItem != null) {
-                    buttonMenuController.loadPreconfiguredGame(difficultyItem.getDifficulty());
+                    menuBarController.loadPreconfiguredGame(difficultyItem.getDifficulty());
                     toggleMenu();
                 }
             }
@@ -144,7 +144,7 @@ public class ButtonMenuView {
         {
             public void actionPerformed(ActionEvent e)
             {
-                buttonMenuController.restart();
+                menuBarController.restart();
             }
         });
     }

@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import kakuro.controllers.GameController;
-import kakuro.core.BoardCell;
+import kakuro.core.Cell;
 import kakuro.models.GameModel;
 
 public class TestBoard{
@@ -35,11 +35,11 @@ public class TestBoard{
         GameController controller = new GameController(10,10, GUI);
         GameModel model = new GameModel(10,10); 
         model.initBoard();  //initialize board
-        model.board[0][1] = new BoardCell(BoardCell.CellType.FILLED10, 5);
-        model.board[1][0] = new BoardCell(BoardCell.CellType.FILLED01,-1,4);
-        model.board[1][1] = new BoardCell(BoardCell.CellType.INPUT,3,-1);
-        model.board[2][1] = new BoardCell(BoardCell.CellType.INPUT,2,-1);
-        model.board[1][2] = new BoardCell(BoardCell.CellType.INPUT,1,-1);
+        model.board[0][1] = new Cell(Cell.CellType.FILLED10, 5);
+        model.board[1][0] = new Cell(Cell.CellType.FILLED01,-1,4);
+        model.board[1][1] = new Cell(Cell.CellType.INPUT,3,-1);
+        model.board[2][1] = new Cell(Cell.CellType.INPUT,2,-1);
+        model.board[1][2] = new Cell(Cell.CellType.INPUT,1,-1);
         controller.model = model;
         // Act
         solved = controller.solveBoard();
@@ -53,11 +53,11 @@ public class TestBoard{
          GameController controller = new GameController(10,10, GUI);
          GameModel model = new GameModel(10,10); 
          model.initBoard();
-         model.board[0][1] = new BoardCell(BoardCell.CellType.FILLED10, 5);
-         model.board[1][0] = new BoardCell(BoardCell.CellType.FILLED01,-1,4);
-         model.board[1][1] = new BoardCell(BoardCell.CellType.INPUT,3,-1);
-         model.board[2][1] = new BoardCell(BoardCell.CellType.INPUT,2,-1);
-         model.board[1][2] = new BoardCell(BoardCell.CellType.INPUT,5,-1);
+         model.board[0][1] = new Cell(Cell.CellType.FILLED10, 5);
+         model.board[1][0] = new Cell(Cell.CellType.FILLED01,-1,4);
+         model.board[1][1] = new Cell(Cell.CellType.INPUT,3,-1);
+         model.board[2][1] = new Cell(Cell.CellType.INPUT,2,-1);
+         model.board[1][2] = new Cell(Cell.CellType.INPUT,5,-1);
          controller.model = model;
          // Act
          solved = controller.solveBoard();
@@ -71,11 +71,11 @@ public class TestBoard{
         GameController controller = new GameController(10,10, GUI);
         GameModel model = new GameModel(10,10); 
         model.initBoard();
-        model.board[0][1] = new BoardCell(BoardCell.CellType.FILLED10, 5);
-        model.board[1][0] = new BoardCell(BoardCell.CellType.FILLED01,-1,4);
-        model.board[1][1] = new BoardCell(BoardCell.CellType.INPUT,2,-1);
-        model.board[2][1] = new BoardCell(BoardCell.CellType.INPUT,3,-1);
-        model.board[1][2] = new BoardCell(BoardCell.CellType.INPUT,2,-1);
+        model.board[0][1] = new Cell(Cell.CellType.FILLED10, 5);
+        model.board[1][0] = new Cell(Cell.CellType.FILLED01,-1,4);
+        model.board[1][1] = new Cell(Cell.CellType.INPUT,2,-1);
+        model.board[2][1] = new Cell(Cell.CellType.INPUT,3,-1);
+        model.board[1][2] = new Cell(Cell.CellType.INPUT,2,-1);
         controller.model = model;
         // Act
         solved = controller.solveBoard();

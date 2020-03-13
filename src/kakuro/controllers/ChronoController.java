@@ -3,6 +3,7 @@ package kakuro.controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
@@ -78,7 +79,7 @@ public class ChronoController {
         return chronoModel.getSeconds();
     }
     
-    public ChronoView getView() {
-        return chronoView;
+    public JComponent getView() {
+        return chronoView.timerLabel;
     }
 }

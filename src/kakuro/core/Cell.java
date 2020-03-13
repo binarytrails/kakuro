@@ -3,7 +3,7 @@
 
 package kakuro.core;
 
-public class BoardCell
+public class Cell
 {
     public enum CellType
     {
@@ -18,18 +18,18 @@ public class BoardCell
     private int value1 = -1;
     private int value2 = -1;
 
-    public BoardCell(CellType type)
+    public Cell(CellType type)
     {
         this.type = type;
     };
 
-    public BoardCell(CellType type, int value1)
+    public Cell(CellType type, int value1)
     {
         this.type = type;
         this.value1 = value1;
     }
 
-    public BoardCell(CellType type, int value1, int value2)
+    public Cell(CellType type, int value1, int value2)
     {
         this.type = type;
         this.value1 = value1;

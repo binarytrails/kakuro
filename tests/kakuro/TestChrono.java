@@ -11,10 +11,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import kakuro.controllers.GameController;
-import kakuro.controllers.BoardController;
-import kakuro.controllers.ButtonMenuController;
+import kakuro.controllers.MenuBarController;
 import kakuro.controllers.ChronoController;
-import kakuro.views.ButtonMenuView;
+import kakuro.views.MenuBarView;
 import kakuro.views.GameView;
 
 

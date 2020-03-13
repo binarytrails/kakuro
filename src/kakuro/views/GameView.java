@@ -10,6 +10,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.text.NumberFormat;
 import java.util.Scanner;
+
+import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,37 +23,35 @@ import javax.swing.text.NumberFormatter;
 
 import kakuro.controllers.GameController;
 import kakuro.controllers.GameController.UserActions;
-import kakuro.controllers.BoardController;
-import kakuro.controllers.ButtonMenuController;
+import kakuro.controllers.MenuBarController;
 import kakuro.controllers.ChronoController;
-import kakuro.core.BoardCell;
+import kakuro.core.Cell;
 import kakuro.core.LinePanel;
 
 public class GameView
 {
     private GameController controller;
-    
-    //Subviews
-    ChronoView chronoView;
-    BoardView boardView;
-    ButtonMenuView buttonMenuView;
-    
+     
     //UI components
+    JTextField[][] cells;
     JPanel currentBoard;
     
     //Main application frame and properties
     JFrame frame;
     int gridSizeX;
     int gridSizeY;
-   
-    //UI support
     
-    private ButtonMenuView buttonMenu;
-    
-    private JLabel startUI;
+    //Number formatter for displaying
+    NumberFormat numberFormat = NumberFormat.getInstance();
+    NumberFormatter numberFormatter = new NumberFormatter(numberFormat);
      
-    public GameView(final GameController controller, Boolean X11, ChronoView chronoView, BoardView boardView, ButtonMenuView buttonMenuView)
+    public GameView(final GameController controller, Boolean X11, JComponent chronoLabel, JComponent menuBar)
     {
+        //Initialize number formatter
+        numberFormatter.setValueClass(Integer.class);
+        numberFormatter.setMinimum(1);
+        numberFormatter.setMaximum(9);
+        
         if (controller != null)
         {
             this.controller = controller;
@@ -71,17 +71,13 @@ public class GameView
             frame.setSize(x, y);
             frame.setResizable(false);
             
-            this.chronoView = chronoView;
-            this.boardView = boardView;
-            this.buttonMenuView = buttonMenuView;
-            
             //Create a timer at the top
-            frame.getContentPane().add(chronoView.timerLabel, BorderLayout.BEFORE_FIRST_LINE);
+            frame.getContentPane().add(chronoLabel, BorderLayout.BEFORE_FIRST_LINE);
             //Main game UI stays at the center
-            currentBoard = boardView.boardPanel;
+            currentBoard = getBoardUI(controller.model.board);
             frame.getContentPane().add(currentBoard);
             //Button menu stays at the bottom 
-            frame.getContentPane().add(buttonMenuView.mainPanel, BorderLayout.AFTER_LAST_LINE);
+            frame.getContentPane().add(menuBar, BorderLayout.AFTER_LAST_LINE);
             
             frame.pack();
             frame.setSize(x,y);
@@ -89,8 +85,104 @@ public class GameView
         }
     }
     
-    public void updateView(JPanel newBoardPanel) {
-      //If a panel is already attached to the frame, remove it
+    public JPanel getBoardUI(Cell[][] board) {
+        //creating grid of cells
+        cells = new JTextField[gridSizeX][gridSizeY];
+        JPanel panel = new JPanel(new GridLayout(gridSizeX,gridSizeY));
+        //creating window of the game
+     
+        //this allows temporary invalid input, particularly to be able to delete and try again
+        //if invalid input, when clicking onto another cell, the input will be deleted
+        numberFormatter.setAllowsInvalid(true);
+
+        //identifies type of each cell and populates it
+        //input or non-playable
+        for(int row = 0; row < gridSizeX; row++)
+        {
+            for(int column = 0; column < gridSizeY; column++)
+            {
+                JFormattedTextField textField = null;
+
+                //tracking the type of each cell
+                Cell cell = board[row][column];
+                //adding extra panel that will overlay the cells that are non-playable with game level numbers and diagonal line
+                JPanel diagonalPanel = null;
+
+                //according to type of cell, populate
+                switch (cell.getType())
+                {
+                    case EMPTY:
+                        textField = new JFormattedTextField(numberFormatter);
+                        settingTextField(textField);
+                        textField.setBorder(new LineBorder(Color.GRAY,1));
+                        panel.add(textField);
+                        break;
+
+                    case INPUT:
+                        textField = new JFormattedTextField(numberFormatter);
+                        textField.setHorizontalAlignment(JTextField.CENTER);
+                        textField.setBorder(new LineBorder(Color.GRAY,1));
+                        //When you load a game, there is some data exists. We have to check to make sure we are displaying the saved input
+                        if(cell.getFirstValue()!=-1)
+                            textField.setValue(cell.getFirstValue());
+                        panel.add(textField);
+                        break;
+
+                    case FILLED01:
+                        textField = new JFormattedTextField(cell.getSecondValue());
+                        settingTextField(textField);
+                        //adding diagonal line in board cell
+                        diagonalPanel = new LinePanel(new BorderLayout(), textField, true);
+                        diagonalPanel.setBorder(new LineBorder(Color.GRAY,1));
+                        panel.add(diagonalPanel);
+                        break;
+
+                    case FILLED10:
+                        textField = new JFormattedTextField(cell.getFirstValue());
+                        settingTextField(textField);
+                        //adding diagonal line in board cell
+                        diagonalPanel = new LinePanel(new BorderLayout(), textField, false);
+                        diagonalPanel.setBorder(new LineBorder(Color.GRAY,1));
+                        panel.add(diagonalPanel);
+                        break;
+
+                    case FILLED11:
+                        textField = new JFormattedTextField(cell.getFirstValue());
+                        JFormattedTextField textFieldRIGHT = new JFormattedTextField(cell.getSecondValue());
+                        settingTextField(textField);
+                        settingTextField(textFieldRIGHT); 
+                        //using constructor that expects two text values to place in board cell
+                        diagonalPanel = new LinePanel(new BorderLayout(), textField, textFieldRIGHT);
+                        diagonalPanel.setBorder(new LineBorder(Color.GRAY,1));
+                        panel.add(diagonalPanel);
+                        break;
+
+                    default:
+                        break;
+                }
+                
+                //placing textfield value in input array to track user input
+                this.cells[row][column] = textField;
+            }
+        }
+        
+        return panel;
+    }
+    
+    public JTextField[][] getSavedInput(){
+        return cells;
+    }
+    
+    public void settingTextField(JTextField txt) {
+        txt.setBackground(Color.black);
+        txt.setForeground(Color.white);
+        txt.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        txt.setEditable(false);
+    }
+    
+    public void updateView() {
+        //If a panel is already attached to the frame, remove it
+        JPanel newBoardPanel = getBoardUI(controller.model.board);
         if(currentBoard != null)
             frame.getContentPane().remove(currentBoard);
         
@@ -107,12 +199,16 @@ public class GameView
         currentBoard.setVisible(false);
     }
 
-    //Methods for the menuButtons
-    public ButtonMenuView getButtonMenu() {
-        return buttonMenu;
+    //Number formatter methods
+    public int getMinNumberValid() {
+        return (int) numberFormatter.getMinimum();
     }
-
-    public void setButtonMenu(ButtonMenuView buttonMenu) {
-        this.buttonMenu = buttonMenu;
+    
+    public Object getNumberFormatterClassType() {
+        return numberFormatter.getClass();
+    }
+    
+    public int getMaxNumberValid() {
+        return (int) numberFormatter.getMaximum();
     }
 }
