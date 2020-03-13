@@ -9,27 +9,30 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestBoardCell{
+import kakuro.core.Cell;
+
+public class TestBoardCell
+{
     @Test
     public void testNonInputCell(){
         // Arrange
-        BoardCell.CellType cellType = BoardCell.CellType.EMPTY;
+        Cell.CellType cellType = Cell.CellType.EMPTY;
         // Act
-        BoardCell cell = new BoardCell(cellType);
+        Cell cell = new Cell(cellType);
         // Assert
-        assertEquals(cell.getType(), BoardCell.CellType.EMPTY);
+        assertEquals(cell.getType(), Cell.CellType.EMPTY);
     }
 
     @Test
     public void testInputCell(){
         // Arrange
         int inputNumber = 1;
-        BoardCell.CellType cellType = BoardCell.CellType.EMPTY;
+        Cell.CellType cellType = Cell.CellType.EMPTY;
         // Act
-        BoardCell cell = new BoardCell(cellType, inputNumber);
+        Cell cell = new Cell(cellType, inputNumber);
         // Assert
         assertEquals(cell.getFirstValue(), inputNumber);
-        assertEquals(cell.getType(), BoardCell.CellType.EMPTY);
+        assertEquals(cell.getType(), Cell.CellType.EMPTY);
     }
 
     @Test
@@ -37,12 +40,12 @@ public class TestBoardCell{
         // Arrange
         int inputNumber = 1;
         int answerNumber = 3;
-        BoardCell.CellType cellType = BoardCell.CellType.EMPTY;
+        Cell.CellType cellType = Cell.CellType.EMPTY;
         // Act
-        BoardCell cell = new BoardCell(cellType, inputNumber, answerNumber);
+        Cell cell = new Cell(cellType, inputNumber, answerNumber);
         // Assert
         assertEquals(cell.getFirstValue(), inputNumber);
         assertEquals(cell.getSecondValue(), answerNumber);
-        assertEquals(cell.getType(), BoardCell.CellType.EMPTY);
+        assertEquals(cell.getType(), Cell.CellType.EMPTY);
     }
 }

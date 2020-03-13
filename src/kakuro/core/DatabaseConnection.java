@@ -1,6 +1,6 @@
 //@author Brian Gamboc-Javiniar and Nolan Mckay
 
-package kakuro.utils;
+package kakuro.core;
 
 import java.io.File;
 import java.sql.Connection;

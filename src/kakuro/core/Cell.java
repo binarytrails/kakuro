@@ -1,11 +1,11 @@
 // @author Vsevolod Ivanov
 // @author ...
 
-package kakuro;
+package kakuro.core;
 
-public class BoardCell
+public class Cell
 {
-    enum CellType
+    public enum CellType
     {
         EMPTY,    /* |   | */
         INPUT,    /* |   | */
@@ -18,40 +18,40 @@ public class BoardCell
     private int value1 = -1;
     private int value2 = -1;
 
-    BoardCell(CellType type)
+    public Cell(CellType type)
     {
         this.type = type;
     };
 
-    BoardCell(CellType type, int value1)
+    public Cell(CellType type, int value1)
     {
         this.type = type;
         this.value1 = value1;
     }
 
-    BoardCell(CellType type, int value1, int value2)
+    public Cell(CellType type, int value1, int value2)
     {
         this.type = type;
         this.value1 = value1;
         this.value2 = value2;
     }
 
-    int getFirstValue()
+    public int getFirstValue()
     {
         return this.value1;
     }
 
-    int getSecondValue()
+    public int getSecondValue()
     {
         return this.value2;
     }
 
-    void setFirstValue(int value)
+    public void setFirstValue(int value)
     {
         this.value1 = value;
     }
 
-    CellType getType()
+    public CellType getType()
     {
         return this.type;
     }

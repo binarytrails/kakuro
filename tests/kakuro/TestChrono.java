@@ -10,6 +10,12 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import kakuro.controllers.GameController;
+import kakuro.controllers.MenuBarController;
+import kakuro.controllers.ChronoController;
+import kakuro.views.MenuBarView;
+import kakuro.views.GameView;
+
 
 public class TestChrono{
     private int faultToleranceMs = 200;
@@ -18,17 +24,16 @@ public class TestChrono{
     public void testRunStopChronoAfter3Seconds() throws InterruptedException{
         // Arrange
         int waitSeconds = 3;
-        GameController gameController = new GameController(10, 10, false);
-        GameView gameView = new GameView(gameController, false/*GUI*/);
-        gameView.setButtonMenu(new ButtonMenu(null, 0, 0, null));
+        ChronoController chronoController = new ChronoController();
+       
         // Act
-        gameView.settingUpMenu(); // chrono starts
+        chronoController.chronoStart(); 
         Thread.sleep(waitSeconds * 1000/*ms*/ + faultToleranceMs);
-        gameView.getButtonMenu().getChrono().chronoPause();
+        chronoController.chronoPause();
         
-        int hours = gameView.getButtonMenu().getChrono().getHours();
-        int minutes = gameView.getButtonMenu().getChrono().getMinutes();
-        int seconds = gameView.getButtonMenu().getChrono().getSeconds();
+        int hours = chronoController.getHours();
+        int minutes = chronoController.getMinutes();
+        int seconds = chronoController.getSeconds();
         // Assert
         System.out.println("Chrono was run for " + seconds + " seconds");
         assertTrue(waitSeconds == seconds);

@@ -10,6 +10,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import kakuro.controllers.GameController;
+
 public class TestBoardUI {
     @Test
     public void testBoardUIGeneration(){

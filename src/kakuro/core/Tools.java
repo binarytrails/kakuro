@@ -1,7 +1,7 @@
 //@author Vsevolod Ivanov
 //@author ...
 
-package kakuro;
+package kakuro.core;
 
 import java.util.Enumeration;
 import java.util.Random;

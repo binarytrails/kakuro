@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import kakuro.BoardCell;
+import kakuro.core.Cell;
 
 public interface GameDao {
  
@@ -17,5 +17,5 @@ public interface GameDao {
      *          - the database connection
      * @return BoardCell object
      */
-    ArrayList<BoardCell[][]> loadAllPreconfiguredGames(Connection conn) throws SQLException;
+    ArrayList<Cell[][]> loadAllPreconfiguredGames(Connection conn) throws SQLException;
 }

@@ -10,15 +10,15 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
-import kakuro.BoardCell;
+import kakuro.core.Cell;
 
 public class GameDaoImpl implements GameDao {
     private final String LOAD_ALL_PRECONFIGURED_GAMES = "SELECT cells FROM game";
     
     @Override
-    public ArrayList<BoardCell[][]> loadAllPreconfiguredGames(Connection conn) throws SQLException {
+    public ArrayList<Cell[][]> loadAllPreconfiguredGames(Connection conn) throws SQLException {
         Gson gson = new Gson();
-        ArrayList<BoardCell[][]> boardCells = new ArrayList<BoardCell[][]>();
+        ArrayList<Cell[][]> boardCells = new ArrayList<Cell[][]>();
         
         PreparedStatement pstmt = conn.prepareStatement(LOAD_ALL_PRECONFIGURED_GAMES);
         
@@ -27,7 +27,7 @@ public class GameDaoImpl implements GameDao {
         
         while(rs.next()) {
             String cells = rs.getString("cells");
-            boardCells.add(gson.fromJson(cells, BoardCell[][].class));
+            boardCells.add(gson.fromJson(cells, Cell[][].class));
         }
         
         return boardCells;

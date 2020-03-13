@@ -4,7 +4,8 @@ package kakuro.gameprogress.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import kakuro.BoardCell;
+
+import kakuro.core.Cell;
 
 public interface GameProgressDao {
     /**
@@ -15,7 +16,7 @@ public interface GameProgressDao {
      * @param uid
      *          - the username of the player
      */
-    void save(Connection conn, String uid, BoardCell[][] board) throws SQLException;
+    void save(Connection conn, String uid, Cell[][] board) throws SQLException;
     
     /**
      * 
@@ -26,5 +27,5 @@ public interface GameProgressDao {
      *          - the username of the player
      * @return BoardCell object
      */
-    BoardCell[][] load(Connection conn, String uid) throws SQLException;
+    Cell[][] load(Connection conn, String uid) throws SQLException;
 }

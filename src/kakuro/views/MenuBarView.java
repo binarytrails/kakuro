@@ -1,4 +1,4 @@
-package kakuro;
+package kakuro.views;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -9,69 +9,54 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class ButtonMenu {
+import kakuro.controllers.ChronoController;
+import kakuro.controllers.GameController;
+import kakuro.controllers.MenuBarController;
+import kakuro.core.GameDifficulty;
+import kakuro.core.GameDifficultyListItem;
+
+public class MenuBarView {
+    //Controller
+    MenuBarController menuBarController;
+    
+    //UI components
     JButton pause_button;
-    JButton play_button;
     JButton submit_button;
-    JButton newGame_button;
     JButton choose_game_button;
     JButton save_button;
     JButton restart_button;
     JButton load_button;
-    JPanel mainPanel;
-    Chrono chrono;
-    public Chrono getChrono() {
-        return chrono;
-    }
+    public JPanel mainPanel;
 
-    public void setChrono(Chrono chrono) {
-        this.chrono = chrono;
-    }
-
-    GameController gameController;
-
-
-    public ButtonMenu(JFrame appFrame, int x, int y, GameController gameController) {
-        this.gameController = gameController;
+    public MenuBarView(MenuBarController menuBarController) {
+        this.menuBarController = menuBarController;
+        
+        //Initialize the buttons
         pause_button = new JButton("Pause");
-        play_button = new JButton("Play");
         submit_button = new JButton("Submit");
-        newGame_button = new JButton("New Game");
-        choose_game_button = new JButton("Choose a game");
+        choose_game_button = new JButton("New Game");
         save_button = new JButton("Save");
         restart_button = new JButton("Restart");
         load_button = new JButton("Load Game");
         mainPanel = new JPanel();
-        chrono = new Chrono();
-
-        // Set up
-        mainPanel.add(play_button).setVisible(false);
+        
+        //Set up the event listeners
+        buttonsSetUp();
+        
+        //Set up visibility and add the buttons to a panel
         mainPanel.add(pause_button).setVisible(false);
-        mainPanel.add(restart_button);
+        mainPanel.add(restart_button).setVisible(false);;
         mainPanel.add(submit_button).setVisible(false);
         mainPanel.add(choose_game_button);
         mainPanel.add(save_button).setVisible(false);
         mainPanel.add(load_button);
-
-        if (appFrame != null)
-        {
-            appFrame.getContentPane().add(chrono.getTimerLabel(), BorderLayout.BEFORE_FIRST_LINE);
-            appFrame.getContentPane().add(mainPanel, BorderLayout.AFTER_LAST_LINE);
-            appFrame.pack();
-            appFrame.setSize(x,y);
-            appFrame.setVisible(true);
-        }
-    }
-
-    public void chronoSetUp() {
-        chrono.timerSetUp();
     }
     
     private void toggleMenu() {
-        play_button.setVisible(true);
         pause_button.setVisible(true);
         submit_button.setVisible(true);
         save_button.setVisible(true);
+        restart_button.setVisible(true);
         
         choose_game_button.setVisible(false);
         load_button.setVisible(false);
@@ -84,26 +69,14 @@ public class ButtonMenu {
         {
             public void actionPerformed(ActionEvent e)
             {
-                chrono.chronoPause();
-            }
-        });
-        
-        /* With the use of an Action Listener to know if the user has clicked on the button, this part of the method will start the timer. */
-        play_button.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                chrono.chronoStart();
-            }
-        });
-
-        /* With the use of an Action Listener to know if the user has clicked on the button, this part of the loop method will restart the timer. */
-        newGame_button.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                chrono.resetTimer();
-                chrono.chronoStart();
+                if(!menuBarController.isPaused()) {
+                    pause_button.setText("Resume");
+                    menuBarController.pause();
+                }
+                else {
+                    pause_button.setText("Pause");
+                    menuBarController.resume();
+                }
             }
         });
 
@@ -112,11 +85,7 @@ public class ButtonMenu {
         {
             public void actionPerformed(ActionEvent e)
             {
-                chrono.chronoPause();
-                //loads data into model
-                gameController.loadInputInModel(false); //No clearing inputs
-                gameController.solveBoard();
-                gameController.view.printSolveBoard();
+                menuBarController.submit();
             }
         });
 
@@ -127,10 +96,7 @@ public class ButtonMenu {
         {
             public void actionPerformed(ActionEvent e)
             {
-                chrono.chronoPause();
-                gameController.view.loadInputInModel();
-               
-                gameController.saveGame();
+                menuBarController.save();
             }
         });
         
@@ -142,11 +108,11 @@ public class ButtonMenu {
         {
             public void actionPerformed(ActionEvent e)
             {
-                if(gameController.loadGame() != null) {
+                if(menuBarController.load() != null) {
                    JOptionPane.showMessageDialog(null, "Successfully loaded saved game!");
                    toggleMenu();
                 } else {
-                    JOptionPane.showMessageDialog(null, "You do not have any saved game!", "Not Found", JOptionPane.ERROR_MESSAGE);
+                   JOptionPane.showMessageDialog(null, "You do not have any saved game!", "Not Found", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -161,14 +127,15 @@ public class ButtonMenu {
             {
                 
                 //TODO: hardcoded for now and need other boards solution boards -iteration 2 UI
-                Object[] levels = {"1", "2", "3"};
-                String chooseGame = (String) JOptionPane.showInputDialog(null, "Choose a level (1 - 3), 1 being easiest to 3 being the hardest", "Difficulty level", JOptionPane.PLAIN_MESSAGE, null, levels, levels[0]);
+                GameDifficultyListItem[] levels = {new GameDifficultyListItem("Easy", GameDifficulty.EASY),
+                        new GameDifficultyListItem("Medium", GameDifficulty.MEDIUM),
+                        new GameDifficultyListItem("Difficult", GameDifficulty.DIFFICULT)};
+
+                GameDifficultyListItem difficultyItem = (GameDifficultyListItem) JOptionPane.showInputDialog(null, "Choose a difficulty level", "Difficulty level", JOptionPane.PLAIN_MESSAGE, null, levels, levels[0]);
                 
-                if(chooseGame != null) {
-                    int gameLevel = Integer.parseInt(chooseGame);
+                if(difficultyItem != null) {
+                    menuBarController.loadPreconfiguredGame(difficultyItem.getDifficulty());
                     toggleMenu();
-                    
-                    gameController.loadPreconfiguredGame(gameLevel);
                 }
             }
         });
@@ -177,9 +144,7 @@ public class ButtonMenu {
         {
             public void actionPerformed(ActionEvent e)
             {
-                chrono.resetTimer();
-                chrono.chronoStart();
-                gameController.loadInputInModel(true); //Clear inputs
+                menuBarController.restart();
             }
         });
     }
