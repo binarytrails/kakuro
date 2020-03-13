@@ -73,17 +73,16 @@ public class TestGameController {
  // @brief Test Valid Board
     public void testBoardSolveValidBoard() {
         //Arrange
-        GameController controller1 = new GameController(10,10, GUI);
-        GameModel model1 = new GameModel(10,10); 
-        model1.initBoard();  //initialize board
-        model1.board[0][1] = new BoardCell(BoardCell.CellType.FILLED10, 5);
-        model1.board[1][0] = new BoardCell(BoardCell.CellType.FILLED01,-1,4);
-        model1.board[1][1] = new BoardCell(BoardCell.CellType.INPUT,3,-1);
-        model1.board[2][1] = new BoardCell(BoardCell.CellType.INPUT,2,-1);
-        model1.board[1][2] = new BoardCell(BoardCell.CellType.INPUT,1,-1);
-        controller1.model = model1;
+        GameController controller = new GameController(10,10, GUI);
+        GameModel model = controller.model;
+        model.initBoard();  //initialize board
+        model.board[0][1] = new BoardCell(BoardCell.CellType.FILLED10, 5);
+        model.board[1][0] = new BoardCell(BoardCell.CellType.FILLED01,-1,4);
+        model.board[1][1] = new BoardCell(BoardCell.CellType.INPUT,3,-1);
+        model.board[2][1] = new BoardCell(BoardCell.CellType.INPUT,2,-1);
+        model.board[1][2] = new BoardCell(BoardCell.CellType.INPUT,1,-1);
         //Act
-        solved = controller1.solveBoard();
+        solved = controller.solveBoard();
         //Assert
         assertEquals(solved, true);
     }
@@ -92,17 +91,16 @@ public class TestGameController {
  // @brief Test Invalid Board with one wrong vertical sum
     public void testBoardSolveInvalidBoardWithOneWrongVerticalSum() {       
         //Arrange
-        GameController controller2 = new GameController(10,10, GUI);
-        GameModel model2 = new GameModel(10,10); 
-        model2.initBoard();
-        model2.board[0][1] = new BoardCell(BoardCell.CellType.FILLED10, 5);
-        model2.board[1][0] = new BoardCell(BoardCell.CellType.FILLED01,-1,4);
-        model2.board[1][1] = new BoardCell(BoardCell.CellType.INPUT,3,-1);
-        model2.board[2][1] = new BoardCell(BoardCell.CellType.INPUT,6,-1);
-        model2.board[1][2] = new BoardCell(BoardCell.CellType.INPUT,1,-1);
-        controller2.model = model2;
+        GameController controller = new GameController(10,10, GUI);
+        GameModel model = controller.model;
+        model.initBoard();  //initialize board
+        model.board[0][1] = new BoardCell(BoardCell.CellType.FILLED10, 5);
+        model.board[1][0] = new BoardCell(BoardCell.CellType.FILLED01,-1,4);
+        model.board[1][1] = new BoardCell(BoardCell.CellType.INPUT,3,-1);
+        model.board[2][1] = new BoardCell(BoardCell.CellType.INPUT,6,-1);
+        model.board[1][2] = new BoardCell(BoardCell.CellType.INPUT,1,-1);
         //Act
-        solved = controller2.solveBoard();
+        solved = controller.solveBoard();
         //Assert
         assertEquals(solved, false);
     }
@@ -111,17 +109,16 @@ public class TestGameController {
  // @brief Test Invalid Board with one wrong horizontal sum
     public void testBoardSolveInvalidBoardWithOneWrongHorizontalSum() {       
         //Arrange
-        GameController controller2 = new GameController(10,10, GUI);
-        GameModel model2 = new GameModel(10,10); 
-        model2.initBoard();
-        model2.board[0][1] = new BoardCell(BoardCell.CellType.FILLED10, 5);
-        model2.board[1][0] = new BoardCell(BoardCell.CellType.FILLED01,-1,8);
-        model2.board[1][1] = new BoardCell(BoardCell.CellType.INPUT,3,-1);
-        model2.board[2][1] = new BoardCell(BoardCell.CellType.INPUT,2,-1);
-        model2.board[1][2] = new BoardCell(BoardCell.CellType.INPUT,1,-1);
-        controller2.model = model2;
+        GameController controller = new GameController(10,10, GUI);
+        GameModel model = controller.model;
+        model.initBoard();  //initialize board
+        model.board[0][1] = new BoardCell(BoardCell.CellType.FILLED10, 5);
+        model.board[1][0] = new BoardCell(BoardCell.CellType.FILLED01,-1,8);
+        model.board[1][1] = new BoardCell(BoardCell.CellType.INPUT,3,-1);
+        model.board[2][1] = new BoardCell(BoardCell.CellType.INPUT,2,-1);
+        model.board[1][2] = new BoardCell(BoardCell.CellType.INPUT,1,-1);
         //Act
-        solved = controller2.solveBoard();
+        solved = controller.solveBoard();
         //Assert
         assertEquals(solved, false);
     }
@@ -130,17 +127,16 @@ public class TestGameController {
  // @brief Test Invalid Board with correct sum but duplicate entries
     public void testBoardSolveInvalidBoardWithDuplicateEntries() {        
         //Arrange
-        GameController controller3 = new GameController(10,10, GUI);
-        GameModel model3 = new GameModel(10,10); 
-        model3.initBoard();
-        model3.board[0][1] = new BoardCell(BoardCell.CellType.FILLED10, 5);
-        model3.board[1][0] = new BoardCell(BoardCell.CellType.FILLED01,-1,4);
-        model3.board[1][1] = new BoardCell(BoardCell.CellType.INPUT,2,-1);
-        model3.board[2][1] = new BoardCell(BoardCell.CellType.INPUT,3,-1);
-        model3.board[1][2] = new BoardCell(BoardCell.CellType.INPUT,2,-1);
-        controller3.model = model3;            
+        GameController controller = new GameController(10,10, GUI);
+        GameModel model = controller.model;
+        model.initBoard();  //initialize board
+        model.board[0][1] = new BoardCell(BoardCell.CellType.FILLED10, 5);
+        model.board[1][0] = new BoardCell(BoardCell.CellType.FILLED01,-1,4);
+        model.board[1][1] = new BoardCell(BoardCell.CellType.INPUT,2,-1);
+        model.board[2][1] = new BoardCell(BoardCell.CellType.INPUT,3,-1);
+        model.board[1][2] = new BoardCell(BoardCell.CellType.INPUT,2,-1);         
         //Act
-        solved = controller3.solveBoard();
+        solved = controller.solveBoard();
         //Assert
         assertEquals(solved, false);
     }
