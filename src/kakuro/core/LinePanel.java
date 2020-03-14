@@ -1,8 +1,10 @@
-// @author Isabelle Charette
-// @author ...
-// @brief class used to populate non-playable board cells: adds numbers and diagonal line
-// class extending JPanel to use the graphics with paintComponent method overriding
-
+/*
+ * SOURCES 
+ * Examples on extending JPanel class and using paintComponent method // Examples for textfield formatting
+ * http://programmedlessons.org/java5/Notes/chap36/ch36_10.html
+ * https://docs.oracle.com/javase/tutorial/uiswing/components/formattedtextfield.html
+ * https://docs.oracle.com/javase/8/docs/api/javax/swing/JFormattedTextField.html
+ */
 package kakuro.core;
 
 import java.awt.BasicStroke;
@@ -15,17 +17,24 @@ import java.awt.geom.Line2D;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-/*
- * SOURCES 
- * Examples on extending JPanel class and using paintComponent method // Examples for textfield formatting
- * http://programmedlessons.org/java5/Notes/chap36/ch36_10.html
- * https://docs.oracle.com/javase/tutorial/uiswing/components/formattedtextfield.html
- * https://docs.oracle.com/javase/8/docs/api/javax/swing/JFormattedTextField.html
- */
 
+/** 
+ * Line panel class used to populate non-playable board cells: adds numbers and diagonal line 
+ * It is also extending JPanel to use the graphics with paintComponent method overriding
+ * 
+ * @author Isabelle Charette
+ * Date created: January 27th, 2020
+*/
 public class LinePanel extends JPanel {
-    
-    //constructor used if only one number in the cell
+    /**
+     * LinePanel constructor to create the layout, textfield, and to align them when one number in cell
+     * @param layout
+     *  - the layout manager of our game
+     * @param textField
+     *  - the textfield view of our game
+     * @param align
+     *  - verifies if our textfield is aligned
+     */
     public LinePanel(LayoutManager layout, JTextField textField, Boolean align) {
         super(layout);
         this.setBackground(Color.black);
@@ -40,7 +49,15 @@ public class LinePanel extends JPanel {
         }
     }
 
-    //constructor used if two numbers in the cell
+    /**
+     * LinePanel constructor to create the layout and textfield when two numbers in cell
+     * @param layout
+     *  - the layout manager of our game
+     * @param textField
+     *  - the textfield view of our game
+     * @param align
+     *  - verifies if our textfield is aligned
+     */
     public LinePanel(LayoutManager layout, JTextField textFieldLEFT, JTextField textFieldRIGHT) {
         super(layout);
         this.setBackground(Color.black);
@@ -55,13 +72,21 @@ public class LinePanel extends JPanel {
         this.add(textFieldRIGHT, BorderLayout.NORTH);
    
     }
-
+    
+    /**
+     * Creates the background black and foreground white
+     * 
+     * @param txt
+     *  - the JTextField reference
+     */
     public void settingTxt(JTextField txt) {
         txt.setBackground(new Color(0,0,0,0));
         txt.setForeground(Color.white);
     }
     
-    //method that draws the diagonal line in the black cells
+    /**
+     * paintComponent method draws the diagonal line in the black cells
+     */
     public void paintComponent(Graphics g) {
 
         super.paintComponent(g);

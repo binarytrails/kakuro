@@ -1,5 +1,3 @@
-//@author Brian Gamboc-Javiniar
-
 package kakuro.gameprogress.dao;
 
 import java.sql.Connection;
@@ -10,9 +8,15 @@ import com.google.gson.*;
 
 import kakuro.core.Cell;
 
+/**
+ * Game Progress implementation class that implements the abstract class for operations in the database
+ *
+ * @author Brian Gamboc-Javiniar
+ * Date written: March 1st, 2020
+ */
 public class GameProgressDaoImpl implements GameProgressDao {
-    private final String SAVE_GAME_PROGRESS = "UPDATE game_progress SET cells=? WHERE username=?";
-    private final String LOAD_GAME_PROGRESS = "SELECT cells FROM game_progress WHERE username=?";
+    private final String SAVE_GAME_PROGRESS = "UPDATE game_progress SET cells=? WHERE username=?"; // Update query on user's game progress
+    private final String LOAD_GAME_PROGRESS = "SELECT cells FROM game_progress WHERE username=?"; // Select query for a user's game progress
 
     @Override
     public void save(Connection conn, String uid, Cell[][] board) throws SQLException {

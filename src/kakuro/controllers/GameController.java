@@ -1,7 +1,3 @@
-// @author Vsevolod Ivanov
-// @author Nalveer Moocheet
-// @brief Game controller class which handles the Kakuro game.
-
 package kakuro.controllers;
 
 import kakuro.core.Cell;
@@ -22,24 +18,37 @@ import java.util.HashMap;
 
 import javax.swing.JTextField;
 
+/**
+ * Game controller class which handles the Kakuro game,
+ * which basically orchestrates the model and view of the game
+ *
+ * @author Vsevolod Ivanov
+ * @author Nalveer Moocheet
+ * @author Audrey-Laure St-Louis
+ * @author Brian Gamboc-Javiniar
+ * @author Hoang Thuan Pham
+ * Date written: January 15th, 2020
+ */
 public class GameController
 {
-    public DatabaseConnection database;
-    public GameProgressDao gameProgress;
-    public GameDao game;
+    public DatabaseConnection database; // DatabaseConnection object reference
+    public GameProgressDao gameProgress; // GameProgressDao object reference
+    public GameDao game; // GameDao object reference
     
-    public GameView view;
-    public GameModel model;
-    private Boolean gui = true;
+    public GameView view; // GameView object reference
+    public GameModel model; // GameModel object reference
+    private Boolean gui = true; // shows the graphical user interface of our game application
     
     //Sub-views controller
-    private ChronoController chronoController;
-    //public BoardController boardController;
-    private MenuBarController buttonMenuController;
-    private GameConsole console;
+    private ChronoController chronoController; // ChronoController object reference
+    private MenuBarController buttonMenuController; // MenuBarController object reference
+    private GameConsole console; // GameConsole object reference
     
-    boolean isPaused = false;
+    boolean isPaused = false; // to pause our game
 
+    /**
+     * User actions for our view
+     */
     public enum UserActions
     {
         UNKNOWN,
@@ -47,7 +56,17 @@ public class GameController
         SOLVE,
         ANSWERS
     }
-
+    
+    /**
+     * GameController constructors
+     *
+     * @param columns
+     *  - number of columns for our grid
+     * @param rows
+     *  - number of rows for our grid
+     * @param gui
+     *  - display our graphical user interface
+     */
     public GameController(final int columns, final int rows, final Boolean gui)
     {
         this.model = new GameModel(columns, rows);
@@ -62,24 +81,36 @@ public class GameController
         initGame(model);
     }
 
+    /**
+     * pause method that pauses the timer and hides the view of the current game
+     */
     public void pause() {
         isPaused = true;
         chronoController.chronoPause();
         view.hideBoard();
     }
     
+    /**
+     * resume method that starts the timer again and shows the view of the current game
+     */
     public void resume() {
         isPaused = false;
         chronoController.chronoStart();
         view.showBoard();
     }
     
+    /**
+     * restart method that wipes the game's timer and data in the model
+     */
     public void restart() {
         chronoController.resetTimer();
         chronoController.chronoStart();
         loadInputInModel(true); //Clear inputs
     }
     
+    /**
+     * submit method that pauses the timer and verifies if the game is solved
+     */
     public void submit() {
         chronoController.chronoPause();
         loadInputInModel(false); //No clearing inputs
@@ -87,6 +118,9 @@ public class GameController
         console.printSolveBoard();
     }
     
+    /**
+     * saveGame method that saves an instance of a current game to the database
+     */
     public void saveGame() {
         
         try {            
@@ -101,6 +135,11 @@ public class GameController
         }
     }
     
+    /**
+     * Accesses the saved game from the database
+     * 
+     * @return a multidimensional array Cell object
+     */
     public Cell[][] loadGame() {
         try {            
             //TODO: fixed player and to fix in iteration 3
@@ -128,6 +167,12 @@ public class GameController
         return null;
     }
     
+    /**
+     * solveBoard method that verifies if the give solved Kakuro game is the right answer or not
+     * 
+     * @return
+     *  - returns true if the game is correctly solves, otherwise returns false
+     */
     public Boolean solveBoard()
     {
         
@@ -272,8 +317,11 @@ public class GameController
           else
           return false;
     }
-    
-    //This one is for the console, it might not be in the interface
+
+    /**
+     * loopGame method that is constantly aware of our User Actions while the game application is on
+     * This one is for the console, it might not be in the interface
+     */
     public void loopGame()
     {
         while (true)
@@ -299,19 +347,45 @@ public class GameController
         }
     }
     
-    //Number formatter --- I highly doubt that this belongs to the interface since it is for testing
+    /**
+     * Number formatter
+     * Accesses the minimum number that is valid in our board
+     * 
+     * @return
+     *  - an integer
+     */
     public int getMinNumberValid() {
         return view.getMinNumberValid();
     }
     
+    /**
+     * Number formatter
+     * Accesses type of the number formatter
+     * 
+     * @return
+     *  - an object
+     */
     public Object getNumberFormatterClassType() {
         return view.getNumberFormatterClassType();
     }
     
+    /**
+     * Number formatter
+     * Accesses the maximum number that is valid in our board
+     * 
+     * @return
+     *  - an integer
+     */
     public int getMaxNumberValid() {
         return view.getMaxNumberValid();
     }
     
+    /**
+     * initGame method which initializes our board
+     * 
+     * @param model
+     *  - A GameModel object to help pass our current data in the model
+     */
     private void initGame(GameModel model)
     {
         
@@ -329,21 +403,35 @@ public class GameController
         console.printBoard(false/*show answer values*/);
     }
 
+    /**
+     * Accesses the database connection
+     * 
+     * @return a Connection of the database
+     */
     private Connection getDatabaseConnection() {
         return database.getConnection();
     }
     
-    
+    /**
+     * connectDatabase method that helps connect to our database
+     */
     private void connectDatabase() {
         database.connect();
     }
     
-    
+    /**
+     * disconnectDatabase method that helps disconnect our database
+     */
     private void disconnectDatabase() {
         database.disconnect();
     }
     
-    
+    /**
+     * loadPreconfiguredGame method that loads a specific preconfigured game from the database
+     * 
+     * @param gameLevel
+     *  - the difficulty of the game
+     */
     void loadPreconfiguredGame(int gameLevel) {
         try {
             ArrayList<Cell[][]> boardCells = game.loadAllPreconfiguredGames(getDatabaseConnection());
@@ -367,9 +455,13 @@ public class GameController
             System.err.println("Failed to load preconfigred game");
         }
     }
-
     
-    
+    /**
+     * Updates our GameModel data
+     * 
+     * @param clearInput
+     *  - to wipe our current data in the model
+     */
     private void loadInputInModel(boolean clearInput) {
         JTextField[][] saveInput = view.getSavedInput();
         String value;
@@ -395,5 +487,4 @@ public class GameController
             }
         }
     }
-
 }

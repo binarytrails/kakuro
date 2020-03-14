@@ -1,6 +1,3 @@
-//@author Vsevolod Ivanov
-//@author ...
-
 package kakuro.core;
 
 import java.util.Enumeration;
@@ -9,6 +6,13 @@ import java.util.Random;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 
+/**
+ * 
+ * Utility class
+ *
+ * @author Vsevolod Ivanov
+ * Date written: January 26th, 2020
+ */
 public class Tools
 {
     public static int randomInt(int min, int max)

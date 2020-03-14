@@ -1,7 +1,3 @@
-// @author Vsevolod Ivanov
-// @author Isabelle Charette
-// @brief Game view class which handles the Kakuro game interface.
-
 package kakuro.views;
 
 import java.awt.BorderLayout;
@@ -28,23 +24,40 @@ import kakuro.controllers.ChronoController;
 import kakuro.core.Cell;
 import kakuro.core.LinePanel;
 
+/**
+ * Game view class which handles the Kakuro game interface
+ *
+ * @author Vsevolod Ivanov
+ * @author Isabelle Charette
+ * @author Audrey-Laure St-Louis
+ * @author Hoang Thuan Pham
+ * Date written: January 16th, 2020
+ */
 public class GameView
 {
-    private GameController controller;
-     
+    private GameController controller; // GameController object reference
+    
     //UI components
-    private JTextField[][] cells;
-    private JPanel currentBoard;
+    private JTextField[][] cells; // multidimensional JTextField array object reference
+    private JPanel currentBoard; // JPanel object reference
     
     //Main application frame and properties
-    private JFrame frame;
-    private int gridSizeX;
-    private int gridSizeY;
+    private JFrame frame; // JFrame object reference
+    private int gridSizeX; // size of our grid in terms of the x coordinate
+    private int gridSizeY; // size of our grid in terms of the y coordinate
     
     //Number formatter for displaying
-    NumberFormat numberFormat = NumberFormat.getInstance();
-    NumberFormatter numberFormatter = new NumberFormatter(numberFormat);
+    NumberFormat numberFormat = NumberFormat.getInstance(); // NumberFormat object reference
+    NumberFormatter numberFormatter = new NumberFormatter(numberFormat); // NumberFormatter object reference
      
+    /**
+     * GameView constructor that initializes the game interface
+     * 
+     * @param controller
+     * @param X11
+     * @param chronoLabel
+     * @param menuBar
+     */
     public GameView(final GameController controller, Boolean X11, JComponent chronoLabel, JComponent menuBar)
     {
         //Initialize number formatter
@@ -85,11 +98,18 @@ public class GameView
         }
     }
     
-    /*Public methods - Interface of GameView*/
+    /**
+     * Accesses the cells from the JTextField object
+     * 
+     * @return A multidimensional JTextfield array object
+     */
     public JTextField[][] getSavedInput(){
         return cells;
     }
     
+    /**
+     * updateView method which updates the current view interface
+     */
     public void updateView() {
         //If a panel is already attached to the frame, remove it
         JPanel newBoardPanel = getBoardUI(controller.model.board);
@@ -101,28 +121,60 @@ public class GameView
         currentBoard = newBoardPanel;;
     }
     
+    /**
+     * showBoard method to show the board interface
+     */
     public void showBoard() {
         currentBoard.setVisible(true);
     }
     
+    /**
+     * hideBoard method to hide the board interface
+     */
     public void hideBoard() {
         currentBoard.setVisible(false);
     }
 
-    //Number formatter methods
+    /**
+     * Number formatter
+     * Accesses the minimum number that is valid in our board
+     * 
+     * @return
+     *  - an integer
+     */
     public int getMinNumberValid() {
         return (int) numberFormatter.getMinimum();
     }
     
+    /**
+     * Number formatter
+     * Accesses type of the number formatter
+     * 
+     * @return
+     *  - an object
+     */
     public Object getNumberFormatterClassType() {
         return numberFormatter.getClass();
     }
     
+    /**
+     * Number formatter
+     * Accesses the maximum number that is valid in our board
+     * 
+     * @return
+     *  - an integer
+     */
     public int getMaxNumberValid() {
         return (int) numberFormatter.getMaximum();
     }
     
-    /*Private methods*/
+    /**
+     * Accesses the state of our board interface
+     * 
+     * @param board
+     *  - a multidimensional Cell array object
+     * @return a JPanel object which contains our state of the board
+     */
     private JPanel getBoardUI(Cell[][] board) {
         //creating grid of cells
         cells = new JTextField[gridSizeX][gridSizeY];
@@ -207,6 +259,12 @@ public class GameView
         return panel;
     }
     
+    /**
+     * settingTextField method that creates the background and foreground color of the text fields
+     * 
+     * @param txt
+     *  - the JTextField reference
+     */
     private void settingTextField(JTextField txt) {
         txt.setBackground(Color.black);
         txt.setForeground(Color.white);

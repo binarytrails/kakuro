@@ -6,20 +6,40 @@ import kakuro.controllers.GameController;
 import kakuro.controllers.GameController.UserActions;
 import kakuro.core.*;
 
+/**
+ * GameConsole view class, which displays the board in the console as a fallback when the view interface is not working
+ * 
+ * @author Vsevolod Ivanov
+ * Date written: January 15th, 2020
+ */
 public class GameConsole {
-    private GameController controller;
-    private Scanner inputReader = new Scanner(System.in);
+    private GameController controller; // GameController object reference
+    private Scanner inputReader = new Scanner(System.in); // input reader from keyboard
     
+    /**
+     * GameConsole constructor which applies the given controller instance
+     * 
+     * @param controller
+     */
     public GameConsole(final GameController controller) {
         this.controller = controller;
     }
     
+    /**
+     * printStartup method which prints a welcome text for starting the game
+     */
     public void printStartup()
     {
         System.out.println("welcome to kakuro game!");
         System.out.println("=> use numbers between 1-9 to fill the cells;");
     }
     
+    /**
+     * printBoard method which that displays the board in rows an columns to the console
+     * 
+     * @param showAnswerValues
+     *  - to show the answer or not
+     */
     public void printBoard(Boolean showAnswerValues)
     {
         System.out.println("board:");
@@ -64,6 +84,12 @@ public class GameConsole {
         }
     }
 
+    /**
+     * Assigns Users Actions to keyboard characters
+     * 
+     * @return
+     *  - UserActions object
+     */
     public UserActions printGetUserAction()
     {
         System.out.print("\nList of actions i=input s=solve a=answers\nChoose an action: ");
@@ -80,7 +106,10 @@ public class GameConsole {
                 return UserActions.UNKNOWN;
         }
     }
-
+    
+    /**
+     * printGetInputNumber method which verifies if the input is within our input restriction
+     */
     public void printGetInputNumber(){
         int row = -1;
         int column = -1;
@@ -139,7 +168,10 @@ public class GameConsole {
         }
         controller.model.board[row-1][column-1].setFirstValue(number);
     }
-
+    
+    /**
+     * printSolveBoard method that displays whether we successfully solved the game or not
+     */
     public void printSolveBoard()
     {
         Boolean success = controller.solveBoard();
