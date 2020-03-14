@@ -13,7 +13,7 @@ import kakuro.models.ChronoModel;
 
 public class ChronoView {
    
-    public JLabel timerLabel;
+    private JLabel timerLabel;
     
     public ChronoView() {
         timerLabel = new JLabel("0:0:0:0", SwingConstants.CENTER); 
@@ -24,5 +24,9 @@ public class ChronoView {
     
     public void setTimerLabel(String label) {
         timerLabel.setText(label);
+    }
+    
+    public JLabel getTimerLabel() {
+        return timerLabel;
     }
 }

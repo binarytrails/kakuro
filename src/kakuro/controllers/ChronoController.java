@@ -47,24 +47,24 @@ public class ChronoController {
     }
     
     public void show() {
-        chronoView.timerLabel.setVisible(true);
+        chronoView.getTimerLabel().setVisible(true);
     }
     
     public void hide() {
-        chronoView.timerLabel.setVisible(false);
+        chronoView.getTimerLabel().setVisible(false);
     }
     
     public JLabel getTimerLabel() {
-        return chronoView.timerLabel;
+        return chronoView.getTimerLabel();
     }
     
     public void toggleTimerDisplay() {
-        chronoView.timerLabel.setVisible(!isVisible);
+        chronoView.getTimerLabel().setVisible(!isVisible);
     }
 
     public void resetTimer() {
         chronoModel.resetTimer();
-        chronoView.timerLabel.setText("0:0:0:0");
+        chronoView.getTimerLabel().setText("0:0:0:0");
     }
     
     public int getHours() {
@@ -80,6 +80,6 @@ public class ChronoController {
     }
     
     public JComponent getView() {
-        return chronoView.timerLabel;
+        return chronoView.getTimerLabel();
     }
 }

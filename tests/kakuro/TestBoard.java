@@ -25,8 +25,8 @@ public class TestBoard{
         // Act
         GameModel model = new GameModel(columns, rows);
         // Assert
-        assertEquals(model.columns, columns);
-        assertEquals(model.rows, rows);
+        assertEquals(model.getColumns(), columns);
+        assertEquals(model.getRows(), rows);
     }
 
     @Test

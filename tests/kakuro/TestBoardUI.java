@@ -21,7 +21,7 @@ public class TestBoardUI {
         //Act
         GameController gameController = new GameController(columns,rows, false);
         //Assert
-        assertEquals(columns, gameController.model.columns);
-        assertEquals(rows, gameController.model.rows);
+        assertEquals(columns, gameController.model.getColumns());
+        assertEquals(rows, gameController.model.getRows());
     }
 }
