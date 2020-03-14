@@ -37,7 +37,8 @@ public class TestBoardCell{
         assertEquals(cell.getFirstValue(), inputNumber);
         assertEquals(cell.getType(), Cell.CellType.EMPTY);
     }
-
+    
+    
     @Test
     public void testInputAnswerCell(){
         // Arrange

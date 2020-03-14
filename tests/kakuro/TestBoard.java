@@ -15,8 +15,7 @@ import kakuro.models.GameModel;
 
 public class TestBoard{
     private Boolean GUI = false; //disable GUI
-    private Boolean solved = false;
-    				
+    private Boolean solved = false;    				
     //testSize method is used to initialize columns and rows as 10 and use those values to test if this method works or not
     @Test
     public void testSize(){

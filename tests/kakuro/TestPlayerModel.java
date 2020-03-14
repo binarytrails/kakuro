@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import kakuro.models.PlayerModel;
 
-	//iteration 3
+	
 	// TestPlayerModel class will test with dummy values of username and password. It will also test the set and get methods.
 	public class TestPlayerModel {
 	@Test
