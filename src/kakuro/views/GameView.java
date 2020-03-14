@@ -33,13 +33,13 @@ public class GameView
     private GameController controller;
      
     //UI components
-    JTextField[][] cells;
-    JPanel currentBoard;
+    private JTextField[][] cells;
+    private JPanel currentBoard;
     
     //Main application frame and properties
-    JFrame frame;
-    int gridSizeX;
-    int gridSizeY;
+    private JFrame frame;
+    private int gridSizeX;
+    private int gridSizeY;
     
     //Number formatter for displaying
     NumberFormat numberFormat = NumberFormat.getInstance();
@@ -55,8 +55,8 @@ public class GameView
         if (controller != null)
         {
             this.controller = controller;
-            gridSizeX = controller.model.rows;
-            gridSizeY = controller.model.columns;
+            gridSizeX = controller.model.getRows();
+            gridSizeY = controller.model.getColumns();
         }
         
         if (X11) {
@@ -85,7 +85,45 @@ public class GameView
         }
     }
     
-    public JPanel getBoardUI(Cell[][] board) {
+    /*Public methods - Interface of GameView*/
+    public JTextField[][] getSavedInput(){
+        return cells;
+    }
+    
+    public void updateView() {
+        //If a panel is already attached to the frame, remove it
+        JPanel newBoardPanel = getBoardUI(controller.model.board);
+        if(currentBoard != null)
+            frame.getContentPane().remove(currentBoard);
+        
+        //Save a reference to the new panel
+        frame.getContentPane().add(newBoardPanel);
+        currentBoard = newBoardPanel;;
+    }
+    
+    public void showBoard() {
+        currentBoard.setVisible(true);
+    }
+    
+    public void hideBoard() {
+        currentBoard.setVisible(false);
+    }
+
+    //Number formatter methods
+    public int getMinNumberValid() {
+        return (int) numberFormatter.getMinimum();
+    }
+    
+    public Object getNumberFormatterClassType() {
+        return numberFormatter.getClass();
+    }
+    
+    public int getMaxNumberValid() {
+        return (int) numberFormatter.getMaximum();
+    }
+    
+    /*Private methods*/
+    private JPanel getBoardUI(Cell[][] board) {
         //creating grid of cells
         cells = new JTextField[gridSizeX][gridSizeY];
         JPanel panel = new JPanel(new GridLayout(gridSizeX,gridSizeY));
@@ -169,46 +207,10 @@ public class GameView
         return panel;
     }
     
-    public JTextField[][] getSavedInput(){
-        return cells;
-    }
-    
-    public void settingTextField(JTextField txt) {
+    private void settingTextField(JTextField txt) {
         txt.setBackground(Color.black);
         txt.setForeground(Color.white);
         txt.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         txt.setEditable(false);
-    }
-    
-    public void updateView() {
-        //If a panel is already attached to the frame, remove it
-        JPanel newBoardPanel = getBoardUI(controller.model.board);
-        if(currentBoard != null)
-            frame.getContentPane().remove(currentBoard);
-        
-        //Save a reference to the new panel
-        frame.getContentPane().add(newBoardPanel);
-        currentBoard = newBoardPanel;;
-    }
-    
-    public void showBoard() {
-        currentBoard.setVisible(true);
-    }
-    
-    public void hideBoard() {
-        currentBoard.setVisible(false);
-    }
-
-    //Number formatter methods
-    public int getMinNumberValid() {
-        return (int) numberFormatter.getMinimum();
-    }
-    
-    public Object getNumberFormatterClassType() {
-        return numberFormatter.getClass();
-    }
-    
-    public int getMaxNumberValid() {
-        return (int) numberFormatter.getMaximum();
     }
 }

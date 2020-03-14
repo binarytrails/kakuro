@@ -23,9 +23,9 @@ public class GameConsole {
     public void printBoard(Boolean showAnswerValues)
     {
         System.out.println("board:");
-        for(int row = 0; row < controller.model.rows; row++)
+        for(int row = 0; row < controller.model.getRows(); row++)
         {
-            for(int column = 0; column < controller.model.columns; column++)
+            for(int column = 0; column < controller.model.getColumns(); column++)
             {
                 int value = 0;
                 int value2 = 0;
