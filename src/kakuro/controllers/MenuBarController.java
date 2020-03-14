@@ -75,7 +75,7 @@ public class MenuBarController {
      *  - JComponent object
      */
     public JComponent getView() {
-        return buttonMenuView.mainPanel;
+        return buttonMenuView.getMainPanel();
     }
     
     /**

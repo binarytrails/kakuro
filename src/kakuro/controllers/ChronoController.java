@@ -72,14 +72,14 @@ public class ChronoController {
      * show method that shows the timer from the view
      */
     public void show() {
-        chronoView.timerLabel.setVisible(true);
+        chronoView.getTimerLabel().setVisible(true);
     }
     
     /**
      * hide method that hides the timer from the view
      */
     public void hide() {
-        chronoView.timerLabel.setVisible(false);
+        chronoView.getTimerLabel().setVisible(false);
     }
     
     /**
@@ -87,14 +87,14 @@ public class ChronoController {
      * @return JLabel object
      */
     public JLabel getTimerLabel() {
-        return chronoView.timerLabel;
+        return chronoView.getTimerLabel();
     }
     
     /**
      * toggleTimerDisplay method that toggles the timer from the view
      */
     public void toggleTimerDisplay() {
-        chronoView.timerLabel.setVisible(!isVisible);
+        chronoView.getTimerLabel().setVisible(!isVisible);
     }
     
     /**
@@ -102,7 +102,7 @@ public class ChronoController {
      */
     public void resetTimer() {
         chronoModel.resetTimer();
-        chronoView.timerLabel.setText("0:0:0:0");
+        chronoView.getTimerLabel().setText("0:0:0:0");
     }
     
     /**
@@ -134,6 +134,6 @@ public class ChronoController {
      * @return JComponent object
      */
     public JComponent getView() {
-        return chronoView.timerLabel;
+        return chronoView.getTimerLabel();
     }
 }

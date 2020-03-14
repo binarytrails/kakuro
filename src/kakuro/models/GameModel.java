@@ -14,8 +14,8 @@ import kakuro.core.*;
 public class GameModel
 {
 
-    public final int columns;
-    public final int rows;
+    private final int columns;
+    private final int rows;
     public Cell[][] board;
     private static UniquePartitions partitions;
 
@@ -37,5 +37,13 @@ public class GameModel
                 board[row][column] = new Cell(Cell.CellType.EMPTY);
             }
         }
+    }
+    
+    public int getColumns() {
+        return columns;
+    }
+    
+    public int getRows() {
+        return rows;
     }
 }
