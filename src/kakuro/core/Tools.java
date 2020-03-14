@@ -7,8 +7,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 
 /**
- * @deprecated
- * since iteration 2 as we are using preloaded games from the database
  * 
  * Utility class
  *
