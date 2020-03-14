@@ -28,7 +28,7 @@ public class TestDBConnection {
         db.disconnect();
 	}
     
-  //testDisconnect method will check if there is no issues while disconnecting to the database
+    //testDisconnect method will check if there is no issues while disconnecting to the database
 	@Test
 	public void testDisconnect(){
 	    //Arrange

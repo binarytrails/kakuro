@@ -39,7 +39,7 @@ public class TestBoardCell{
     }
     
     
-    |@Test
+    @Test
     public void testInputAnswerCell(){
         // Arrange
         int inputNumber = 1;
