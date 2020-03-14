@@ -3,6 +3,9 @@ package kakuro.core;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
+ * @deprecated
+ * since iteration 2 as we are using preloaded games from the database
+ * 
  * Generating unique partitions for rows and columns in our game
  * Lists all possible answers in a Tree ADT: 
  * Level 1 : partitions (number of cells/boxes to be filled consecutively)
