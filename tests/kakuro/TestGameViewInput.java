@@ -15,17 +15,17 @@ import org.junit.Test;
 import kakuro.controllers.GameController;
 import kakuro.views.GameView;
 
+
+
 public class TestGameViewInput
 {
 
     private static GameController gameController;
-    private static GameView gameView;
 
     @BeforeClass
     public static void onlyOnce()
     {
         gameController = new GameController(10, 10, false);
-        gameView = new GameView(gameController, false/*GUI*/);
     }
 
     private boolean hasValidRange(final int value)

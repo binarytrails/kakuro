@@ -9,6 +9,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import kakuro.core.Cell;
+
 public class TestBoardCell{
 
     /*The TestBoardCell class contain different methods to test if the BoardCell class is implemented in the right way.
