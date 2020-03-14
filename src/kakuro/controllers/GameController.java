@@ -35,11 +35,10 @@ public class GameController
     //Sub-views controller
     private ChronoController chronoController;
     //public BoardController boardController;
-    public MenuBarController buttonMenuController;
+    private MenuBarController buttonMenuController;
+    private GameConsole console;
     
-    public GameConsole console;
-    
-    public boolean isPaused = false;
+    boolean isPaused = false;
 
     public enum UserActions
     {
@@ -63,58 +62,29 @@ public class GameController
         initGame(model);
     }
 
-    private void initGame(GameModel model)
-    {
-        
-        model.initBoard();        
-        
-        //Currently the view must be loaded the first to populate the data
-        chronoController = new ChronoController();
-        //boardController = new BoardController(model.rows, model.columns, this);
-        buttonMenuController = new MenuBarController(this);
-        
-        this.view = new GameView(this, gui, chronoController.getView(), buttonMenuController.getView());;
-        this.console = new GameConsole(this);
-        
-        console.printStartup();
-        console.printBoard(false/*show answer values*/);
-    }
-
-    public void loopGame()
-    {
-        while (true)
-        {
-            switch (console.printGetUserAction())
-            {
-                case INPUT:
-                    console.printGetInputNumber();
-                    console.printBoard(false/*show answer values*/);
-                    break;
-                case SOLVE:
-                    if (gui)
-                        loadInputInModel(false);
-                    console.printSolveBoard();
-                    break;
-                case ANSWERS:
-                    console.printBoard(true/*show answer values*/);
-                    break;
-                case UNKNOWN:
-                default:
-                    break;
-            }
-        }
+    public void pause() {
+        isPaused = true;
+        chronoController.chronoPause();
+        view.hideBoard();
     }
     
-    public Connection getDatabaseConnection() {
-        return database.getConnection();
+    public void resume() {
+        isPaused = false;
+        chronoController.chronoStart();
+        view.showBoard();
     }
     
-    public void connectDatabase() {
-        database.connect();
+    public void restart() {
+        chronoController.resetTimer();
+        chronoController.chronoStart();
+        loadInputInModel(true); //Clear inputs
     }
     
-    public void disconnectDatabase() {
-        database.disconnect();
+    public void submit() {
+        chronoController.chronoPause();
+        loadInputInModel(false); //No clearing inputs
+        solveBoard();
+        console.printSolveBoard();
     }
     
     public void saveGame() {
@@ -158,7 +128,223 @@ public class GameController
         return null;
     }
     
-    public void loadPreconfiguredGame(int gameLevel) {
+    public Boolean solveBoard()
+    {
+        
+        int filledCells=0;   //to keep track of number of filled cells
+        ArrayList<Boolean> check = new ArrayList<Boolean>();
+        HashMap<Integer,Integer> map;
+        
+        //nested loop to go through the whole board
+        for(int i=0;i<model.getRows();i++) {
+            
+            for(int j=0;j<model.getColumns();j++) {
+                
+                switch(model.board[i][j].getType()) {
+                
+                //check sum if its a filled boards
+                case FILLED01:  {    
+                    
+                    filledCells++;          
+                    int column = j+1;
+                    int sum = 0;
+                    map = new HashMap<Integer,Integer>();
+                    //continues to add horizontally until next cell is not an INPUT type
+                    while(column <= model.getColumns() && model.board[i][column].getType()==Cell.CellType.INPUT) {       //horizontal sum check
+                        
+                        
+                        int cell = model.board[i][column].getFirstValue();   //getting cell value
+                        
+                        if(map.containsKey(cell)) {        //if already has number as input return false
+                            return false;
+                        }
+                        else {
+                            map.put(cell, cell);
+                        }
+                        sum += cell;                      //adding the cell value
+                        column++;
+                    }
+                 
+                 map.clear();                             //clearing hashmap after use
+                
+                 if(sum==model.board[i][j].getSecondValue())
+                     check.add(true);
+                 else
+                     return false;
+                }
+                
+                 break;
+                 
+                case FILLED10 : {                                               //vertical sum check
+                    filledCells++;
+                    int row = i+1;
+                    int sum = 0;
+                    map = new HashMap<Integer,Integer>();
+                    
+                    while(row <= model.getRows() && model.board[row][j].getType()==Cell.CellType.INPUT) {     
+                        
+                        int cell =  model.board[row][j].getFirstValue();                    
+                        
+                        if(map.containsKey(cell)) {                      //if already has number as input return false
+                            return false;
+                        }
+                        else {
+                            map.put(cell, cell);
+                        }
+                        sum += cell;
+                        row++;
+                    }
+                 map.clear();
+                 
+                 if(sum==model.board[i][j].getFirstValue())
+                    check.add(true);
+                 else 
+                    return false;
+                 }
+                 break;
+                 
+                case FILLED11 : {
+                    
+                filledCells++;  
+                int row = i+1;
+                int column = j+1;
+                int sumRows = 0;
+                int sumColumns = 0;
+                map = new HashMap<Integer,Integer>();
+                //checking row sum
+                while(column <= model.getColumns() && model.board[i][column].getType()==Cell.CellType.INPUT) {       //horizontal sum check
+                    
+                    int cell = model.board[i][column].getFirstValue();
+                    
+                    if(map.containsKey(cell)) {      //if already has number as input return false
+                        return false;
+                    }
+                    else {
+                        map.put(cell, cell);         //insert in hashmap if not already present in the map
+                    }
+                    
+                    sumColumns += cell;                     
+                    column++;
+                }
+                map.clear();
+                
+                //checking column sum
+                while(row <= model.getRows() && model.board[row][j].getType()==Cell.CellType.INPUT) {     //vertical sum check
+                        
+                    int cell = model.board[row][j].getFirstValue();
+                    
+                    if(map.containsKey(cell)) {                      //if already has number as input return false
+                        return false;
+                    }
+                    else {
+                        map.put(cell, cell);
+                    }
+                    
+                    sumRows += cell;                    
+                    row++;
+                 }
+                 map.clear(); 
+    
+                 if(sumRows==model.board[i][j].getFirstValue() && sumColumns == model.board[i][j].getSecondValue())
+                     check.add(true);
+                 else
+                     return false;
+                
+                } 
+                break;
+                default :{};
+                
+            }   
+                    
+                }
+                
+            }
+        
+        boolean correct=true;
+        
+        for(int i=0;i<filledCells;i++) {
+            if(check.get(i)!=true)
+                correct=false;
+        }
+        
+          if(correct)       
+          return true;
+          else
+          return false;
+    }
+    
+    //This one is for the console, it might not be in the interface
+    public void loopGame()
+    {
+        while (true)
+        {
+            switch (console.printGetUserAction())
+            {
+                case INPUT:
+                    console.printGetInputNumber();
+                    console.printBoard(false/*show answer values*/);
+                    break;
+                case SOLVE:
+                    if (gui)
+                        loadInputInModel(false);
+                    console.printSolveBoard();
+                    break;
+                case ANSWERS:
+                    console.printBoard(true/*show answer values*/);
+                    break;
+                case UNKNOWN:
+                default:
+                    break;
+            }
+        }
+    }
+    
+    //Number formatter --- I highly doubt that this belongs to the interface since it is for testing
+    public int getMinNumberValid() {
+        return view.getMinNumberValid();
+    }
+    
+    public Object getNumberFormatterClassType() {
+        return view.getNumberFormatterClassType();
+    }
+    
+    public int getMaxNumberValid() {
+        return view.getMaxNumberValid();
+    }
+    
+    private void initGame(GameModel model)
+    {
+        
+        model.initBoard();        
+        
+        //Currently the view must be loaded the first to populate the data
+        chronoController = new ChronoController();
+        //boardController = new BoardController(model.rows, model.columns, this);
+        buttonMenuController = new MenuBarController(this);
+        
+        this.view = new GameView(this, gui, chronoController.getView(), buttonMenuController.getView());;
+        this.console = new GameConsole(this);
+        
+        console.printStartup();
+        console.printBoard(false/*show answer values*/);
+    }
+
+    private Connection getDatabaseConnection() {
+        return database.getConnection();
+    }
+    
+    
+    private void connectDatabase() {
+        database.connect();
+    }
+    
+    
+    private void disconnectDatabase() {
+        database.disconnect();
+    }
+    
+    
+    void loadPreconfiguredGame(int gameLevel) {
         try {
             ArrayList<Cell[][]> boardCells = game.loadAllPreconfiguredGames(getDatabaseConnection());
 
@@ -182,158 +368,15 @@ public class GameController
         }
     }
 
-    public Boolean solveBoard()
-    {
-        
-    	int filledCells=0;   //to keep track of number of filled cells
-    	ArrayList<Boolean> check = new ArrayList<Boolean>();
-        HashMap<Integer,Integer> map;
-    	
-        //nested loop to go through the whole board
-    	for(int i=0;i<model.rows;i++) {
-    		
-    		for(int j=0;j<model.columns;j++) {
-    			
-    			switch(model.board[i][j].getType()) {
-    			
-    			//check sum if its a filled boards
-    			case FILLED01:	{    
-    			    
-    				filledCells++;          
-    				int column = j+1;
-    				int sum = 0;
-    				map = new HashMap<Integer,Integer>();
-    				//continues to add horizontally until next cell is not an INPUT type
-    				while(column <= model.columns && model.board[i][column].getType()==Cell.CellType.INPUT) {       //horizontal sum check
-                        
-    					
-    					int cell = model.board[i][column].getFirstValue();   //getting cell value
-    					
-    					if(map.containsKey(cell)) {        //if already has number as input return false
-    						return false;
-    					}
-    					else {
-    						map.put(cell, cell);
-    					}
-    					sum += cell;   					  //adding the cell value
-    					column++;
-    				}
-    			 
-    			 map.clear();                             //clearing hashmap after use
-    			
-    			 if(sum==model.board[i][j].getSecondValue())
-    				 check.add(true);
-    			 else
-    				 return false;
-    			}
-    			
-    			 break;
-    			 
-    			case FILLED10 : {                                               //vertical sum check
-    				filledCells++;
-    				int row = i+1;
-    				int sum = 0;
-    				map = new HashMap<Integer,Integer>();
-    				
-    				while(row <= model.rows && model.board[row][j].getType()==Cell.CellType.INPUT) {     
-    					
-                        int cell =  model.board[row][j].getFirstValue();   					
-                    	
-                        if(map.containsKey(cell)) {                      //if already has number as input return false
-    						return false;
-    					}
-    					else {
-    						map.put(cell, cell);
-    					}
-                        sum += cell;
-                        row++;
-    				}
-    			 map.clear();
-    			 
-    			 if(sum==model.board[i][j].getFirstValue())
-    				check.add(true);
-    			 else 
-    			    return false;
-    			 }
-    			 break;
-    			 
-    			case FILLED11 : {
-    				
-    			filledCells++;	
-    			int row = i+1;
-    			int column = j+1;
-    			int sumRows = 0;
-    			int sumColumns = 0;
-    			map = new HashMap<Integer,Integer>();
-    			//checking row sum
-    			while(column <= model.columns && model.board[i][column].getType()==Cell.CellType.INPUT) {       //horizontal sum check
-					
-    				int cell = model.board[i][column].getFirstValue();
-                    
-    			    if(map.containsKey(cell)) {      //if already has number as input return false
-						return false;
-					}
-					else {
-						map.put(cell, cell);         //insert in hashmap if not already present in the map
-					}
-    				
-    				sumColumns += cell;   					
-					column++;
-				}
-    			map.clear();
-    			
-    			//checking column sum
-    			while(row <= model.rows && model.board[row][j].getType()==Cell.CellType.INPUT) {     //vertical sum check
-    					
-    				int cell = model.board[row][j].getFirstValue();
-    			    
-    				if(map.containsKey(cell)) {                      //if already has number as input return false
-						return false;
-					}
-					else {
-						map.put(cell, cell);
-					}
-    				
-    				sumRows += cell;   					
-    				row++;
-    			 }
-    			 map.clear(); 
     
-    			 if(sumRows==model.board[i][j].getFirstValue() && sumColumns == model.board[i][j].getSecondValue())
-    				 check.add(true);
-    			 else
-    				 return false;
-    			
-    			} 
-    			break;
-    			default :{};
-    			
-    		}	
-    				
-    			}
-    			
-    		}
-    	
-    	boolean correct=true;
-    	
-    	for(int i=0;i<filledCells;i++) {
-    		if(check.get(i)!=true)
-    			correct=false;
-    	}
-    	
-          if(correct)    	
-    	  return true;
-          else
-          return false;
-    }
     
-    public void loadInputInModel(boolean clearInput) {
+    private void loadInputInModel(boolean clearInput) {
         JTextField[][] saveInput = view.getSavedInput();
         String value;
         
-        for(int row = 0; row < model.columns; row++)
+        for(int row = 0; row < model.getColumns(); row++)
         {
-            for(int column = 0; column < model.rows; column++)
+            for(int column = 0; column < model.getRows(); column++)
             {
                 Cell cell = model.board[row][column];
                
@@ -353,41 +396,4 @@ public class GameController
         }
     }
 
-    public void pause() {
-        isPaused = true;
-        chronoController.chronoPause();
-        view.hideBoard();
-    }
-    
-    public void resume() {
-        isPaused = false;
-        chronoController.chronoStart();
-        view.showBoard();
-    }
-    
-    public void restart() {
-        chronoController.resetTimer();
-        chronoController.chronoStart();
-        loadInputInModel(true); //Clear inputs
-    }
-    
-    public void submit() {
-        chronoController.chronoPause();
-        loadInputInModel(false); //No clearing inputs
-        solveBoard();
-        console.printSolveBoard();
-    }
-    
-    //Number formatter
-    public int getMinNumberValid() {
-        return view.getMinNumberValid();
-    }
-    
-    public Object getNumberFormatterClassType() {
-        return view.getNumberFormatterClassType();
-    }
-    
-    public int getMaxNumberValid() {
-        return view.getMaxNumberValid();
-    }
 }

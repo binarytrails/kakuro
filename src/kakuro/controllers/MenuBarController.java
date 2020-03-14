@@ -34,7 +34,7 @@ public class MenuBarController {
     }
     
     public JComponent getView() {
-        return buttonMenuView.mainPanel;
+        return buttonMenuView.getMainPanel();
     }
     
     public void submit() {

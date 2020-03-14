@@ -29,8 +29,8 @@ public class TestGameController {
         GameController gameController = new GameController(columns,rows, false); 
         //Set GUI to false
         //Assert
-        assertEquals(columns, gameController.model.columns);
-        assertEquals(rows, gameController.model.rows);
+        assertEquals(columns, gameController.model.getColumns());
+        assertEquals(rows, gameController.model.getRows());
     }
     
     @Test

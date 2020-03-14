@@ -17,16 +17,16 @@ import kakuro.core.GameDifficultyListItem;
 
 public class MenuBarView {
     //Controller
-    MenuBarController menuBarController;
+    private MenuBarController menuBarController;
     
     //UI components
-    JButton pause_button;
-    JButton submit_button;
-    JButton choose_game_button;
-    JButton save_button;
-    JButton restart_button;
-    JButton load_button;
-    public JPanel mainPanel;
+    private JButton pause_button;
+    private JButton submit_button;
+    private JButton choose_game_button;
+    private JButton save_button;
+    private JButton restart_button;
+    private JButton load_button;
+    private JPanel mainPanel;
 
     public MenuBarView(MenuBarController menuBarController) {
         this.menuBarController = menuBarController;
@@ -52,6 +52,10 @@ public class MenuBarView {
         mainPanel.add(load_button);
     }
     
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+    
     private void toggleMenu() {
         pause_button.setVisible(true);
         submit_button.setVisible(true);
@@ -62,7 +66,7 @@ public class MenuBarView {
         load_button.setVisible(false);
     }
 
-    public void buttonsSetUp() {
+    private void buttonsSetUp() {
 
         /* With the use of an Action Listener to know if the user has clicked on the button, this part of the method will stop the timer. */    
         pause_button.addActionListener(new ActionListener()
