@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  * Database connection class to create the connection to our database,
- * which creates the database, tables and inserts values if they do not exist
+ * which creates the database, tables and inserts preloaded data if they do not exist
  *
  * @author Brian Gamboc-Javiniar
  * @author Nolan Mckay
