@@ -13,6 +13,7 @@ import org.junit.Test;
 import kakuro.controllers.GameController;
 
 public class TestBoardUI {
+    //The testBoardUIGeneration will test if the board will be created base of the rows and columns defined. If this works, then a bigger board can be produced.
     @Test
     public void testBoardUIGeneration(){
         //Arrange
