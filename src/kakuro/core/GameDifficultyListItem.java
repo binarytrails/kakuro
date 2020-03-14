@@ -1,7 +1,7 @@
 package kakuro.core;
 
 /** 
- * The game difficulty found in the dropdown menu when preloading a game
+ * The game difficulty found in the dropdown menu when pre-loading a game
  * 
  * @author Hoang Thuan Pham
  * Date created: March 9th, 2020
