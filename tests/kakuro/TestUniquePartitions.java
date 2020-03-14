@@ -21,7 +21,7 @@ public class TestUniquePartitions
     public static void setUpBeforeClass() throws Exception{
         partitions = new UniquePartitions();
     }
-    
+
     @Test
     public void testHasAllParts(){
         // Arrange

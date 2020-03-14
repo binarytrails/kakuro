@@ -44,7 +44,7 @@ public class TestGameViewInput
         // Assert
         assertTrue(isValid);
     }
-    
+
     //testValidInputNumber9 method where 9 will be used to test the method. 9 is a valid value to be used in the game
     @Test
     public void testValidInputNumber9(){
@@ -56,7 +56,7 @@ public class TestGameViewInput
         // Assert
         assertTrue(isValid);
     }
-    
+
     //testInvalidInputNumber12 method will check this method by having 12 as a tetsing case and where it wont be validated
     @Test
     public void testInvalidInputNumber12(){
@@ -68,7 +68,7 @@ public class TestGameViewInput
         // Assert
         assertFalse(isValid);
     }
-    
+
     //testInvalidNegativeInputMinus12 will verify with a dummy value 12 to check if this method works or not
     @Test
     public void testInvalidNegativeInputMinus12(){
@@ -80,7 +80,7 @@ public class TestGameViewInput
         // Assert
         assertFalse(isValid);
     }
-    
+
     //testInvalidInputNumber0 method produce an error if the number 0 is entered.
     @Test
     public void testInvalidInputNumber0(){
@@ -92,7 +92,7 @@ public class TestGameViewInput
         // Assert
         assertFalse(isValid);
     }
-    
+
     //testInvalidInputString method will not accept a string in one of the cell and the player will have to change before playing further
     @Test
     public void testInvalidInputString(){

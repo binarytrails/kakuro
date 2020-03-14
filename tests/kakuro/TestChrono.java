@@ -19,19 +19,19 @@ import kakuro.views.GameView;
 
 public class TestChrono{
     private int faultToleranceMs = 200;
-    
+
     //The testRunStopChronoAfter3Seconds() method will check if the Chrono Class works properly by using 3 second as an experimental value
     @Test
     public void testRunStopChronoAfter3Seconds() throws InterruptedException{
         // Arrange
         int waitSeconds = 3;
         ChronoController chronoController = new ChronoController();
-       
+
         // Act
-        chronoController.chronoStart(); 
+        chronoController.chronoStart();
         Thread.sleep(waitSeconds * 1000/*ms*/ + faultToleranceMs);
         chronoController.chronoPause();
-        
+
         int hours = chronoController.getHours();
         int minutes = chronoController.getMinutes();
         int seconds = chronoController.getSeconds();

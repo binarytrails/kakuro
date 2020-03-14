@@ -15,7 +15,7 @@ import kakuro.models.GameModel;
 
 public class TestBoard{
     private Boolean GUI = false; //disable GUI
-    private Boolean solved = false;    				
+    private Boolean solved = false;
     //testSize method is used to initialize columns and rows as 10 and use those values to test if this method works or not
     @Test
     public void testSize(){
@@ -34,7 +34,7 @@ public class TestBoard{
     public void testValidBoard(){
         // Arrange
         GameController controller = new GameController(10,10, GUI);
-        GameModel model = new GameModel(10,10); 
+        GameModel model = new GameModel(10,10);
         model.initBoard();  //initialize board
         model.board[0][1] = new Cell(Cell.CellType.FILLED10, 5);
         model.board[1][0] = new Cell(Cell.CellType.FILLED01,-1,4);
@@ -47,13 +47,13 @@ public class TestBoard{
         // Assert
         assertEquals(solved, true);
     }
-    
+
     //testNotValidBoardOneSumIsWrong method will verify the sum. If it's not good then it won't be accepted or even validated.
-    @Test 
+    @Test
     public void testNotValidBoardOneSumIsWrong(){
          // Arrange
          GameController controller = new GameController(10,10, GUI);
-         GameModel model = new GameModel(10,10); 
+         GameModel model = new GameModel(10,10);
          model.initBoard();
          model.board[0][1] = new Cell(Cell.CellType.FILLED10, 5);
          model.board[1][0] = new Cell(Cell.CellType.FILLED01,-1,4);
@@ -72,7 +72,7 @@ public class TestBoard{
     public void testNotValidBoardCorrectSumDuplicateEntries(){
         // Arrange
         GameController controller = new GameController(10,10, GUI);
-        GameModel model = new GameModel(10,10); 
+        GameModel model = new GameModel(10,10);
         model.initBoard();
         model.board[0][1] = new Cell(Cell.CellType.FILLED10, 5);
         model.board[1][0] = new Cell(Cell.CellType.FILLED01,-1,4);
