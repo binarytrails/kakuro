@@ -74,7 +74,7 @@ public class LinePanel extends JPanel {
     }
     
     /**
-     * Creates the background black and foregroudn white
+     * Creates the background black and foreground white
      * 
      * @param txt
      *  - the JTextField reference

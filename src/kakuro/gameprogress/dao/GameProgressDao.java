@@ -1,5 +1,3 @@
-//@author Brian Gamboc-Javiniar
-
 package kakuro.gameprogress.dao;
 
 import java.sql.Connection;
@@ -7,6 +5,12 @@ import java.sql.SQLException;
 
 import kakuro.core.Cell;
 
+/**
+ * Game Progress interface that defines its abstract API to the database
+ *
+ * @author Brian Gamboc-Javiniar
+ * Date written: March 1st, 2020
+ */
 public interface GameProgressDao {
     /**
      * 

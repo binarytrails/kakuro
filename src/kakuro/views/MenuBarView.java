@@ -15,19 +15,35 @@ import kakuro.controllers.MenuBarController;
 import kakuro.core.GameDifficulty;
 import kakuro.core.GameDifficultyListItem;
 
+/**
+ * Menu bar view class which handles buttons in the view interface
+ *
+ * @author Vsevolod Ivanov
+ * @author Isabelle Charette
+ * @author Audrey-Laure St-Louis
+ * @author Brian Gamboc-Javiniar
+ * @author Hoang Thuan Pham
+ * Date written: February 7th, 2020
+ */
 public class MenuBarView {
     //Controller
-    private MenuBarController menuBarController;
+    private MenuBarController menuBarController; // MenuBarController object reference
     
     //UI components
-    private JButton pause_button;
-    private JButton submit_button;
-    private JButton choose_game_button;
-    private JButton save_button;
-    private JButton restart_button;
-    private JButton load_button;
-    private JPanel mainPanel;
-
+    private JButton pause_button; // pause button in the interface
+    private JButton submit_button; // submit button in the interface
+    private JButton choose_game_button; // choose game button in the interface
+    private JButton save_button; // save button in the interface
+    private JButton restart_button; // restart button in the interface
+    private JButton load_button; // load button in the interface
+    private JPanel mainPanel; // JPanel object reference
+    
+    /**
+     * MenuBarView constructor that creates our buttons for the interface
+     * 
+     * @param menuBarController
+     *  - MenuBarController object reference
+     */
     public MenuBarView(MenuBarController menuBarController) {
         this.menuBarController = menuBarController;
         
@@ -52,10 +68,18 @@ public class MenuBarView {
         mainPanel.add(load_button);
     }
     
+    /**
+     * Accesses the main panel of the interface
+     * 
+     * @return A JPanel object
+     */
     public JPanel getMainPanel() {
         return mainPanel;
     }
     
+    /**
+     * toggleMenu method to toggle between buttons that should be visible in certain interface
+     */
     private void toggleMenu() {
         pause_button.setVisible(true);
         submit_button.setVisible(true);
@@ -65,7 +89,10 @@ public class MenuBarView {
         choose_game_button.setVisible(false);
         load_button.setVisible(false);
     }
-
+    
+    /**
+     * buttonsSetUp method that creates our event action listeners for each buttons
+     */
     private void buttonsSetUp() {
 
         /* With the use of an Action Listener to know if the user has clicked on the button, this part of the method will stop the timer. */    

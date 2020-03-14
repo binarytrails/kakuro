@@ -86,7 +86,7 @@ public class ChronoController {
      * Accesses the timer from the view
      * @return JLabel object
      */
-    public JLabel getTimerLabel() {
+    public JLabel getView() {
         return chronoView.getTimerLabel();
     }
     
@@ -127,13 +127,5 @@ public class ChronoController {
      */
     public int getSeconds() {
         return chronoModel.getSeconds();
-    }
-       
-    /**
-     * Accesses the time and returns the current hour of the game
-     * @return JComponent object
-     */
-    public JComponent getView() {
-        return chronoView.getTimerLabel();
     }
 }

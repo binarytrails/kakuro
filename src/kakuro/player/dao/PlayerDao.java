@@ -1,11 +1,15 @@
-//@author Brian Gamboc-Javiniar
-
 package kakuro.player.dao;
 
 import java.sql.SQLException;
 import java.sql.Connection;
 
-
+/**
+ * Player interface that defines its abstract API to the database
+ * TODO: continue in iteration 3
+ *
+ * @author Brian Gamboc-Javiniar
+ * Date written: March 1st, 2020
+ */
 public interface PlayerDao {
 
     /**
