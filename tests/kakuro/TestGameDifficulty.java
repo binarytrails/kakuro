@@ -21,8 +21,8 @@ public class TestGameDifficulty {
 		 
 		 //Act
 		 int one = GameDifficulty.GameDifficultyToInt(easyGame);
-		 int two = GameDifficulty.GameDifficultyToInt(easyGame);
-		 int three = GameDifficulty.GameDifficultyToInt(easyGame);
+		 int two = GameDifficulty.GameDifficultyToInt(mediumGame);
+		 int three = GameDifficulty.GameDifficultyToInt(hardGame);
 		 
 		 //Assert
 		 assertEquals(one, 1);
