@@ -1,3 +1,10 @@
+/*
+ * SOURCES
+ * insertPreconfiguredGames method is using three games found online
+ * preconfiguredGame1 = http://menneske.no/kakuro/10x10/eng/utskrift.html?number=8028 (easy)
+ * preconfiguredGame2 = http://menneske.no/kakuro/10x10/eng/utskrift.html?number=6424 (medium)
+ * preconfiguredGame3 = http://menneske.no/kakuro/10x10/eng/utskrift.html?number=2178 (hard)
+ */
 package kakuro.core;
 
 import java.io.File;
@@ -163,6 +170,12 @@ public class DatabaseConnection {
     }
     
     /**
+     * SOURCES
+     * insertPreconfiguredGames method is using three games found online
+     * preconfiguredGame1 = http://menneske.no/kakuro/10x10/eng/utskrift.html?number=8028 (easy)
+     * preconfiguredGame2 = http://menneske.no/kakuro/10x10/eng/utskrift.html?number=6424 (medium)
+     * preconfiguredGame3 = http://menneske.no/kakuro/10x10/eng/utskrift.html?number=2178 (hard)
+     * 
      * Inserts preconfigured games to our Game table in our database
      * 
      * @throws SQLException
