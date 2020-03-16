@@ -96,12 +96,13 @@ Jia Ming Wei & Documenter & 40078192 \\
 \clearpage
 
 \section{Introduction}
-
+\subsubsection{Introduction}
+As a team, our goal is to develop the online Kakuro game. Through each iteration, we have been implementing uses cases, UI components and refactoring the structure of the code. By iteration 3, our goal is to have every component of the current online game implemented in our rendering of the game. 
 \subsubsection{Purpose}
-The purpose of this document is to present the design of the Kakuro game for the course COMP 354. 
+With this document, we will be presenting the design of the Kakuro game for the course COMP 354. In the following pages, we first explain in depth our choice of the Model View Controller (MVC) for the architectural design and implied subsystems. Next, we present the modules of the entailed detailed design of the MVC. Finally, we list dynamic scenarios which will describe the interaction between subsystems and units through execution scenarios.
 
 \subsubsection{Scope}
-This document is intended to provide detailed design specifications of the Kakuro game.
+In order to provide detailed design specifications of the Kakuro game and proceed efficiently with the development of the game, we present this documentation. The detailed explanations, definitions, UML diagrams and sequence diagrams provide the support needed for coherent implementation and communication between each role of the team. The documentation serves as a basis for depicting the software architecture of the game and understanding the implementation of the modules in the detailed design. The scope of this document is it to provide such support, which enables iteration 3 of our project for the Kakuro game.
 
 \newpage
 
@@ -111,7 +112,7 @@ This document is intended to provide detailed design specifications of the Kakur
 
 
 \begin{figure}[htbp]
-    \includegraphics[width=0.7\textwidth]{archi_diagram}
+    \includegraphics[width=0.7\textwidth]{MVC_part2}
     \caption{Architecture Diagram}
     \label{fig:archi_diagram}
 \end{figure}
@@ -120,9 +121,13 @@ This document is intended to provide detailed design specifications of the Kakur
 
 The architecture chosen for the Kakuro game is the Model View Controller model (MVC). The MVC architecture is constructed of three separate components: the model, the view and the controller. \newline
 
-The model is the central component of the game. It stores the data and it changes depending on the state of the game. In Kakuro, the model stores the information of the cells from the rows and the columns displayed by the graphical user interface. The view is the graphical user interface (GUI) of the game. It displays the grid, the buttons, and the text elements but it also displays the date from the model. It allows the player to enter numbers to play the game. Whenever the model changes, the GUI reacts to these changes by updating itself. For example, if the player presses the button restart, the model will be updated by clearing its input cells and therefore, the GUI will react by showing empty input cells to the user.\newline
+The model is the central component of the game. It stores the data and it changes depending on the state of the game. In Kakuro, the model stores the information of the cells from the rows and the columns displayed by the graphical user interface. \newline
+
+The view is the graphical user interface (GUI) of the game. It displays the grid, the buttons, and the text elements but it also displays the date from the model. It allows the player to enter numbers to play the game. Whenever the model changes, the GUI reacts to these changes by updating itself. \newline
 
 The controller manages the interactions with the user and decides which functions should be called given an action. The controller will use the model’s data, he will take action on those depending on the user’s action and he will send it to the view for it to show it in the GUI.\newline
+
+
 
 
 \subsection{Subsystem Interface Specifications}
@@ -134,15 +139,14 @@ The controller manages the interactions with the user and decides which function
 The GameView class is the interface used for the View. With its constructor, it initializes the GUI of our Kakuro game. The following methods are available for this interface:
 \newline
 \begin{itemize}
-\item getBoardUI (Cell)
-\item getMaxNumberValid()
-\item getMinNumberValid()
-\item getNumberFormatterClassType()
-\item getSavedInput()
-\item hideBoard()
-\item settingTextField(JTextField)
-\item showBoard()
-\item updateView()\newline
+\item getBoardUI (Cell) : Creates grid of cells by passing a 2D array of cells. Populates it properly and creates the GUI for it.
+\item getMaxNumberValid() : Returns the maximum number valid for the player to use. In this game, the maximum value is 9
+\item getMinNumberValid(): Returns the minimum number valid for the player to use. In this game, the minimum value is 1
+\item getSavedInput() : Returns the UI component that are the cells of the boardgame
+\item hideBoard(): Makes the current board not visible to the player
+\item settingTextField(JTextField) : Sets the text field with colors and borders
+\item showBoard() : Makes the current board visible to the player
+\item updateView(): Removes a panel if one is already attached to the frame and save a reference to the new panel\newline
 \end{itemize} 
 
 
@@ -151,17 +155,17 @@ The GameView class is the interface used for the View. With its constructor, it 
 The MenuBarView class is used for the different buttons displayed on the GUI of the game. The MenuBarView class contains the following methods:
 \newline
 \begin{itemize}
-\item buttonsSetUp()
-\item getMainPannel()
-\item toggleMenu() \newline
+\item buttonsSetUp(): Sets up all the buttons (pause, resume, etc) by attaching an action listener to it
+\item getMainPannel() : Returns the main panel of the game
+\item toggleMenu(): Changes the state of the game by hiding the load and choose game buttons and setting visible all the other buttons (save, pause, resume, etc.) \newline
 \end{itemize}
 
 2.2.1.3 ChronoView\newline
 
 The ChronoView class handles the chronometer of the game. It contains the following methods:\newline
 \begin{itemize}
-\item getTimerLabel()
-\item setTimerLabel()\newline
+\item getTimerLabel() : Returns the timer label associated to the chronometer
+\item setTimerLabel(String) : Sets the timer label given a string\newline
 \end{itemize}
 
 
@@ -170,11 +174,11 @@ The interface between the controller and model is called whenever the controller
 
 2.2.2.1 GameModel \newline
 
-The GameModel class is the interface used for the Model of our system. It interacts with the database and it handles all the functions that are implementing the rules of the game. It contains the following methods:\newline
+The GameModel class is the interface used for the Model of our system. It interacts with the database and it generates the board game given the rules of the game. It contains the following methods:\newline
 \begin{itemize}
-\item getColumns(int, int)
-\item getRows()
-\item initBoard()\newline
+\item getColumns() : Returns an integer value of the number of rows in the game
+\item getRows() : Returns an integer value of the number of rows in the game
+\item initBoard(): Creates the board game with the desired number of rows and columns and leave the cells empty\newline
 \end{itemize}
 
 2.2.2.2 ChronoModel\newline
@@ -189,7 +193,7 @@ The ChronoModel class is the model of the chronometer of our Kakuro game. It con
 \item setHours() : Sets the hours of the chronometer
 \item setMinutes() : Sets the minutes of the chronometer
 \item setSeconds() : Sets the seconds of the chronometer
-\item updateTime()\newline
+\item updateTime(): Returns a string of the time given the increments of seconds, minutes and hours\newline
 \end{itemize}
 
 2.2.2.3 PlayerModel\newline
@@ -219,37 +223,38 @@ The controller accepts input from the player and performs simple validations on 
 \item getMaxNumberValid() : Returns the maximum number aloud for the player to use during the game
 \item getMinNumberValid() : Returns the minimum value aloud for the player to use during the game
 \item getNumberFormatterClassType()
-\item initGame() : 
-\item loadGame()
-\item loadInputInModel
+\item initGame(GameModel) : Given a GameModel, it initiate the game by initiating the board and it creates a chronoController and a menubarController
+\item loadGame(): Upload the loaded game progress and display it in the GUI if it's available
+\item loadInputInModel(): For every cells of every columns and rows, it loads it in the model when they are filled by the player
 \item loadPreconfigureGame(int)
-\item loopGame()
 \item pause() : Pause the game which stops the chronometer and blocks the player from entering data in the game
 \item restart() : Clears the board and restart the chronometer
 \item resume() : Starts the chronometer and allows the player to continue playing by entering value in the board game
 \item saveGame() : Save the state of the game in the database
-\item solveBoard() : Solves the board by calculating the sums of the rows and the columns and checks if it brings to a correct solution. 
+\item solveBoard() : Solves the board by calculating the sums of the rows and the columns and checks if it brings to a correct solution. If the solution is correct, it returns true. Else it returns false
 \item submit() : Lets the user get feedback from the system to know if he got the right solution or not \newline
 \end{itemize}
 
 
 2.2.3.2 MenuBarController\newline
-The MenuBarController Class accepts input from the player through the menu bar and performs actions depending on the button that is being pressed. The class contains the following methods:\newline
+\newline The MenuBarController Class accepts input from the player through the menu bar and performs actions depending on the button that is being pressed. The class contains the following methods:\newline
 \begin{itemize}
-\item getButtonMenuView()
-\item getView()
-\item isPaused()
-\item load()
-\item loadPreconfigureGame(GameDifficulty g)
-\item pause()
-\item resume()
-\item save()
-\item submit()\newline
+\item getButtonMenuView() : Returns the buttonMenuView
+\item getView() : Returns the main panel
+\item isPaused() : Returns true if the game is paused. Else, it returns false
+\item load() : Loads the game in the GUI
+\item loadPreconfigureGame(GameDifficulty g): Given a game difficulty, loads it accordingly
+\item pause(): Pauses the game
+\item resume() : Resumes the game
+\item save() : Saves the game in the database
+\item submit() : Sends the current game for validation\newline
 \end{itemize}
 
 
 
 2.2.3.3 ChronoController\newline
+
+The ChronoController class handles the actions that can be perform by the player and by the system itself on the chronometer. It contains the following methods: \newline
 \begin{itemize}
 \item chronoPause() : Pause the chronometer
 \item chronoStart() : Starts the chronometer
@@ -264,97 +269,12 @@ show() : Display the chronometer in the GUI of the game
 \item toggleTimerDisplay() : Sets the chronometer visible or hides it dependanding on the state he’s in\newline
 \end{itemize}
 
-\subsubsection{2.2.4 Other}
-
-To support our MVC architecture, we created the following classes. \newline
-
-Core Package \newline
-
-2.2.4.1 Cell \newline
-\begin{itemize}
-\item getFirstValue()
-\item getSecondValue()
-\item getType()
-\item setFirstValue(int) \newline
-\end{itemize}
-
-2.2.4.2 DatabaseConnection \newline
-\begin{itemize}
-\item connect()
-\item createGameProgressTable()
-\item createGameTable()
-\item createPlayerTable()
-\item  disconnect()
-\item  getConnection()
-\item  insertMainPlayer()
-\item  insertPlayerData()
-\item  insertPreconfiguredGames() \newline
-\end{itemize}
-
-2.2.4.3 GameDifficulty\newline
-\begin{itemize}
-\item gameDifficultyToInt(GameDifficulty) : Transform the level of difficulty chosen to a integer value and returns it \newline
-\end{itemize}
-
-2.2.4.4 GameDifficultyListItem\newline
-\begin{itemize}
-\item getDifficulty(): Returns the level of difficulty chosen by the player
-toString(): Returns a description of the difficulty chosen \newline
-\end{itemize}
-
-2.2.4.5 LinePanel\newline
-\begin{itemize}
-\item paintComponent(Graphics): Draws the diagonal line in the black cells
-\item settingTxt(JTextField): Sets the background and the foreground color of the game \newline
-\end{itemize}
-
-2.2.4.6 Tools\newline
-\begin{itemize}
-\item arrayToNodes(DefaultMutableTreeNode)
-\item childrenToArray(TreeNode)
-\item randomInt() : Generates a random integer value \newline
-\end{itemize}
-
-
-2.2.4.7 UniquePartitions\newline
-\begin{itemize}
-\item fillCombinations(DefaultMutableTreeNode)
-\item getTreeRoot() \newline
-\end{itemize}
-
-GameProgresse DAO package\newline
-
-2.2.4.8 GameProgressDao\newline
-\begin{itemize}
-\item load(Connection, String)
-\item save(Connection, String, Cell) \newline
-\end{itemize}
-
-Game DAO package\newline
-
-2.2.4.8 GameDao\newline
-
-\begin{itemize}
-\item loadAllPreconfiguredGames(Connection) \newline
-\end{itemize}
-
-
-Player DAO package\newline
-
-2.2.4.9 PlayerDAO\newline
-
-\begin{itemize}
-\item Login (Connection, String, String)
-\item Register(Connection, String, String) \newline
-\end{itemize}
-
-
 
 \newpage
 
 \section{Detailed Design} \label{sec:detail}
 
-The Karuro system consists of three subsystems: Game-Puzzle, Registration, and Ranking subsystems. The Game-Puzzle subsystem is implemented in the iteration 1 and iteration 2. During the iteration 1, this subsystem is implemented using the UI and the console. During the iteration 2, a SQLite server is integrated in the libraries so that the input data and solution data are possible to be stored in the database. Therefore, having a database server is essential to implement the Registration subsystem and Ranking subsystem in the iteration 3. 
+The Karuro system consists of three subsystems: the View module, the Model module, and the Controller module. This MVC model has been designed and implemented since the iteration 1. During the iteration 2, a SQLite server is integrated in the libraries so that the input data and solution data are possible to be stored in the database. The database is included in the Model module. The Controller module works like a router, routing the data flows between the Model module and the View module.  
 
 \begin{figure}[htbp]
     \includegraphics[width=1\textwidth]{Subsystems_UML}
@@ -362,377 +282,296 @@ The Karuro system consists of three subsystems: Game-Puzzle, Registration, and R
     \label{fig:Subsystems_UML}
 \end{figure}
 
-The three subsystem are derived from the whole system, the Karuro system. On the other hand, the three subsystems are independent of each other. This design practice the principles of high cohesion and low coupling. The three subsystems are also three components of this software systems. The three subsystems present three different parts of view, apply different models, and use different parts of controller. The Ranking subsystem intersects with the Registration subsystem in the Player class, database connection class, and the MainFrame class, and both of them have dependency with the Game-Puzzle subsystem because the game scores come from the game puzzle.
+The three subsystem or modules composite into one integrated system, the Karuro system. On the other hand, the three subsystems are independent of each other and interact with each other view their respective interfaces. This design practices the principles of high cohesion and low coupling. In this section the detailed design of the three modules will be described separately. Figure.3 shows all classes in the whole Kakuro system.
+
+
+\begin{figure}[htbp]
+    \includegraphics[width=1\textwidth]{Class_UML}
+    \caption{UML of Kakuro System Class}
+    \label{fig:Class_UML}
+\end{figure}
 
 \newpage
 
-\begin{landscape}
-
-\subsection{Game-Puzzle Subsystem}
+\subsection{View Module}
 
 \subsubsection{Detailed Design Diagram}
 
 \begin{figure}[htbp]
-    \includegraphics[width=1.5\textwidth, height=.7\textheight]{images/GamePuzzle_UML}
-    \caption{UML of Geme-Puzzle Subsystems}
-    \label{fig:GamePuzzle_UML}
+    \includegraphics[width=1\textwidth]{images/View_UML.png}
+    \caption{UML of View Module}
+    \label{fig:View_UML}
 \end{figure}
 
-\end{landscape}
+The View module can be changed easily without impacting the functionality of the Kakuro system because it takes advantage of the MVC architecture. There are three view components at the iteration 2, they are the Game view, the Menu bar view and the Chrono view, which it a timer. The View model displays the data from the Model module, and also updates itself controlled by the Controller module. The Game View module incules the LinePane and Cell class.
 
-The Game-Puzzle subsystem design follows the MVC model. The GameView is the user interface of this system, it includes line\_panel, BoarCell, CellType and ButtonMenu classes. The Chrono class provides the timer function that is not used in this subsystem and will be used in the Ranking subsystem. The model part includes GameModel, UniquePartitions, Tools, and database part which includes GameDaoImpl and GameProgressDaoImpl. The Controller part is the GameController class. 
-
+\newpage
 \subsubsection{Units Description}
 
 \begin{flushleft}
-\begin{tabular}{| l | l | l | l | l |}
+\begin{tabular}{| l | l | l | l |}
+
     \hline
-    \textbf{Class Name} & \multicolumn{4}{ l |} {\textbf{GameController}} \\
+    \textbf{Class Name} & \multicolumn{3}{ l |} {\textbf{GameView}} \\
     \hline
-    Inherits from & \multicolumn{4}{ l |}{None} \\
+    Inherits from & \multicolumn{3}{ l |}{None} \\
     \hline
-    Description & \multicolumn{4}{ l |} {The controller of subsystem} \\
+    Description & \multicolumn{3}{ l |} {Game view class which handles the Kakuro game interface} \\
     \hline
-    \multirow{4}{*}{Attributes} & Visibility & Data Type & Name & Description \\\cline{2-5}
-     & Public & enum & UserActions & User actions \\\cline{2-5}
-     & Public & DatabaseConnection & database & A database connection \\ \cline{2-5}
-     & Private & Boolean & gui & GUI or console \\
+    \multirow{9}{*}{Attributes} & Visibility & Data Type & Name \\
+    \cline{2-4}
+     & Private & GameController & controller  \\\cline{2-4}
+     & Private & JPanel & currentBoard  \\ \cline{2-4}
+     & Private & JFrame & frame  \\ \cline{2-4}
+     & Private & JTextField[ ][ ] & cells \\ \cline{2-4}
+     & Private & int & gridSizeX  \\ \cline{2-4}
+     & Private & int & gridSizeY  \\ \cline{2-4}
+     & Package & NumberFormat & numberFormat \\ \cline{2-4}
+     & Package & NumberFormatter & numberFormatter \\ 
     \hline
-    \multirow{9}{*}{Methods} & Visibility & Method Name & \multicolumn{2}{l |}{Description} \\\cline{2-5}
     
-    & Public & GameController(int, int, Boolean) & \multicolumn{2}{l |}{Constructor} \\
-    \cline{2-5}
-    & Public & loopGame() & \multicolumn{2}{l |}{A loop that keep game running} \\
-    \cline{2-5}
-    & Public & solveBoard() & \multicolumn{2}{l |}{To check if the answer is correct } \\
-    \cline{2-5}
-    & Private & initGame(GameModel) & \multicolumn{2}{l |}{To initiate a new game} \\ \cline{2-5}
-    \cline{2-5}
-    & Public & loadInputInModel(boolean) & \multicolumn{2}{l |}{Loads input to model} \\
-    \cline{2-5}
-    & Public & loadPreconfiguredGame(int) & \multicolumn{2}{l |}{Loads a configured game} \\ \cline{2-5}
-    & Public & connectDatabase() & \multicolumn{2}{l |}{Connects to database} \\\cline{2-5}
-    & Public & disconnectDatabase() & \multicolumn{2}{l |}{Disconnects to database} \\
+    \multirow{12}{*}{Methods} & Visibility & \multicolumn{2}{l |}{Method Name}  \\
+    \cline{2-4}
+    & Public &  \multicolumn{2}{l |}{GameView(GameController, Boolean, JComponent, JComponent)}  \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{getSaveInput()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{updateView()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{showBoard()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{hideBoard()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{getNumberFormatterClassType()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{getMinNumberValid()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{getMaxNumberValid()} \\\cline{2-4}
+    & Private & \multicolumn{2}{l |}{getBoardUI(Cell[ ][ ])} \\\cline{2-4}
+    & Private & \multicolumn{2}{l |}{settingTextField(JTextField)} \\
     \hline
 \end{tabular}
 \end{flushleft}
 
 \begin{flushleft}
-\begin{tabular}{| l | l | l | l | l |}
+\begin{tabular}{| l | l | l | l |}
     \hline
-    \textbf{Class Name} & \multicolumn{4}{ l |} {\textbf{GameModel}} \\
+    \textbf{Class Name} & \multicolumn{3}{ l |} {\textbf{MenuBarView}} \\
     \hline
-    Inherits from & \multicolumn{4}{ l |}{None} \\
+    Inherits from & \multicolumn{3}{ l |}{None} \\
     \hline
-    Description & \multicolumn{4}{ l |} {The view of subsystem} \\
+    Description & \multicolumn{3}{ l |} {Menu bar view class which handles buttons in the view interface} \\
     \hline
-    \multirow{3}{*}{Attributes} & Visibility & Data Type & Name & Description \\
-    \cline{2-5}
-    
-     & Public & int & columns & The columns of the board \\
-    \cline{2-5}
-    & Public & int & rows & The rows of the board \\
+    \multirow{8}{*}{Attributes} & Visibility & Data Type & Name \\
+    \cline{2-4}
+    & Private & MenuBarController & menuBarController   \\\cline{2-4}
+     & Private & JButton &  pause\_button  \\\cline{2-4}
+      & Private & JButton &  submit\_button  \\\cline{2-4}
+       & Private & JButton &  choose\_game\_button  \\\cline{2-4}
+        & Private & JButton &  save\_button  \\\cline{2-4}
+         & Private & JButton &  restart\_button  \\\cline{2-4}
+          & Private & JButton &  load\_button  \\\cline{2-4}
+     & Private & JPanel &  mainPanel  \\      
     \hline
-    \multirow{4}{*}{Methods} & Visibility & Method Name & \multicolumn{2}{l |}{Description} \\
-    \cline{2-5}
-    & Public & GameModel(int, int) & \multicolumn{2}{l |}{Constructor} \\
-    \cline{2-5}
-    & Public & initBoard() & \multicolumn{2}{l |}{To initiate a new board} \\
-    \cline{2-5}
-    & Public & generateBoard10x10() & \multicolumn{2}{l |}{To generate a 10x10 board} \\
-    \hline
-\end{tabular}
-\end{flushleft}
-
-\newpage
-\begin{flushleft}
-\begin{tabular}{| p{2cm} | l | l | l | p{58.8mm} |}
-
-    \hline
-    \textbf{Class Name} & \multicolumn{4}{ l |} {\textbf{GameView}} \\
-    \hline
-    Inherits from & \multicolumn{4}{ l |}{None} \\
-    \hline
-    Description & \multicolumn{4}{ l |} {The view of the subsystem} \\
-    \hline
-    \multirow{9}{*}{Attributes} & Visibility & Data Type & Name & Description \\
-    \cline{2-5}
-     & Private & Scanner & inputReader &  A input reader \\\cline{2-5}
-     & Private & ButtonMenu & buttonMenu & A ButtonMenu object \\ \cline{2-5}
-     & Private & JFrame & frame & A JFrame object \\ \cline{2-5}
-     & Public & JTextField[][] & saveInput & The inputs array\\ \cline{2-5}
-     & Private & int & gridSizeX & X value of grid size \\ \cline{2-5}
-     & Private & int & gridSizeY & Y value of grid size \\ \cline{2-5}
-     & Private & NumberFormat & numberFormat & A number format instance \\ \cline{2-5}
-     & Private & NumberFormatter & numberFormatter & A NumberFormatter instance \\ 
-    \hline
-    \end{tabular}
-    \begin{tabular}{| p{2cm} | l | l | l | p{5cm} |}
-    \multirow{16}{*}{Methods} & Visibility & Method Name & \multicolumn{2}{l |}{Description} \\
-    \cline{2-5}
-    & Public & GameView(GameController, Boolean) &  \multicolumn{2}{l |}{Constructor} \\\cline{2-5}
-    & Public & getButtonMenu() & \multicolumn{2}{l |}{Return a ButtonMenu object} \\\cline{2-5}
-    & Public & setButtonMenu() & \multicolumn{2}{l |}{Set a value} \\\cline{2-5}
-    & Public & printStartup() & \multicolumn{2}{l |}{Displays instructions in console} \\\cline{2-5}
-    & Public & loadInputInModel() & \multicolumn{2}{l |}{To load input model} \\\cline{2-5}
-    & Public & getMinNumberValid() & \multicolumn{2}{l |}{Return a minimum valid integer} \\\cline{2-5}
-    & Public & getMaxNumberValid() & \multicolumn{2}{l |}{Return a maximum valid integer} \\\cline{2-5}
-    & Public & getNumberFormatterClassType() & \multicolumn{2}{l |}{Return a class type} \\\cline{2-5}
-    & Public & board\_ui() & \multicolumn{2}{l |}{To create an user interface} \\\cline{2-5}
-    & Public & settingTextField(JTextField) & \multicolumn{2}{l |}{To set the text fields of board} \\\cline{2-5}
-    & Public & settingUpMenu() & \multicolumn{2}{l |}{To set up the button menu} \\\cline{2-5}
-    & Public & printBoard(Boolean) & \multicolumn{2}{l |}{Displays input in console} \\\cline{2-5}
-    & Public & printGetUserAction() & \multicolumn{2}{l |}{Reads user actions from console} \\\cline{2-5}
-    & Public & printGetInputNumber() & \multicolumn{2}{l |}{Displays and validates inputs} \\\cline{2-5}
-    & Public & printSolveBoard() & \multicolumn{2}{l |}{Displays the solution correctness} \\
+    \multirow{5}{*}{Methods} & Visibility & \multicolumn{2}{l |}{Method Name}  \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{MenuBarView(MenuBarController)} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{getMainPanel()} \\\cline{2-4}
+    & Private & \multicolumn{2}{l |}{toggleMenu()} \\\cline{2-4}
+     & Private & \multicolumn{2}{l |}{buttonSetUp()} \\
     \hline
 \end{tabular}
 \end{flushleft}
 
 \begin{flushleft}
-\begin{tabular}{| l | l | l | l | l |}
+\begin{tabular}{| l | l | l | l |}
     \hline
-    \textbf{Class Name} & \multicolumn{4}{ l |} {\textbf{line\_panel}} \\
+    \textbf{Class Name} & \multicolumn{3}{ l |} {\textbf{ChronoView}} \\
     \hline
-    Inherits from & \multicolumn{4}{ l |}{JPanel} \\
+    Inherits from & \multicolumn{3}{ l |}{None} \\
     \hline
-    Description & \multicolumn{4}{ l |} {A Panel for the game board} \\
+    Description & \multicolumn{3}{ l |} {Timer view class called Chrono, which acts as our view interface} \\
     \hline
-    % \multirow{2}{*}{Attributes} & Visibility & Data Type & Name & Description \\
-    % \cline{2-5}
-    %  & Private &  &  &  \\
-    
-    \multirow{5}{*}{Methods} & Visibility & Method Name & \multicolumn{2}{l |}{Description} \\
-    \cline{2-5}
-    & Public & line\_panel(LayoutManager, JTextField, Boolean) & \multicolumn{2}{l |}{Constructor} \\
-    \cline{2-5}
-    & Public & line\_panel(LayoutManager, JTextField, JTextField) & \multicolumn{2}{l |}{Constructor} \\
-    \cline{2-5}
-    & Public & settingTxt(JTextField)  & \multicolumn{2}{l |}{Sets text fields} \\
-    \cline{2-5}
-    & Public & paintComponent(Graphics) & \multicolumn{2}{l |}{Paints components} \\
+    \multirow{2}{*}{Attributes} & Visibility & Data Type & Name \\
+    \cline{2-4}
+    & Private & JLabel &  timerLabel  \\
+    \hline
+    \multirow{4}{*}{Methods} & Visibility & \multicolumn{2}{l |}{Method Name}  \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{ChronoView()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{setTimerLabel(String)} \\\cline{2-4}
+     & Public & \multicolumn{2}{l |}{getTimerLabel()} \\
     \hline
 \end{tabular}
 \end{flushleft}
 
 \begin{flushleft}
-\begin{tabular}{| l | l | l | l | l |}
+\begin{tabular}{| l | l | l | l |}
     \hline
-    \textbf{Class Name} & \multicolumn{4}{ l |} {\textbf{UniquePartitions}} \\
+    \textbf{Class Name} & \multicolumn{3}{ l |} {\textbf{Cell}} \\
     \hline
-    Inherits from & \multicolumn{4}{ l |}{None} \\
+    Inherits from & \multicolumn{3}{ l |}{None} \\
     \hline
-    Description & \multicolumn{4}{ l |} {Lists all possible answers in a Tree ADT} \\
+    Description & \multicolumn{3}{ l |} {Cell class that is defines each cell in our board} \\
     \hline
-    \multirow{2}{*}{Attributes} & Visibility & Data Type & Name & Description \\
-    \cline{2-5}
-     & Private & DefaultMutableTreeNode & root & A root node object \\
+    \multirow{4}{*}{Attributes} & Visibility & Data Type & Name \\
+    \cline{2-4}
+     & Private & int & value1 \\
+     \cline{2-4}
+     & Private & int & value2 \\
+     \cline{2-4}
+     & Package & enum & CellType  \\
     \hline
-    \multirow{4}{*}{Methods} & Visibility & Method Name & \multicolumn{2}{l |}{Description} \\
-    \cline{2-5}
-    & Public & UniquePartitions() & \multicolumn{2}{l |}{Constructor} \\
-    \cline{2-5}
-    & Public & getTreeRoot() & \multicolumn{2}{l |}{Returns a root node object} \\
-    \cline{2-5}
-    & Public & fillCombinations(DefaultMutableTreeNode) & \multicolumn{2}{p{5cm} |}{Fills cells with possible number combinations to solve the puzzle}\\
+    \multirow{8}{*}{Methods} & Visibility & \multicolumn{2}{l |}{Method Name} \\
+    \cline{2-4}
+    & Public &   \multicolumn{2}{l |}{Cell(CellType)} \\
+    \cline{2-4}
+    & Public &   \multicolumn{2}{l |}{Cell(CellType, int)} \\
+    \cline{2-4}
+    & Public &   \multicolumn{2}{l |}{Cell(CellType, int, int)} \\
+    \cline{2-4}
+    & Public &   \multicolumn{2}{l |}{getFirstValue()} \\
+    \cline{2-4}
+    & Public &   \multicolumn{2}{l |}{getSecondValue()} \\
+    \cline{2-4}
+    & Public &   \multicolumn{2}{l |}{setFirstValue(int)} \\
+    \cline{2-4}
+    & Public &   \multicolumn{2}{l |}{getType()} \\
     \hline
 \end{tabular}
 \end{flushleft}
 
 \begin{flushleft}
-\begin{tabular}{| l | l | l | l | l |}
+\begin{tabular}{| l | l | l | l |}
     \hline
-    \textbf{Class Name} & \multicolumn{4}{ l |} {\textbf{Tools}} \\
+    \textbf{Class Name} & \multicolumn{3}{ l |} {\textbf{LinePanel}} \\
     \hline
-    Inherits from & \multicolumn{4}{ l |}{None} \\
+    Inherits from & \multicolumn{3}{ l |}{JPanel} \\
     \hline
-    Description & \multicolumn{4}{ l |} {Tools for general utilities} \\
+    Description & \multicolumn{3}{ p{12cm} |} {Line panel class used to populate non-playable board cells: adds numbers and diagonal line. It is also extending JPanel to use the graphics with paintComponent() method overriding} \\
     \hline
-    % \multirow{2}{*}{Attributes} & Visibility & Data Type & Name & Description \\
-    % \cline{2-5}
-    %  & Private &  &  &  \\
+    % \multirow{2}{*}{Attributes} & Visibility & Data Type & Name \\
+    % \cline{2-4}
+    % & Private &  &    \\
     % \hline
-    \multirow{5}{*}{Methods} & Visibility & Method Name & \multicolumn{2}{l |}{Description} \\
-    \cline{2-5}
-    & Public & Tools() & \multicolumn{2}{l |}{Constructor} \\
-    \cline{2-5}
-    & Public & randomInt(int, int) & \multicolumn{2}{l |}{Returns a random int} \\
-    \cline{2-5}
-    & Public & arrayToNodes(DefaultMutableTreeNode, int[]) & \multicolumn{2}{l |}{Converts array to nodes} \\
-    \cline{2-5}
-    & Public & childrenToArray(TreeNode) & \multicolumn{2}{l |}{Converts nodes to array} \\
-    \hline
-\end{tabular}
-\end{flushleft}
-
-\begin{flushleft}
-\begin{tabular}{| p{2cm} | l | l | l | l |}
-    \hline
-    \textbf{Class Name} & \multicolumn{4}{ l |} {\textbf{ButtonMenu}} \\
-    \hline
-    Inherits from & \multicolumn{4}{ l |}{None} \\
-    \hline
-    Description & \multicolumn{4}{ l |} {A Menu of Buttons} \\
-    \hline
-    \multirow{10}{*}{Attributes} & Visibility & Data Type & Name & Description \\
-    \cline{2-5}
-     & Package & JButton & pause\_button & a pause button \\
-    \cline{2-5}
-     & Package & JButton & play\_button & a play button \\
-     \cline{2-5}
-     & Package & JButton & submit\_button & a submit button \\
-     \cline{2-5}
-     & Package & JButton & newGame\_button & new game button \\
-     \cline{2-5}
-     & Package & JButton & choose\_game\_button & choose game botton \\
-     \cline{2-5}
-     & Package & JButton & save\_button & a save button \\
-     \cline{2-5}
-     & Package & JButton & restart\_button & a restart button \\
-     \cline{2-5}
-     & Package & JButton & load\_button & a load button \\
-     \cline{2-5}
-     & Package & JPanel & mainPanel & a main panel \\
-    \hline
-    \multirow{4}{*}{Methods} & Visibility & Method Name & \multicolumn{2}{l |}{Description} \\
-    \cline{2-5}
-    & Public &\multicolumn{1}{p{5cm} |}{ButtonMenu(JFrame, int, int, GameController)} & \multicolumn{2}{l |}{Constructor} \\
-    \cline{2-5}
-    & Public & toggleMenu() & \multicolumn{2}{l |}{Toggles visibilities} \\
-    \cline{2-5}
-    & Public & buttonsSetUp() & \multicolumn{2}{p{4.5cm} |}{Adds Action Listeners to buttons} \\
-    \hline
-\end{tabular}
-\end{flushleft}
-
-\begin{flushleft}
-\begin{tabular}{| l | l | l | l | l |}
-    \hline
-    \textbf{Class Name} & \multicolumn{4}{ l |} {\textbf{BoardCell}} \\
-    \hline
-    Inherits from & \multicolumn{4}{ l |}{None} \\
-    \hline
-    Description & \multicolumn{4}{ l |} {A cell of game board} \\
-    \hline
-    \multirow{4}{*}{Attributes} & Visibility & Data Type & Name & Description \\
-    \cline{2-5}
-     & Private & int & value1 & A value of cell \\
-     \cline{2-5}
-     & Private & int & value2 & A value of cell \\
-     \cline{2-5}
-     & Package & enum & CellType & Five cell types in game board \\
-    \hline
-    \multirow{8}{*}{Methods} & Visibility & Method Name & \multicolumn{2}{l |}{Description} \\
-    \cline{2-5}
-    & Public & BoardCell(CellType) & \multicolumn{2}{l |}{Constructor} \\
-    \cline{2-5}
-    & Public & BoardCell(CellType, int) & \multicolumn{2}{l |}{Constructor} \\
-    \cline{2-5}
-    & Public & BoardCell(CellType, int, int) & \multicolumn{2}{l |}{Constructor} \\
-    \cline{2-5}
-    & Public & getFirstValue() & \multicolumn{2}{l |}{Returns value1} \\
-    \cline{2-5}
-    & Public & getSecondValue() & \multicolumn{2}{l |}{Returns value2} \\
-    \cline{2-5}
-    & Public & setFirstValue(int) & \multicolumn{2}{l |}{Sets value1} \\
-    \cline{2-5}
-    & Public & getType() & \multicolumn{2}{l |}{Retutns a cell type} \\
-    \hline
-\end{tabular}
-\end{flushleft}
-
-\begin{flushleft}
-\begin{tabular}{| p{2cm} | l | l | l | l |}
-    \hline
-    \textbf{Class Name} & \multicolumn{4}{ l |} {\textbf{GameDaoImpl}} \\
-    \hline
-    Implements from & \multicolumn{4}{ l |}{GameDao} \\
-    \hline
-    Description & \multicolumn{4}{ l |} {Data Access Objects (DAO) of games} \\
-    \hline
-    \multirow{2}{*}{Attributes} & Visibility & Data Type & Name & Description \\
-    \cline{2-5}
-     & Private & String  & LOAD\_ALL\_PRECONFIGURED\_GAMES & A query statement\\
-    \hline
-    \multirow{3}{*}{Methods} & Visibility & \multicolumn{2}{ l |}{Method Name} & Description \\
-    \cline{2-5}
-    & Public & \multicolumn{2}{ l |}{GameDaoImpl()} &  Constructor \\
-    \cline{2-5}
-    & Public & \multicolumn{2}{ l |}{loadAllPreconfiguredGames(Connection)} & Loads game data \\
-    \hline
-\end{tabular}
-\end{flushleft}
-
-\begin{flushleft}
-\begin{tabular}{| p{2cm} | l | l | l | l |}
-    \hline
-    \textbf{Class Name} & \multicolumn{4}{ l |} {\textbf{GameProgressDaoImpl}} \\
-    \hline
-    Implements from & \multicolumn{4}{ l |}{GameProgressDao} \\
-    \hline
-    Description & \multicolumn{4}{ l |} { DAOs of game progress} \\
-    \hline
-    \multirow{3}{*}{Attributes} & Visibility & Data Type & Name & Description \\
-    \cline{2-5}
-     & Private & String & SAVE\_GAME\_PROGRESS & A query statement \\
-    \cline{2-5}
-     & Private & String &  LOAD\_GAME\_PROGRESS & A query statement \\
-    \hline
-    \multirow{4}{*}{Methods} & Visibility &  \multicolumn{2}{ l |}{Method Name} & Description \\
-    \cline{2-5}
-    & Public & \multicolumn{2}{ l |}{GameProgressDaoImpl()} & Constructor\\
-    \cline{2-5}
-    & Public & \multicolumn{2}{ l |}{save(Connection, String, BoardCell[][])} & Sets game progress data \\
-    \cline{2-5}
-    & Public & \multicolumn{2}{ l |}{load(Connection, String)} & load game progress data \\
+    \multirow{3}{*}{Methods} & Visibility & \multicolumn{2}{l |}{Method Name}  \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{LinePanel(LayoutManager, JTextField, Boolean)} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{LinePanel(LayoutManager, JTextField, JTextField)} \\\cline{2-4}
+     & Public & \multicolumn{2}{l |}{settingTxt(JTextField)} \\\cline{2-4}
+     & Public & \multicolumn{2}{l |}{paintComponent(Graphics)} \\
     \hline
 \end{tabular}
 \end{flushleft}
 
 \newpage
 
-\subsection{Registration Subsystem}
+\subsection{Model Module}
 
 \subsubsection{Detailed Design Diagram}
 
 \begin{figure}[htbp]
-    \includegraphics[width=1\textwidth]{images/Registration_UML.png}
-    \caption{UML of Registration Subsystems}
-    \label{fig:Registration_UML}
+    \includegraphics[width=1\textwidth]{images/Model_UML.png}
+    \caption{UML of Model Module}
+    \label{fig:Model_UML}
 \end{figure}
 
-Registration subsystem will be implemented in the iteration 2. This design follows MVC model. The model consists of the Player class and the Database class. The Database class offers the connections to the SQLite database. The gui package is the view of the MVC model, and it is the user interface for the player to login and register. The Controller class controls the data flow between model and view.
+The core part of the Kakuro system design is the Model module. This module is used to represent the data of the game, such as the game state, actions, timer, player data etc. Database Connection sits in this module. This module consists of three classes, GameModel, ChronoModel, and PlayerModel. Initial game board and get column and rows data are the key part of the game system. The time information are related to the game score which will be implemented in the iteration 3. The player model handles the username and password information will be used to login and register the game system, which will be implemented in iteration 3. In the iteration 2, the Game model performs the main functionality. The Model module provides the data requests from the View module, and receives and stores the data from the Controller module.The Game Model includes the UniquePartitions, Tools, DatabaseConnection, GameDaoIml and GameProgressDaoImpl class.
+
+\newpage
 
 \subsubsection{Units Description}
 
 \begin{flushleft}
-\begin{tabular}{| l | l | l | l | l |}
+\begin{tabular}{| l | l | l | l |}
     \hline
-    \textbf{Class Name} & \multicolumn{4}{ l |} {\textbf{Player}} \\
+    \textbf{Class Name} & \multicolumn{3}{ l |} {\textbf{GameModel}} \\
     \hline
-    Inherits from & \multicolumn{4}{ l |}{None} \\
+    Inherits from & \multicolumn{3}{ l |}{None} \\
     \hline
-    Description & \multicolumn{4}{ l |} {Players can login and register to this game system} \\
+    Description & \multicolumn{3}{ l |} {Game model class, which acts as our representation data for the object } \\
     \hline
-    \multirow{3}{*}{Attributes} & Visibility & Data Type & Name & Description \\
-    \cline{2-5}
-     & Private & String & username & Player's username \\
-     \cline{2-5}
-     & Private & String & password & Player's password \\
+    \multirow{5}{*}{Attributes} & Visibility & Data Type & Name \\
+    \cline{2-4}
+    & Private & int & columns   \\ \cline{2-4}
+    & Private & int &  rows  \\ \cline{2-4}
+    & Private & Cell[ ][ ] &  board  \\ \cline{2-4}
+    & Private & UniquePartitions &  partitions  \\ 
     \hline
-    \multirow{7}{*}{Methods} & Visibility & Method Name & \multicolumn{2}{l |}{Description} \\
-    \cline{2-5}
-    & Public & Player(String, String) & \multicolumn{2}{l |}{Constructor} \\
-    \cline{2-5}
-    & Public & getName() & \multicolumn{2}{l |}{Returns username} \\
-    \cline{2-5}
-    & Public & setName(String) & \multicolumn{2}{l |}{Sets username} \\
-    \cline{2-5}
-    & Public & getPassword() & \multicolumn{2}{l |}{Returns password} \\
-    \cline{2-5}
-    & Public & setPassword(String) & \multicolumn{2}{l |}{Sets password} \\
-    \cline{2-5}
-    & Public & toString() & \multicolumn{2}{l |}{Returns a string} \\
+    \multirow{5}{*}{Methods} & Visibility & \multicolumn{2}{l |}{Method Name}  \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{GameModel(int, int)} \\\cline{2-4}
+     & Public & \multicolumn{2}{l |}{initBoard()} \\\cline{2-4}
+      & Public & \multicolumn{2}{l |}{getColumns()} \\\cline{2-4}
+     & Public & \multicolumn{2}{l |}{getRows()} \\
+    \hline
+\end{tabular}
+\end{flushleft}
+
+\begin{flushleft}
+\begin{tabular}{| l | l | l | l |}
+    \hline
+    \textbf{Class Name} & \multicolumn{3}{ l |} {\textbf{PlayerModel}} \\
+    \hline
+    Inherits from & \multicolumn{3}{ l |}{None} \\
+    \hline
+    Description & \multicolumn{3}{ l |} {Player model class, which acts as our representation data for the object} \\
+    \hline
+    \multirow{3}{*}{Attributes} & Visibility & Data Type & Name \\
+    \cline{2-4}
+    & Private & String &  username  \\ \cline{2-4}
+    & Private & String & password   \\
+    \hline
+    \multirow{6}{*}{Methods} & Visibility & \multicolumn{2}{l |}{Method Name}  \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{PlayerModel(String, String)} \\\cline{2-4}
+     & Public & \multicolumn{2}{l |}{getPlayerUsername()} \\\cline{2-4}
+      & Public & \multicolumn{2}{l |}{getPlayerPassword()} \\\cline{2-4}
+       & Public & \multicolumn{2}{l |}{setPlayerUsername(String)} \\\cline{2-4}
+     & Public & \multicolumn{2}{l |}{setPlayerPassword(String)} \\
+    \hline
+\end{tabular}
+\end{flushleft}
+
+\begin{flushleft}
+\begin{tabular}{| l | l | l | l |}
+    \hline
+    \textbf{Class Name} & \multicolumn{3}{ l |} {\textbf{ChronoModel}} \\
+    \hline
+    Inherits from & \multicolumn{3}{ l |}{None} \\
+    \hline
+    Description & \multicolumn{3}{ l |} {Timer model acts as our representation data for the object} \\
+    \hline
+    \multirow{5}{*}{Attributes} & Visibility & Data Type & Name \\
+    \cline{2-4}
+    & Private & int & hours   \\\cline{2-4}
+    & Private & int & minutes   \\\cline{2-4}
+    & Private & int & seconds   \\\cline{2-4}
+    & Private & int & delay   \\
+    \hline
+    \multirow{11}{*}{Methods} & Visibility & \multicolumn{2}{l |}{Method Name}  \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{ChronoModel()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{updateTime()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{getDelay()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{getHours()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{setHour(int)} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{getMinutes()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{setMinutes(int)} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{getSecounds()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{setSeconds(int)} \\\cline{2-4}
+     & Public & \multicolumn{2}{l |}{resetTimer()} \\
+    \hline
+\end{tabular}
+\end{flushleft}
+
+\begin{flushleft}
+\begin{tabular}{| l | l | l | l |}
+    \hline
+    \textbf{Class Name} & \multicolumn{3}{ l |} {\textbf{UniquePartitions}} \\
+    \hline
+    Inherits from & \multicolumn{3}{ l |}{None} \\
+    \hline
+    Description & \multicolumn{3}{ l |} {Lists all possible answers in a Tree ADT} \\
+    \hline
+    \multirow{2}{*}{Attributes} & Visibility & Data Type & Name \\
+    \cline{2-4}
+     & Private & DefaultMutableTreeNode & root  \\
+    \hline
+    \multirow{4}{*}{Methods} & Visibility & \multicolumn{2}{l |}{Method Name} \\
+    \cline{2-4}
+    & Public &   \multicolumn{2}{l |}{UniquePartitions()} \\
+    \cline{2-4}
+    & Public &   \multicolumn{2}{l |}{getTreeRoot()} \\
+    \cline{2-4}
+    & Public &   \multicolumn{2}{l |}{fillCombinations(DefaultMutableTreeNode)}\\
     \hline
 \end{tabular}
 \end{flushleft}
@@ -740,73 +579,47 @@ Registration subsystem will be implemented in the iteration 2. This design follo
 \begin{flushleft}
 \begin{tabular}{| l | l | l | l | l |}
     \hline
-    \textbf{Class Name} & \multicolumn{4}{ l |} {\textbf{Database}} \\
+    \textbf{Class Name} & \multicolumn{3}{ l |} {\textbf{Tools}} \\
     \hline
-    Inherits from & \multicolumn{4}{ l |}{None} \\
+    Inherits from & \multicolumn{3}{ l |}{None} \\
     \hline
-    Description & \multicolumn{4}{ l |} {A database connection} \\
+    Description & \multicolumn{3}{ l |} {Tools for general utilities} \\
     \hline
-    \multirow{2}{*}{Attributes} & Visibility & Data Type & Name & Description \\
-    \cline{2-5}
-     & Private & Connection & con &  A connection to database\\
-    \hline
-    \multirow{8}{*}{Methods} & Visibility & Method Name & \multicolumn{2}{l |}{Description} \\
-    \cline{2-5}
-    & Public & Database() & \multicolumn{2}{l |}{Constructor} \\
-\cline{2-5}
-    & Public & connect() & \multicolumn{2}{l |}{Connects to database} \\\cline{2-5}
-    & Public & disconnect() & \multicolumn{2}{l |}{Disconnects to database} \\\cline{2-5}
-    & Public & register() & \multicolumn{2}{l |}{Registers to game} \\\cline{2-5}
-    & Public & login() & \multicolumn{2}{l |}{Login to game} \\\cline{2-5}
-    & Public & addPlayer(Player) & \multicolumn{2}{l |}{Inserts a player into database} \\\cline{2-5}
-    & Public & removePlayer & \multicolumn{2}{l |}{Deletes a player from database} \\
-    \hline
-\end{tabular}
-\end{flushleft}
-
-\begin{flushleft}
-\begin{tabular}{| l | l | l | l | l |}
-    \hline
-    \textbf{Class Name} & \multicolumn{4}{ l |} {\textbf{Controller}} \\
-    \hline
-    Inherits from & \multicolumn{4}{ l |}{None} \\
-    \hline
-    Description & \multicolumn{4}{ l |} {A controller of the Registration subsystem} \\
-    % \hline
     % \multirow{2}{*}{Attributes} & Visibility & Data Type & Name & Description \\
     % \cline{2-5}
     %  & Private &  &  &  \\
-    \hline
-    \multirow{2}{*}{Methods} & Visibility & Method Name & \multicolumn{2}{l |}{Description} \\
-    \cline{2-5}
-    & Public & Controller() & \multicolumn{2}{l |}{Constructor} \\\cline{2-5}
-     & Public & connect() & \multicolumn{2}{l |}{Connects to database} \\\cline{2-5}
-    & Public & disconnect() & \multicolumn{2}{l |}{Disconnects to database} \\\cline{2-5}
-    & Public & register() & \multicolumn{2}{l |}{Registers to game} \\\cline{2-5}
-    & Public & login() & \multicolumn{2}{l |}{Login to game} \\\cline{2-5}
-    & Public & addPlayer(FormEvent) & \multicolumn{2}{l |}{Inserts a player into database} \\
-    \hline
-\end{tabular}
-\end{flushleft}
-
-\begin{flushleft}
-\begin{tabular}{| l | l | l | l | l |}
-    \hline
-    \textbf{Class Name} & \multicolumn{4}{ l |} {\textbf{MainFrame}} \\
-    \hline
-    Inherits from & \multicolumn{4}{ l |}{JFrame} \\
-    \hline
-    Description & \multicolumn{4}{ l |} {An user interface of the Registration subsystem} \\
-    \hline
-    % \multirow{2}{*}{Attributes} & Visibility & Data Type & Name & Description \\
-    % \cline{2-5}
-    %  & Private &  &  &  \\
     % \hline
-    \multirow{3}{*}{Methods} & Visibility & Method Name & \multicolumn{2}{l |}{Description} \\
-    \cline{2-5}
-    & Public & MainFrame() & \multicolumn{2}{l |}{Constructor} \\
-    \cline{2-5}
-    & Public & connect() & \multicolumn{2}{l |}{Connect to the Controller} \\
+    \multirow{5}{*}{Methods} & Visibility &   \multicolumn{2}{l |}{Method Name} \\
+    \cline{2-4}
+    & Public &   \multicolumn{2}{l |}{Tools()} \\
+    \cline{2-4}
+    & Public &   \multicolumn{2}{l |}{randomInt(int, int)} \\
+    \cline{2-4}
+    & Public &   \multicolumn{2}{l |}{arrayToNodes(DefaultMutableTreeNode, int[ ])} \\
+    \cline{2-4}
+    & Public &   \multicolumn{2}{l |}{childrenToArray(TreeNode)} \\
+    \hline
+\end{tabular}
+\end{flushleft}
+
+\begin{flushleft}
+\begin{tabular}{| l | l | l | l |}
+    \hline
+    \textbf{Class Name} & \multicolumn{3}{ l |} {\textbf{GameDaoImpl}} \\
+    \hline
+    Implements from & \multicolumn{3}{ l |}{GameDao} \\
+    \hline
+    Description & \multicolumn{3}{ p{12cm} |} {Game implementation class that implements the abstract class for operations in the database} \\
+    \hline
+    \multirow{2}{*}{Attributes} & Visibility & Data Type & Name  \\
+    \cline{2-4}
+     & Private & String  & LOAD\_ALL\_PRECONFIGURED\_GAMES \\
+    \hline
+    \multirow{3}{*}{Methods} & Visibility & \multicolumn{2}{ l |}{Method Name}  \\
+    \cline{2-4}
+    & Public & \multicolumn{2}{ l |}{GameDaoImpl()}  \\
+    \cline{2-4}
+    & Public & \multicolumn{2}{ l |}{loadAllPreconfiguredGames(Connection)}  \\
     \hline
 \end{tabular}
 \end{flushleft}
@@ -814,305 +627,227 @@ Registration subsystem will be implemented in the iteration 2. This design follo
 \begin{flushleft}
 \begin{tabular}{| l | l | l | l | l |}
     \hline
-    \textbf{Class Name} & \multicolumn{4}{ l |} {\textbf{FormPanel}} \\
+    \textbf{Class Name} & \multicolumn{3}{ l |} {\textbf{GameProgressDaoImpl}} \\
     \hline
-    Inherits from & \multicolumn{4}{ l |}{JPanel} \\
+    Implements from & \multicolumn{3}{ l |}{GameProgressDao} \\
     \hline
-    Description & \multicolumn{4}{ l |} {The form panel for players to login and register} \\
+    Description & \multicolumn{3}{ p{12cm} |} {Game Progress implementation class that implements the abstract class for operations in the database} \\
     \hline
-    \multirow{8}{*}{Attributes} & Visibility & Data Type & Name & Description \\
-    \cline{2-5}
-     & Private & JLabel & nameLabel & A label \\
-     \cline{2-5}
-     & Private & JLabel & passwordLabel & A label \\
-     \cline{2-5}
-     & Private & JTextField & nameField & A text field \\
-     \cline{2-5}
-     & Private & JTextField & passwordField & A text field \\
-     \cline{2-5}
-     & Private & JButton & loginBtn & A button \\
-     \cline{2-5}
-     & Private & JButton & signUpBtn & A button \\
-     \cline{2-5}
-     & Private & JButton & cancelBtn & A button \\
+    \multirow{3}{*}{Attributes} & Visibility & Data Type & Name \\
+    \cline{2-4}
+     & Private & String & SAVE\_GAME\_PROGRESS  \\
+    \cline{2-4}
+     & Private & String &  LOAD\_GAME\_PROGRESS  \\
     \hline
-    \multirow{4}{*}{Methods} & Visibility & Method Name & \multicolumn{2}{l |}{Description} \\
-    \cline{2-5}
-    & Public & FormPanel() & \multicolumn{2}{l |}{Constructor} \\
-    \cline{2-5}
-    & Public & layoutComponents() & \multicolumn{2}{l |}{Sets the layout components parameters} \\
-    \cline{2-5}
-    & Public & setFormListener(FormListener) & \multicolumn{2}{l |}{Sets an event listener} \\
+    \multirow{4}{*}{Methods} & Visibility &  \multicolumn{2}{ l |}{Method Name}  \\
+    \cline{2-4}
+    & Public & \multicolumn{2}{ l |}{GameProgressDaoImpl()} \\
+    \cline{2-4}
+    & Public & \multicolumn{2}{ l |}{save(Connection, String, Cell[ ][ ])}  \\
+    \cline{2-4}
+    & Public & \multicolumn{2}{ l |}{load(Connection, String)}  \\
     \hline
 \end{tabular}
 \end{flushleft}
 
 \begin{flushleft}
-\begin{tabular}{| l | l | l | l | l |}
+\begin{tabular}{| l | l | l | l |}
     \hline
-    \textbf{Class Name} & \multicolumn{4}{ l |} {\textbf{FormEvent}} \\
+    \textbf{Class Name} & \multicolumn{3}{ l |} {\textbf{DatabaseConnection}} \\
     \hline
-    Inherits from & \multicolumn{4}{ l |}{FormListener} \\
+    Inherits from & \multicolumn{3}{ l |}{None} \\
     \hline
-    Description & \multicolumn{4}{ l |} {The form events} \\
+    Description & \multicolumn{3}{ p{15cm} |} {Database connection class to create the connection to our database, which creates the database, tables and inserts preloaded data if they do not exist} \\
     \hline
-    \multirow{3}{*}{Attributes} & Visibility & Data Type & Name & Description \\
-    \cline{2-5}
-     & Private & String & username & A username \\
-     \cline{2-5}
-     & Private & String & password & A password \\
+    \multirow{9}{*}{Attributes} & Visibility & Data Type & Name \\
+    \cline{2-4}
+    & Private & Connection &  connection  \\\cline{2-4}
+    & Private & String & DATABASE\_FILE\_PATH   \\\cline{2-4}
+    & Private & String & CREATE\_GAME\_PROGRESS\_TABLE\_QUERY   \\\cline{2-4}
+    & Private & String & CREATE\_PLAYER\_TABLE\_QUERY   \\\cline{2-4}
+    & Private & String & INSERT\_PLAYER\_QUERY   \\\cline{2-4}
+    & Private & String & INSERT\_PLAYER\_DATA\_QUERY   \\\cline{2-4}
+    & Private & String & INSERT\_PRECONFIGURED\_GAME\_DATA\_QUERY   \\
     \hline
-    \multirow{7}{*}{Methods} & Visibility & Method Name & \multicolumn{2}{l |}{Description} \\
-    \cline{2-5}
-    & Public & FormEvent(Object) & \multicolumn{2}{l |}{Constructor} \\
-     & Public & FormEvent(Object, String, String) & \multicolumn{2}{l |}{Constructor} \\
-    \cline{2-5}
-    & Public & getUsername() & \multicolumn{2}{l |}{Returns a username} \\
-    \cline{2-5}
-    & Public & setUsername() & \multicolumn{2}{l |}{Sets a username} \\
-    \cline{2-5}
-    & Public & getPassword() & \multicolumn{2}{l |}{Returns a password} \\
-    \cline{2-5}
-    & Public & setPassword() & \multicolumn{2}{l |}{Sets a password} \\
+    \multirow{3}{*}{Methods} & Visibility & \multicolumn{2}{l |}{Method Name}  \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{DatabaseConnection()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{connect()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{disconnect()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{getConnection()} \\\cline{2-4}
+     & Private & \multicolumn{2}{l |}{createGameTable()} \\\cline{2-4}
+     & Private & \multicolumn{2}{l |}{createGameProgressTable()} \\\cline{2-4}
+     & Private & \multicolumn{2}{l |}{createPlayerTable()} \\\cline{2-4}
+     & Private & \multicolumn{2}{l |}{insertMainPlayer()} \\\cline{2-4}
+     & Private & \multicolumn{2}{l |}{insertPlayerData()} \\\cline{2-4}
+     & Private & \multicolumn{2}{l |}{insertPreconfiuredGames()} \\
     \hline
 \end{tabular}
 \end{flushleft}
 
 \newpage
 
-\subsection{Ranking Subsystem}
+\subsection{Controller Module}
 
 \subsubsection{Detailed Design Diagram}
 
 
 \begin{figure}[htbp]
-    \includegraphics[width=1\textwidth]{images/Ranking_UML.png}
-    \caption{UML of Ranking Subsystems}
-    \label{fig:Registration_UML}
+    \includegraphics[width=1\textwidth]{images/Controller_UML.png}
+    \caption{UML of Controller Module}
+    \label{fig:Controller_UML}
 \end{figure}
 
-The Ranking subsystem design follows the MVC model. The view part consists of the MainFrame, TextPanel, Toolbar and ToolbarListener. The control part is the Controller class and it controls the data flow between the database connection to the MainFrame. The model part consists of the Ranking, Player and Database class. The Ranking class provides the computing ranking functionality. The ranking rules include the time used, the game difficulty level and the correctness of solutions.
+The Controller module orchestrates the Model module and View module of the Karuro system. The Game Controller accepts input from the player and the button click events, and it also validates the input checking and notifies the user. The Controller module handles the data flows between the Model module and the View module. It handles connection and disconnection to the database. It also save game, load game, pause game, resume game, and restart game through the Menu bar controller. The Chrono controller is a timer controller, and it handles all time related functionality. The Game Controller module includes the MenuBarController, ChronoController and GameDifficultyListItem class.
 
 \subsubsection{Units Description}
 
 \begin{flushleft}
-\begin{tabular}{| l | l | l | l | l |}
+\begin{tabular}{| l | l | l | l |}
     \hline
-    \textbf{Class Name} & \multicolumn{4}{ l |} {\textbf{Ranking}} \\
+    \textbf{Class Name} & \multicolumn{3}{ l |} {\textbf{GameController}} \\
     \hline
-    Inherits from & \multicolumn{4}{ l |}{None} \\
+    Inherits from & \multicolumn{3}{ l |}{None} \\
     \hline
-    Description & \multicolumn{4}{ l |} {To compute the ranking of the players} \\
+    Description & \multicolumn{3}{ l |} {Basically orchestrates the model and view of the game} \\
     \hline
-    \multirow{5}{*}{Attributes} & Visibility & Data Type & Name & Description \\
-    \cline{2-5}
-     & Private & int & time & The time used in a game \\
-     \cline{2-5}
-     & Private & int & gameLevel & The game difficulty level \\
-     \cline{2-5}
-     & Private & int & rank & A player's rank position \\
-     \cline{2-5}
-     & Private & int & maxScore & The maximum score in the system \\
+    \multirow{10}{*}{Attributes} & Visibility & Data Type & Name \\
+    \cline{2-4}
+    & Public & DatabaseConnection & database   \\\cline{2-4}
+    & Public & GameProgressDao & gameProgress   \\\cline{2-4}
+    & Public & GameDao & game   \\\cline{2-4}
+    & Public & GameView &  view  \\\cline{2-4}
+    & Public & GameModel & model  \\\cline{2-4}
+    & Public & enum & UserActions   \\\cline{2-4}
+    & Private & Boolean &  gui  \\\cline{2-4}
+    & Private & GameConsole & console   \\\cline{2-4}
+    & Package & boolean & isPaused   \\
     \hline
-    \multirow{12}{*}{Methods} & Visibility & Method Name & \multicolumn{2}{l |}{Description} \\
-    \cline{2-5}
-    & Public & Ranking() & \multicolumn{2}{l |}{Constructor} \\
-    \cline{2-5}
-    & Public & getRank() & \multicolumn{2}{l |}{Returns a rank} \\
-    \cline{2-5}
-    & Public & setRank() & \multicolumn{2}{l |}{Sets a rank} \\
-    \cline{2-5}
-    & Public & getMaxScore() & \multicolumn{2}{l |}{Returns a highest score} \\
-    \cline{2-5}
-    & Public & setMaxScore(int) & \multicolumn{2}{l |}{Sets a value} \\
-    \cline{2-5}
-    & Public & getTime() & \multicolumn{2}{l |}{Returns a time} \\
-    \cline{2-5}
-    & Public & setTime() & \multicolumn{2}{l |}{Sets a value} \\
-    \cline{2-5}
-    & Public & getGameLevel() & \multicolumn{2}{l |}{Returns a game difficulty level} \\
-    \cline{2-5}
-    & Public & setGameLevel(int) & \multicolumn{2}{l |}{Sets a value} \\
-    \cline{2-5}
-    & Public & calculateScore() & \multicolumn{2}{l |}{Returns a total score} \\
-    \cline{2-5}
-    & Public & computeRank() & \multicolumn{2}{l |}{Returns a rank according to the rules} \\
-    \hline
-\end{tabular}
-\end{flushleft}
-
-\begin{flushleft}
-\begin{tabular}{| l | l | l | l | l |}
-    \hline
-    \textbf{Class Name} & \multicolumn{4}{ l |} {\textbf{Player}} \\
-    \hline
-    Inherits from & \multicolumn{4}{ l |}{None} \\
-    \hline
-    Description & \multicolumn{4}{ l |} {Adds rank and totalscore attributes} \\
-    \hline
-    \multirow{3}{*}{Attributes} & Visibility & Data Type & Name & Description \\
-    \cline{2-5}
-     & Private & int & totalscore & The total score of all games for one player \\
-     \cline{2-5}
-     & Private & int & rank & The rank of a player in the system \\
-    \hline
-    \multirow{2}{*}{Methods} & Visibility & Method Name & \multicolumn{2}{l |}{Description} \\
-    \cline{2-5}
-    & Public & getRank() & \multicolumn{2}{l |}{Returns the rank} \\
-     \cline{2-5}
-    & Public & setRank() & \multicolumn{2}{l |}{Sets a value} \\
-    \cline{2-5}
-    & Public & getTotalScore() & \multicolumn{2}{l |}{Returns a total score} \\
-     \cline{2-5}
-    & Public & setTotalScore() & \multicolumn{2}{l |}{Sets a value} \\
-     \hline
-\end{tabular}
-\end{flushleft}
-
-\begin{flushleft}
-\begin{tabular}{| l | l | l | l | l |}
-    \hline
-    \textbf{Class Name} & \multicolumn{4}{ l |} {\textbf{Database}} \\
-    \hline
-    Inherits from & \multicolumn{4}{ l |}{None} \\
-    \hline
-    Description & \multicolumn{4}{ l |} {Adds query statements for ranking} \\
-    \hline
-    \multirow{2}{*}{Attributes} & Visibility & Data Type & Name & Description \\
-    \cline{2-5}
-     & Private & Connection & con &  A connection to database\\
-    \hline
-    \multirow{8}{*}{Methods} & Visibility & Method Name & \multicolumn{2}{l |}{Description} \\
-    \cline{2-5}
-    & Public & Database() & \multicolumn{2}{l |}{Constructor} \\
-\cline{2-5}
-    & Public & connect() & \multicolumn{2}{l |}{Connects to database} \\\cline{2-5}
-    & Public & disconnect() & \multicolumn{2}{l |}{Disconnects to database} \\\cline{2-5}
-    & Public & getRanking() & \multicolumn{2}{l |}{Returns a ranking list} \\\cline{2-5}
-    & Public & getPlayerScore(String) & \multicolumn{2}{l |}{Returns a score} \\\cline{2-5}
-    & Public & setPlayerScore(String) & \multicolumn{2}{l |}{Sets a score in database} \\\cline{2-5}
-    & Public & getPlayerRank(String) & \multicolumn{2}{l |}{Returns a rank from database} \\
-    \cline{2-5}
-    & Public & setPlayerRank(String) & \multicolumn{2}{l |}{Sets a player's rank} \\
+    \multirow{20}{*}{Methods} & Visibility & \multicolumn{2}{l |}{Method Name}  \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{GameController(int, int, Boolean)} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{UserActions()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{pause()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{resume()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{restart()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{submit()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{saveGame()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{loadGame()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{solveBoard()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{loopGame()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{getMinNumberValid()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{getNumberFormatterClassType()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{getMaxNumberValid()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{initGame(GameModel)} \\\cline{2-4}
+    & Private & \multicolumn{2}{l |}{getDatabaseConnection()} \\\cline{2-4}
+    & Private & \multicolumn{2}{l |}{connectDatabase()} \\\cline{2-4}
+    & Private & \multicolumn{2}{l |}{disconnectDatabase()} \\\cline{2-4}
+    & Private & \multicolumn{2}{l |}{loadInputInModel(boolean)} \\\cline{2-4}
+   & Package & \multicolumn{2}{l |}{loadPreconfiguredGame(int)} \\
     \hline
 \end{tabular}
 \end{flushleft}
 
 \begin{flushleft}
-\begin{tabular}{| l | l | l | l | l |}
+\begin{tabular}{| l | l | l | l |}
     \hline
-    \textbf{Class Name} & \multicolumn{4}{ l |} {\textbf{Controller}} \\
+    \textbf{Class Name} & \multicolumn{3}{ l |} {\textbf{ChronoController}} \\
     \hline
-    Inherits from & \multicolumn{4}{ l |}{None} \\
+    Inherits from & \multicolumn{3}{ l |}{None} \\
     \hline
-    Description & \multicolumn{4}{ l |} {Adds methods for ranking} \\
+    Description & \multicolumn{3}{ l |} {Timer controller acts as an orchestrator between the model and the view} \\
+    \hline
+    \multirow{6}{*}{Attributes} & Visibility & Data Type & Name \\
+    \cline{2-4}
+    & Private & ChronoModel & chronoModel   \\\cline{2-4}
+     & Private & ChronoView & chronoView   \\\cline{2-4}
+      & Private & ActionListener & timerListener   \\\cline{2-4}
+       & Private & Timer & time   \\\cline{2-4}
+    & Private & boolean & isPaused   \\
+    \hline
+    \multirow{13}{*}{Methods} & Visibility & \multicolumn{2}{l |}{Method Name}  \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{ChronoController()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{timerSetUp()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{chronoPause()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{chronoStart()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{show()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{hide()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{getView()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{toggleTimerDisplay()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{resetTimer()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{getHours()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{getMinutes()} \\\cline{2-4}
+     & Public & \multicolumn{2}{l |}{getSeconds()} \\
+    \hline
+\end{tabular}
+\end{flushleft}
+
+\begin{flushleft}
+\begin{tabular}{| l | l | l | l |}
+    \hline
+    \textbf{Class Name} & \multicolumn{3}{ l |} {\textbf{MenuBarController}} \\
+    \hline
+    Inherits from & \multicolumn{3}{ l |}{None} \\
+    \hline
+    Description & \multicolumn{3}{ l |} {Handles the buttons in our game application} \\
+    \hline
+    \multirow{3}{*}{Attributes} & Visibility & Data Type & Name \\
+    \cline{2-4}
+    & Private & MenuBarView & buttonMenuView   \\\cline{2-4}
+    & Private & boolean & isPaused   \\
+    \hline
+    \multirow{12}{*}{Methods} & Visibility & \multicolumn{2}{l |}{Method Name}  \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{MenuBarController(GameController)} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{getButtonMenuView()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{isPaused()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{pause()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{resume()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{getView()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{submit()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{save()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{load()} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{loadPreConfiguredGame(GameDifficulty)} \\\cline{2-4}
+     & Public & \multicolumn{2}{l |}{restart()} \\
+    \hline
+\end{tabular}
+\end{flushleft}
+
+\begin{flushleft}
+\begin{tabular}{| l | l | l | l |}
+    \hline
+    \textbf{Class Name} & \multicolumn{3}{ l |} {\textbf{GameDifficulty}} \\
+    \hline
+    Inherits from & \multicolumn{3}{ l |}{None} \\
+    \hline
+    Description & \multicolumn{3}{ l |} {An enumerator for different levels of game difficulties} \\
+    \hline
+    % \multirow{2}{*}{Attributes} & Visibility & Data Type & Name \\
+    % \cline{2-4}
+    % & Private &  &    \\
     % \hline
-    % \multirow{2}{*}{Attributes} & Visibility & Data Type & Name & Description \\
-    % \cline{2-5}
-    %  & Private &  &  &  \\
-    \hline
-    \multirow{2}{*}{Methods} & Visibility & Method Name & \multicolumn{2}{l |}{Description} \\
-    \cline{2-5}
-    & Public & Controller() & \multicolumn{2}{l |}{Constructor} \\\cline{2-5}
-     & Public & connect() & \multicolumn{2}{l |}{Connects to database} \\\cline{2-5}
-    & Public & disconnect() & \multicolumn{2}{l |}{Disconnects to database} \\\cline{2-5}
-    & Public & getRanking() & \multicolumn{2}{l |}{Returns a ranking list} \\\cline{2-5}
-    & Public & getPlayerScore(String) & \multicolumn{2}{l |}{Returns a player's total score} \\\cline{2-5}
-    & Public & getPlayerMaxScore() & \multicolumn{2}{l |}{Returns a highest score in the system} \\
-    \cline{2-5}
-    & Public & getPlayerRank(String) & \multicolumn{2}{l |}{Return a player's rank} \\
+    \multirow{3}{*}{Methods} & Visibility & \multicolumn{2}{l |}{Method Name}  \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{GameDifficulty()} \\\cline{2-4}
+     & Public & \multicolumn{2}{l |}{GameDifficultyToInt(GameDifficulty)} \\
     \hline
 \end{tabular}
 \end{flushleft}
 
 \begin{flushleft}
-\begin{tabular}{| l | l | l | l | l |}
+\begin{tabular}{| l | l | l | l |}
     \hline
-    \textbf{Class Name} & \multicolumn{4}{ l |} {\textbf{MainFrame}} \\
+    \textbf{Class Name} & \multicolumn{3}{ l |} {\textbf{GameDifficultyListItem}} \\
     \hline
-    Inherits from & \multicolumn{4}{ l |}{JFrame} \\
+    Inherits from & \multicolumn{3}{ l |}{None} \\
     \hline
-    Description & \multicolumn{4}{ l |} {An user interface of the Registration subsystem} \\
+    Description & \multicolumn{3}{ l |} {The game difficulty found in the dropdown menu when pre-loading a game} \\
     \hline
-    % \multirow{2}{*}{Attributes} & Visibility & Data Type & Name & Description \\
-    % \cline{2-5}
-    %  & Private &  &  &  \\
-    % \hline
-    \multirow{3}{*}{Methods} & Visibility & Method Name & \multicolumn{2}{l |}{Description} \\
-    \cline{2-5}
-    & Public & MainFrame() & \multicolumn{2}{l |}{Constructor} \\
-    \cline{2-5}
-    & Public & connect() & \multicolumn{2}{l |}{Connect to the Controller} \\
+    \multirow{3}{*}{Attributes} & Visibility & Data Type & Name \\
+    \cline{2-4}
+    & Private & String &  description  \\ \cline{2-4}
+    & Private & GameDifficulty &  difficulty  \\
     \hline
-\end{tabular}
-\end{flushleft}
-
-\begin{flushleft}
-\begin{tabular}{| l | l | l | l | l |}
-    \hline
-    \textbf{Class Name} & \multicolumn{4}{ l |} {\textbf{TextPanel}} \\
-    \hline
-    Inherits from & \multicolumn{4}{ l |}{JPanel} \\
-    \hline
-    Description & \multicolumn{4}{ l |} {Displays a ranking list in the text area} \\
-    \hline
-    \multirow{2}{*}{Attributes} & Visibility & Data Type & Name & Description \\
-    \cline{2-5}
-     & Private & JTextArea & textArea & A text area \\
-    \hline
-    \multirow{3}{*}{Methods} & Visibility & Method Name & \multicolumn{2}{l |}{Description} \\
-    \cline{2-5}
-    & Public & TextPanel() & \multicolumn{2}{l |}{Constructor} \\
-    \cline{2-5}
-    & Public & appendText(String) & \multicolumn{2}{l |}{Appends text} \\
-    \hline
-\end{tabular}
-\end{flushleft}
-
-\begin{flushleft}
-\begin{tabular}{| l | l | l | l | l |}
-    \hline
-    \textbf{Class Name} & \multicolumn{4}{ l |} {\textbf{Toolbar}} \\
-    \hline
-    Inherits from & \multicolumn{4}{ l |}{JPanel} \\
-    \hline
-    Description & \multicolumn{4}{ l |} {A toolbar with buttons} \\
-    \hline
-    \multirow{3}{*}{Attributes} & Visibility & Data Type & Name & Description \\
-    \cline{2-5}
-     & Private & JButton & refreshButton & A refresh button \\
-     \cline{2-5}
-     & Private & JButton & rankButton & A rank button \\
-    \hline
-    \multirow{2}{*}{Methods} & Visibility & Method Name & \multicolumn{2}{l |}{Description} \\
-    \cline{2-5}
-    & Public & Toolbar() & \multicolumn{2}{l |}{Constructor} \\
-    \cline{2-5}
-    & Public & setToolbarListener(ToolbarListener) & \multicolumn{2}{l |}{Sets event listener} \\
-    \cline{2-5}
-    & Public & actionPerformed(ActionEvent) & \multicolumn{2}{l |}{Performs actions} \\
-    \hline
-\end{tabular}
-\end{flushleft}
-
-\begin{flushleft}
-\begin{tabular}{| l | l | l | l | l |}
-    \hline
-    \textbf{Interface Name} & \multicolumn{4}{ l |} {\textbf{ToolbarListener}} \\
-    \hline
-    Inherits from & \multicolumn{4}{ l |}{None} \\
-    \hline
-    Description & \multicolumn{4}{ l |} {} \\
-    \hline
-    % \multirow{2}{*}{Attributes} & Visibility & Data Type & Name & Description \\
-    % \cline{2-5}
-    %  & Private &  &  &  \\
-    % \hline
-    \multirow{3}{*}{Methods} & Visibility & Method Name & \multicolumn{2}{l |}{Description} \\
-    \cline{2-5}
-    & Public & rankEventOccured() & \multicolumn{2}{l |}{Listens the rank button} \\
-    \cline{2-5}
-    & Public & refreshEventOccured() & \multicolumn{2}{l |}{Listens the refresh button} \\
+    \multirow{3}{*}{Methods} & Visibility & \multicolumn{2}{l |}{Method Name}  \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{GameDifficultyListItem(String, GameDifficulty)} \\\cline{2-4}
+    & Public & \multicolumn{2}{l |}{getDifficulty()} \\\cline{2-4}
+     & Public & \multicolumn{2}{l |}{toString()} \\
     \hline
 \end{tabular}
 \end{flushleft}
@@ -1122,15 +857,11 @@ The Ranking subsystem design follows the MVC model. The view part consists of th
 \section{Dynamic Design Scenarios}
 The following are the descriptions of the execution scenarios of the game initialization, the process of saving a game and the process of loading a game. These systems are involved in the subsystem of the puzzle mechanics.
 
-**FIX initialize game
-**add: play GAME ***
-**Do introduction
-
-
-
 \subsection{Initialize Game (UI only)}
+
+In iteration 2, we do not yet have a "start game" button implemented in the UI of the game. Therefore, a use case for the current iteration is clicking of the run main button of Eclipse, which initializes the game. We also have a version of the game that can be played on the console, but for this sequence diagram, only the methods implicated in the UI of the game are involved. 
 \begin{figure}[htbp]
-    \includegraphics[width=1\textwidth]{initializeGame_UI}
+    \includegraphics[width=1\textwidth]{initGame}
     \caption{Sequence diagram to initialize a game}
     \label{fig:sequenceDiagram}
 \end{figure}
@@ -1138,6 +869,7 @@ The following are the descriptions of the execution scenarios of the game initia
 \newpage
 
 \subsection{Save Game}
+A crucial use case for iteration 2 that has been implemented is to save the game. Once the player has initialized the game by clicking run main, they can next choose a game level and input numbers from 1 to 9 in the board cells. If they haven't finished the game and wish to continue at a later date, this is the use case that represents this eventuality of user interaction.
 \begin{figure}[htbp]
     \includegraphics[width=1\textwidth]{saveGame}
     \caption{Sequence diagram to save a game}
@@ -1147,6 +879,7 @@ The following are the descriptions of the execution scenarios of the game initia
 \newpage
 
 \subsection{Load Game}
+A use case that goes hand in hand with saving the game is loading the game. Once a player has saved an in progess game, they can come back to it by loading the game they were previously playing. This is done by clicking the UI button "Load Game". This action populates the board of the game with saved inputs and the saved time value of the timer.
 \begin{figure}[htbp]
     \includegraphics[width=1\textwidth]{loadGame}
     \caption{Sequence diagram to load a game}
